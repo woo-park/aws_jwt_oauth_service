@@ -1,0 +1,15 @@
+# Project exclude paths
+/.gradle/
+
+# custom added
+.gradle
+.idea
+.build
+
+/build/
+
+generated
+
+application-oauth.properties
+application-google.properties
+application-oauth.yml

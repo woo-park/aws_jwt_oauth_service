@@ -1,0 +1,136 @@
+buildscript {
+    ext {
+        springBootVersion = '2.2.6.RELEASE'
+        querydslPluginVersion = '1.0.10'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" } // plugin 저장소
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.7.RELEASE"
+        classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: "com.ewerk.gradle.plugins.querydsl"
+
+
+group 'com.awsservice'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'junit:junit:4.12'
+    compile("com.querydsl:querydsl-core")       // querydsl
+    implementation("com.querydsl:querydsl-jpa") // querydsl
+    implementation("com.querydsl:querydsl-apt") // querydsl
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+    // lombok
+    compile('org.projectlombok:lombok')
+    annotationProcessor 'org.projectlombok:lombok'
+
+
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-mustache')
+    compile('com.h2database:h2')
+
+
+
+    compile('org.springframework.session:spring-session-jdbc')      // to sync multiple tomcats' => session
+
+
+
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-messaging
+    compile group: 'org.springframework.security', name: 'spring-security-messaging', version: '4.0.1.RELEASE'
+
+
+
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    // https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.5.0.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure
+    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.4.0'
+
+    compile('org.springframework.session:spring-session-jdbc')      // to sync multiple tomcats' => session
+
+//    compile("org.mariadb.jdbc:mariadb-java-client")
+
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.projectlombok:lombok'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.springframework.security:spring-security-test")
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+
+    // 추가 2020/12/16
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
+//    compile group: 'com.auth0', name: 'java-jwt', version: '3.10.3'
+
+    // 추가 12/18
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+//    compile ('org.springframework.security:spring-security-jwt:1.0.3.RELEASE')
+
+//    testCompile "io.rest-assured:rest-assured:3.1.0"
+
+
+    //추가 2020/12/29
+    compile 'org.modelmapper:modelmapper:2.3.3'
+}
+
+
+def querydslSrcDir = 'src/main/generated'
+
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    jpa = true
+    querydslSourcesDir = querydslSrcDir
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', querydslSrcDir]
+        }
+    }
+}
+
+
+// 없어도 된다
+project.afterEvaluate {
+    project.tasks.compileQuerydsl.options.compilerArgs = [
+            "-proc:only",
+            "-processor", project.querydsl.processors() +
+                    ',lombok.launch.AnnotationProcessorHider$AnnotationProcessor'
+    ]
+}
+
