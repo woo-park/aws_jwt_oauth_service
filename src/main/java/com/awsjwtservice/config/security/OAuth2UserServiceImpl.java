@@ -28,20 +28,35 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
 
         OAuth2User oAuth2User = delagate.loadUser(userRequest);         // userRequest from argument
 
+
+        /*
+            userRequest.accessToken.tokenType = OAuth2AccessToken
+            userRequest.accessToken.scopes[0] = name
+            userRequest.accessToken.scopes[1] = email
+            userRequest.accessToken.scopes[2] = profile_image
+            userRequest.accessToken.tokenValue = "...."
+        */
+
+
+        // OAuthAttributes에 들어가는 outh id type => "naver", "google", "kakao"
         String registrationId = userRequest
                 .getClientRegistration()
                 .getRegistrationId();    // to figure out/ differentiate from naver, or google login
 
+        // 유저 이름           i.e. userNameAttributeName = "response"
         String userNameAttributeName = userRequest
                 .getClientRegistration()
                 .getProviderDetails()
                 .getUserInfoEndpoint()
                 .getUserNameAttributeName();    // naver vs google
 
+        // OAuth2UserService 를 통해 가져온 data 를 담는 class입니다. dto라고 생각하면 됩니다.
         OAuthAttributes attributes = OAuthAttributes.
-                of(registrationId, userNameAttributeName, oAuth2User.getAttributes()); //   OAuth2UserService 를 통해 가져온 data 를 담는 class입니다
+                of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        Account user = saveOrUpdate(attributes);   // saveOrUpdate method needs to be defined here
+
+        // 정의한 saveOrUpdate()을 통해 Repository에 save||update. 한후에 persist된 Account를 반환합니다.
+        Account user = saveOrUpdate(attributes);
 
 //        httpSession.setAttribute("user", new SessionUser(user));    //  session 에 사용자 정보를 저장하기 위한 dto class
 
@@ -49,6 +64,8 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
 //        bearerTokenResolver.setBearerTokenHeaderName(HttpHeaders.PROXY_AUTHORIZATION);
 
 
+
+        // end?
         return new DefaultOAuth2User(
                 Collections.singleton(
 //                        new SimpleGrantedAuthority(user.getRoleKey())), // userRole 이 class일적에
@@ -56,6 +73,11 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey()
         );
+
+        // loadUser(OAuth2UserRequest userRequest)은 OAuth2LoginAuthenticationProvider line 116에서 invoked됩니다.
+        // loadUser는 OAuth2LoginAuthenticationProvider implements AuthenticationProvider에서
+        // authenticate() method안에서 invoked됩니다.
+        
     }
 
 

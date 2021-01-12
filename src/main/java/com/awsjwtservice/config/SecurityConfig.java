@@ -64,9 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
+            .antMatchers("/test").permitAll()
             .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
 			.antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
-            .antMatchers("/test").permitAll()
+
 			.anyRequest().authenticated()
             .and()
             .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));

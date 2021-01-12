@@ -81,6 +81,7 @@ public class JwtAuthenticationService {
         if (bearerToken != null && bearerToken.startsWith(PREFIX)) {
             return bearerToken.replace(PREFIX, EMPTY).trim();
         }
+
         return null;
     }
 
