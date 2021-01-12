@@ -7,9 +7,12 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.awsjwtservice.config.service.UserDetailServiceImpl;
+import com.awsjwtservice.dto.SessionUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,10 +40,16 @@ public class JwtAuthenticationService {
     private static final long EXPIRATIONTIME = 86400000; //1 day in milliseconds 
 
 	private static final String AUTHORIZATION = "Authorization";
-    
-    @Autowired
+
+	@Autowired
     private UserDetailServiceImpl userDetailsService;
-    
+
+    private final HttpSession httpSession;
+
+    public JwtAuthenticationService(HttpSession httpSession) {
+        this.httpSession = httpSession;
+    }
+
     public String createToken(String username, List<String> roles) {
 
         Claims claims = Jwts.claims().setSubject(username);
@@ -78,6 +87,16 @@ public class JwtAuthenticationService {
 
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION);
+        Cookie cookie[] = request.getCookies();
+
+        SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+        String teststr = (String) httpSession.getAttribute("test");
+
+        if( cookie.length > 0) {
+            Cookie sessionID = cookie[0];
+        }
+
+
         if (bearerToken != null && bearerToken.startsWith(PREFIX)) {
             return bearerToken.replace(PREFIX, EMPTY).trim();
         }

@@ -52,6 +52,7 @@ public class AuthenticationController {
 			response.setHeader("token", token);
 			response.setHeader("username", credentials.getUsername());
 
+
 			return "index";
 		} catch (AuthenticationException e) {
 			throw new BadCredentialsException("Invalid username/password supplied");

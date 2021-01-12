@@ -10,6 +10,10 @@
 //
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+//import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+//import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationToken;
+//import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationExchange;
 //import org.springframework.util.StringUtils;
 //import org.springframework.web.filter.GenericFilterBean;
 //
@@ -28,8 +32,33 @@
 //			 accessToken=  accessToken.replace(PREFIX, EMPTY).trim();
 //		 }
 //		 if(!StringUtils.isEmpty(accessToken)) {
-//			 Authentication auth = new OAuth2AuthenticationToken(accessToken);
-//			 SecurityContextHolder.getContext().setAuthentication(auth);
+//
+//
+////             Object authenticationDetails = this.authenticationDetailsSource.buildDetails(request);
+////             OAuth2LoginAuthenticationToken authenticationRequest = new OAuth2LoginAuthenticationToken(
+////                     clientRegistration, new OAuth2AuthorizationExchange(authorizationRequest, authorizationResponse));
+////             authenticationRequest.setDetails(authenticationDetails);
+//
+////             OAuth2LoginAuthenticationToken authenticationResult =
+////                     (OAuth2LoginAuthenticationToken) this.getAuthenticationManager().authenticate(authenticationRequest);
+////
+////             OAuth2AuthenticationToken oauth2Authentication = new OAuth2AuthenticationToken(
+////                     authenticationResult.getPrincipal(),
+////                     authenticationResult.getAuthorities(),
+////                     authenticationResult.getClientRegistration().getRegistrationId());
+//////             oauth2Authentication.setDetails(authenticationDetails);
+////
+//////             OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(
+//////                     authenticationResult.getClientRegistration(),
+//////                     oauth2Authentication.getName(),
+//////                     authenticationResult.getAccessToken(),
+//////                     authenticationResult.getRefreshToken());
+//////
+//////             this.authorizedClientRepository.saveAuthorizedClient(authorizedClient, oauth2Authentication, request, response);
+////
+////
+////			 Authentication auth = new OAuth2AuthenticationToken(accessToken);
+////			 SecurityContextHolder.getContext().setAuthentication(auth);
 //		 }
 //		 filterChain.doFilter(request, response);
 //	}

@@ -7,6 +7,8 @@ import com.awsjwtservice.config.security.JwtAuthenticationConfigurer;
 import com.awsjwtservice.config.security.JwtAuthenticationService;
 //import com.awsjwtservice.config.security.OAuth2AuthenticationFilter;
 //import com.awsjwtservice.config.security.OAuth2AuthenticationProvider;
+//import com.awsjwtservice.config.security.OAuth2AuthenticationProvider;
+import com.awsjwtservice.config.security.OAuth2AuthenticationFilter;
 import com.awsjwtservice.config.security.OAuth2UserServiceImpl;
 import com.awsjwtservice.config.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider;
+import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -58,21 +67,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.oAuth2UserServiceImpl = oAuth2UserServiceImpl;
     }
 
+//    Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient =
+//                this.tokenEndpointConfig.accessTokenResponseClient;
+//        if (accessTokenResponseClient == null) {
+//            accessTokenResponseClient = new DefaultAuthorizationCodeTokenResponseClient();
+//        }
+//
+//        OAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService = getOAuth2UserService();
+//        OAuth2LoginAuthenticationProvider oauth2LoginAuthenticationProvider =
+//                new OAuth2LoginAuthenticationProvider(accessTokenResponseClient, oauth2UserService);
+//
+//        auth.authenticationProvider(new OAuth2AuthenticationProvider());
+//    }
 
 //
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-            .antMatchers("/test").permitAll()
+            .antMatchers("/test").hasRole("USER")
             .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
 			.antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
 
 			.anyRequest().authenticated()
             .and()
             .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
-//		http
-//            .addFilterBefore(new OAuth2AuthenticationFilter(), BasicAuthenticationFilter.class);
+		http
+            .addFilterBefore(new OAuth2AuthenticationFilter(), BasicAuthenticationFilter.class);
 
         http
             .oauth2Login()
