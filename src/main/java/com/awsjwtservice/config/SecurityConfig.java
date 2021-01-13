@@ -3,12 +3,13 @@
 // */
 package com.awsjwtservice.config;
 
+import com.awsjwtservice.config.security.CustomOAuth2AuthenticationProcessingFilter;
 import com.awsjwtservice.config.security.JwtAuthenticationConfigurer;
 import com.awsjwtservice.config.security.JwtAuthenticationService;
 //import com.awsjwtservice.config.security.OAuth2AuthenticationFilter;
 //import com.awsjwtservice.config.security.OAuth2AuthenticationProvider;
 //import com.awsjwtservice.config.security.OAuth2AuthenticationProvider;
-import com.awsjwtservice.config.security.OAuth2AuthenticationFilter;
+//import com.awsjwtservice.config.security.OAuth2AuthenticationFilter;
 import com.awsjwtservice.config.security.OAuth2UserServiceImpl;
 import com.awsjwtservice.config.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -94,8 +96,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
             .and()
             .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
-		http
-            .addFilterBefore(new OAuth2AuthenticationFilter(), BasicAuthenticationFilter.class);
+//		http
+//            .addFilterBefore(new CustomOAuth2AuthenticationProcessingFilter(), BasicAuthenticationFilter.class);
 
         http
             .oauth2Login()
@@ -109,7 +111,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 }
             })
             .userInfoEndpoint()     // 이것과 밑 userService는 연결되어있다
-            .userService(oAuth2UserServiceImpl);
+            .userService(oAuth2UserServiceImpl)
+                .and()
+                .defaultSuccessUrl("/loginSuccess")
+                .failureUrl("/loginFailure");
+
 
 		http
 			.csrf().disable()
@@ -125,6 +131,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //        auth.authenticationProvider(new OAuth2AuthenticationProvider(OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient, ));
 //	}
+
+
 
 	@Bean
     public BCryptPasswordEncoder encoder(){

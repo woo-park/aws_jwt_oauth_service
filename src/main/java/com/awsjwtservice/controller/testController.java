@@ -1,6 +1,7 @@
 package com.awsjwtservice.controller;
 
 import com.awsjwtservice.dto.SessionUserDto;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +21,11 @@ public class testController {
 
 
     @GetMapping("/test")
+//    @PreAuthorize("hasRole('ROLE_USER') and #account.username == principal.username")
     public String user(Principal principal, Model model, HttpServletRequest request) {
         System.out.println("Authorization Header Value ::" + request.getHeader("Authorization"));
 //        return principal;
+
 
 
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");

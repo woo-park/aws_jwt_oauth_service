@@ -5,11 +5,18 @@ import com.awsjwtservice.domain.UserRepository;
 import com.awsjwtservice.dto.SessionUserDto;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.http.HttpRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequestEntityConverter;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2AuthorizationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -17,13 +24,32 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
+import java.util.Map;
+
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
+
 
 @RequiredArgsConstructor
 @Service
 public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+    @Autowired
     private final UserRepository userRepository;
 //    private final HttpRequest httpRequest;
 private final HttpSession httpSession;
+
+
+    private Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new OAuth2UserRequestEntityConverter();
+    private RestOperations restOperations;
+    private static final ParameterizedTypeReference<Map<String, Object>> PARAMETERIZED_RESPONSE_TYPE = new ParameterizedTypeReference<Map<String, Object>>() {};
+
+
+//    public OAuth2UserServiceImpl() {
+//        RestTemplate restTemplate = new RestTemplate();
+//        restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
+//        this.restOperations = restTemplate;
+//    }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -39,6 +65,19 @@ private final HttpSession httpSession;
             userRequest.accessToken.scopes[2] = profile_image
             userRequest.accessToken.tokenValue = "...."
         */
+
+        RequestEntity<?> request = this.requestEntityConverter.convert(userRequest);
+
+
+        ResponseEntity<Map<String, Object>> response;
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            assert request != null;
+            response = restTemplate.exchange(request, PARAMETERIZED_RESPONSE_TYPE);
+            System.out.println(response);
+        } catch (OAuth2AuthorizationException ex) {
+
+        }
 
 
         // OAuthAttributes에 들어가는 outh id type => "naver", "google", "kakao"
