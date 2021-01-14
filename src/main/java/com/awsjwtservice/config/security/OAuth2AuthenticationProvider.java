@@ -28,80 +28,80 @@
 //
 //
 //
-//public class OAuth2AuthenticationProvider implements AuthenticationProvider {
-//	private final OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient;
-//	private final OAuth2UserService<OAuth2UserRequest, OAuth2User> userService;
-//	private GrantedAuthoritiesMapper authoritiesMapper = (authorities -> authorities);
-//
-//	public OAuth2AuthenticationProvider(
-//			OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
-//			OAuth2UserService<OAuth2UserRequest, OAuth2User> userService) {
-////		super(accessTokenResponseClient, userService);
-//
-//		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
-//		Assert.notNull(userService, "userService cannot be null");
-//		this.accessTokenResponseClient = accessTokenResponseClient;
-//		this.userService = userService;
-//	}
-//
-//	@Override
-//	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-//		OAuth2LoginAuthenticationToken authorizationCodeAuthentication =
-//				(OAuth2LoginAuthenticationToken) authentication;
-//
-//		if (authorizationCodeAuthentication.getAuthorizationExchange()
-//				.getAuthorizationRequest().getScopes().contains("openid")) {
-//			return null;
-//		}
-//
-//		OAuth2AccessTokenResponse accessTokenResponse;
-//		try {
-////			OAuth2AuthorizationExchangeValidator.validate(
-////					authorizationCodeAuthentication.getAuthorizationExchange());
-//
-//			accessTokenResponse = this.accessTokenResponseClient.getTokenResponse(
-//					new OAuth2AuthorizationCodeGrantRequest(
-//							authorizationCodeAuthentication.getClientRegistration(),
-//							authorizationCodeAuthentication.getAuthorizationExchange()));
-//
-//		} catch (OAuth2AuthorizationException ex) {
-//			OAuth2Error oauth2Error = ex.getError();
-//			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
-//		}
-//
-//		OAuth2AccessToken accessToken = accessTokenResponse.getAccessToken();
-//		Map<String, Object> additionalParameters = accessTokenResponse.getAdditionalParameters();
-//
-//		OAuth2User oauth2User = this.userService.loadUser(new OAuth2UserRequest(
-//				authorizationCodeAuthentication.getClientRegistration(), accessToken, additionalParameters));
-//
-//		Collection<? extends GrantedAuthority> mappedAuthorities =
-//				this.authoritiesMapper.mapAuthorities(oauth2User.getAuthorities());
-//
-//		System.out.println("will this print out token");
-//		OAuth2LoginAuthenticationToken authenticationResult = new OAuth2LoginAuthenticationToken(
-//				authorizationCodeAuthentication.getClientRegistration(),
-//				authorizationCodeAuthentication.getAuthorizationExchange(),
-//				oauth2User,
-//				mappedAuthorities,
-//				accessToken,
-//				accessTokenResponse.getRefreshToken());
-//		authenticationResult.setDetails(authorizationCodeAuthentication.getDetails());
-//
-//		return authenticationResult;
-//	}
-//
-//
-////	public final void setAuthoritiesMapper(GrantedAuthoritiesMapper authoritiesMapper) {
-////		Assert.notNull(authoritiesMapper, "authoritiesMapper cannot be null");
-////		this.authoritiesMapper = authoritiesMapper;
+////public class OAuth2AuthenticationProvider implements AuthenticationProvider {
+////	private final OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient;
+////	private final OAuth2UserService<OAuth2UserRequest, OAuth2User> userService;
+////	private GrantedAuthoritiesMapper authoritiesMapper = (authorities -> authorities);
+////
+////	public OAuth2AuthenticationProvider(
+////			OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
+////			OAuth2UserService<OAuth2UserRequest, OAuth2User> userService) {
+//////		super(accessTokenResponseClient, userService);
+////
+////		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
+////		Assert.notNull(userService, "userService cannot be null");
+////		this.accessTokenResponseClient = accessTokenResponseClient;
+////		this.userService = userService;
 ////	}
-//
-//	@Override
-//	public boolean supports(Class<?> authentication) {
-//		return OAuth2LoginAuthenticationToken.class.isAssignableFrom(authentication);
-//	}
-//}
+////
+////	@Override
+////	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+////		OAuth2LoginAuthenticationToken authorizationCodeAuthentication =
+////				(OAuth2LoginAuthenticationToken) authentication;
+////
+////		if (authorizationCodeAuthentication.getAuthorizationExchange()
+////				.getAuthorizationRequest().getScopes().contains("openid")) {
+////			return null;
+////		}
+////
+////		OAuth2AccessTokenResponse accessTokenResponse;
+////		try {
+//////			OAuth2AuthorizationExchangeValidator.validate(
+//////					authorizationCodeAuthentication.getAuthorizationExchange());
+////
+////			accessTokenResponse = this.accessTokenResponseClient.getTokenResponse(
+////					new OAuth2AuthorizationCodeGrantRequest(
+////							authorizationCodeAuthentication.getClientRegistration(),
+////							authorizationCodeAuthentication.getAuthorizationExchange()));
+////
+////		} catch (OAuth2AuthorizationException ex) {
+////			OAuth2Error oauth2Error = ex.getError();
+////			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
+////		}
+////
+////		OAuth2AccessToken accessToken = accessTokenResponse.getAccessToken();
+////		Map<String, Object> additionalParameters = accessTokenResponse.getAdditionalParameters();
+////
+////		OAuth2User oauth2User = this.userService.loadUser(new OAuth2UserRequest(
+////				authorizationCodeAuthentication.getClientRegistration(), accessToken, additionalParameters));
+////
+////		Collection<? extends GrantedAuthority> mappedAuthorities =
+////				this.authoritiesMapper.mapAuthorities(oauth2User.getAuthorities());
+////
+////		System.out.println("will this print out token");
+////		OAuth2LoginAuthenticationToken authenticationResult = new OAuth2LoginAuthenticationToken(
+////				authorizationCodeAuthentication.getClientRegistration(),
+////				authorizationCodeAuthentication.getAuthorizationExchange(),
+////				oauth2User,
+////				mappedAuthorities,
+////				accessToken,
+////				accessTokenResponse.getRefreshToken());
+////		authenticationResult.setDetails(authorizationCodeAuthentication.getDetails());
+////
+////		return authenticationResult;
+////	}
+////
+////
+//////	public final void setAuthoritiesMapper(GrantedAuthoritiesMapper authoritiesMapper) {
+//////		Assert.notNull(authoritiesMapper, "authoritiesMapper cannot be null");
+//////		this.authoritiesMapper = authoritiesMapper;
+//////	}
+////
+////	@Override
+////	public boolean supports(Class<?> authentication) {
+////		return OAuth2LoginAuthenticationToken.class.isAssignableFrom(authentication);
+////	}
+////}
 //
 ////
 //public class OAuth2AuthenticationProvider implements AuthenticationProvider {
@@ -112,17 +112,18 @@
 //
 //		OAuth2AuthenticationToken auth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
 //		String accessToken = auth2AuthenticationToken.getToken();
-//
-//		OAuth2UserInfoTokenServices oAuth2UserInfoTokenServices = new OAuth2UserInfoTokenServices(
-//				resourceServerProperties.getUserInfoUri(), resourceServerProperties.getClientId());
-//
-//		OAuth2Authentication oAuth2Authentication = oAuth2UserInfoTokenServices.loadAuthentication(accessToken);
-//
-//		if (ObjectUtils.isEmpty(oAuth2Authentication)) {
-//			return null;
-//		}
-//		oAuth2Authentication.setAuthenticated(true);
-//		return oAuth2Authentication;
+////
+////		OAuth2UserInfoTokenServices oAuth2UserInfoTokenServices = new OAuth2UserInfoTokenServices(
+////				resourceServerProperties.getUserInfoUri(), resourceServerProperties.getClientId());
+////
+////		OAuth2Authentication oAuth2Authentication = oAuth2UserInfoTokenServices.loadAuthentication(accessToken);
+////
+////		if (ObjectUtils.isEmpty(oAuth2Authentication)) {
+////			return null;
+////		}
+////		oAuth2Authentication.setAuthenticated(true);
+////		return oAuth2Authentication;
+//        return null;
 //	}
 //
 //

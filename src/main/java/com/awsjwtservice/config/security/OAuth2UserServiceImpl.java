@@ -37,7 +37,7 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
     @Autowired
     private final UserRepository userRepository;
 //    private final HttpRequest httpRequest;
-private final HttpSession httpSession;
+    private final HttpSession httpSession;
 
 
     private Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new OAuth2UserRequestEntityConverter();
