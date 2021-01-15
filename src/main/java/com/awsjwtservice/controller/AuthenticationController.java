@@ -49,6 +49,7 @@ public class AuthenticationController {
 			list.add(this.userRepository.findByUsername(credentials.getUsername()).getRole());
 
 			String token = jwtAuthenticationService.createToken(credentials.getUsername(), list);
+
 			response.setHeader("token", token);
 			response.setHeader("username", credentials.getUsername());
 

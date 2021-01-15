@@ -1,8 +1,12 @@
 package com.awsjwtservice.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.awsjwtservice.config.security.JwtAuthenticationService;
+import com.awsjwtservice.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ResolvableType;
 import org.springframework.http.HttpEntity;
@@ -31,6 +35,13 @@ public class LoginController {
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    JwtAuthenticationService jwtAuthenticationService;
+
+
     @GetMapping("/oauth_login")
     public String getLoginPage(Model model) {
 //        Iterable<ClientRegistration> clientRegistrations = null;
@@ -55,6 +66,8 @@ public class LoginController {
 
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
 
+        ClientRegistrationRepository clientRegistrationRepository;
+
         String userInfoEndpointUri = client.getClientRegistration()
                 .getProviderDetails()
                 .getUserInfoEndpoint()
@@ -66,12 +79,30 @@ public class LoginController {
             headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken()
                     .getTokenValue());
 
+
+            List<String> list = new ArrayList<>();
+            list.add("ROLE_USER");
+//            list.add(this.userRepository.findByUsername(credentials.getUsername()).getRole());
+
+            String jwtToken = jwtAuthenticationService.createToken(authentication.getName(), list);
+
+
             HttpEntity<String> entity = new HttpEntity<String>("", headers);
 
             ResponseEntity<Map> response = restTemplate.exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
+
+
+
             Map userAttributes = response.getBody();
             model.addAttribute("name", userAttributes.get("name"));
         }
+
+
+
+
+//        response.setHeader("username", credentials.getUsername());
+
+
 
         return "loginSuccess";
     }
