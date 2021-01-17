@@ -1,6 +1,5 @@
 package com.awsjwtservice.domain;
 
-import com.sun.istack.Nullable;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,7 +28,6 @@ public class Account implements Serializable {
     @Column(nullable = true)
     private String role;
 
-    @Nullable
     @Column(nullable = true)
     private String password;
 

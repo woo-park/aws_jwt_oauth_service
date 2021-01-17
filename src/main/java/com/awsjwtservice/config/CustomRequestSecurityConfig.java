@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.awsjwtservice.config.oauth2request.CustomAuthorizationRequestResolver;
+//import com.awsjwtservice.config.oauth2request.CustomAuthorizationRequestResolver;
 import com.awsjwtservice.config.oauth2request.CustomOAuth2Provider;
 import com.awsjwtservice.config.oauth2request.CustomRequestEntityConverter;
 import com.awsjwtservice.config.oauth2request.CustomTokenResponseConverter;
@@ -90,10 +90,11 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .defaultSuccessUrl("/loginSuccess")
 //                .failureUrl("/loginFailure");
-
+        http.csrf().disable()
+                .headers().frameOptions().disable();
 
         http.authorizeRequests()
-                .antMatchers("/oauth_login", "/loginFailure", "/", "/h2-console")
+                .antMatchers("/oauth_login", "/loginFailure", "/", "/h2-console", "/h2-console/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
