@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import com.awsjwtservice.config.oauth2request.CustomOAuth2Provider;
 import com.awsjwtservice.config.oauth2request.CustomRequestEntityConverter;
 import com.awsjwtservice.config.oauth2request.CustomTokenResponseConverter;
+import com.awsjwtservice.config.security.JwtAuthenticationConfigurer;
+import com.awsjwtservice.config.security.JwtAuthenticationService;
 import com.awsjwtservice.config.security.OAuth2UserServiceImpl;
 import com.awsjwtservice.config.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -38,6 +42,8 @@ import org.springframework.security.oauth2.client.web.HttpSessionOAuth2Authoriza
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import javax.sql.DataSource;
 
 //@Configuration
 @Configuration
@@ -66,8 +72,16 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final OAuth2UserServiceImpl oAuth2UserServiceImpl;
 
+//    @Autowired
+//    private DataSource dataSource;
+//
+//    @Autowired
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.jdbcAuthentication().dataSource(dataSource);
+//    }
 
-
+    @Autowired
+    JwtAuthenticationService jwtAuthenticationService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -93,9 +107,17 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .headers().frameOptions().disable();
 
+
+
+
         http.authorizeRequests()
                 .antMatchers("/oauth_login", "/loginFailure", "/", "/h2-console", "/h2-console/**")
                 .permitAll()
+
+                .antMatchers("/test").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
+
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -109,7 +131,10 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessTokenResponseClient(accessTokenResponseClient())
                 .and()
                 .defaultSuccessUrl("/loginSuccess")
-                .failureUrl("/loginFailure");
+                .failureUrl("/loginFailure")
+                ;
+//                .and()
+//                .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
 
 
     }
