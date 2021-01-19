@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 //import com.awsjwtservice.config.oauth2request.CustomAuthorizationRequestResolver;
+import com.awsjwtservice.config.formlogin.FormAccessDeniedHandler;
+import com.awsjwtservice.config.formlogin.FormAuthenticationProvider;
 import com.awsjwtservice.config.oauth2request.CustomOAuth2Provider;
 import com.awsjwtservice.config.oauth2request.CustomRequestEntityConverter;
 import com.awsjwtservice.config.oauth2request.CustomTokenResponseConverter;
@@ -17,6 +19,7 @@ import com.awsjwtservice.config.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -24,12 +27,16 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
@@ -41,19 +48,31 @@ import org.springframework.security.oauth2.client.web.AuthorizationRequestReposi
 import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 
 //@Configuration
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @PropertySource("classpath:application-oauth.properties")
 public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
     UserDetailServiceImpl userDetailsService;
+
+
+    // 필터 건더뛰기
+    @Override
+    public void configure(WebSecurity web) throws Exception{
+        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
+
 
     public CustomRequestSecurityConfig(OAuth2UserServiceImpl oAuth2UserServiceImpl) {
         this.oAuth2UserServiceImpl = oAuth2UserServiceImpl;
@@ -82,6 +101,28 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     JwtAuthenticationService jwtAuthenticationService;
+
+    public AccessDeniedHandler accessDeniedHandler() {
+        FormAccessDeniedHandler commonAccessDeniedHandler = new FormAccessDeniedHandler();
+        commonAccessDeniedHandler.setErrorPage("/denied");
+        return commonAccessDeniedHandler;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+
+    @Bean
+    public AuthenticationProvider authenticationProvider () {
+        return new FormAuthenticationProvider(passwordEncoder());
+    }
+
+    @Autowired
+    private AuthenticationSuccessHandler formAuthenticationSuccessHandler;
+    @Autowired
+    private AuthenticationFailureHandler formAuthenticationFailureHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -115,12 +156,27 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
 
                 .antMatchers("/test").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/login_proc").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
 
                 .anyRequest()
-                .authenticated()
-                .and()
+                .authenticated();
+
+        http    .formLogin()
+                .loginPage("/oauth_login")
+                .loginProcessingUrl("/login_proc")
+//                .authenticationDetailsSource(formAuthenticationDetailsSource)
+                .successHandler(formAuthenticationSuccessHandler)
+                .failureHandler(formAuthenticationFailureHandler)
+                .permitAll();
+//                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login2"));
+//                .accessDeniedPage("/denied")
+//                .accessDeniedHandler(accessDeniedHandler())
+
+        http
                 .oauth2Login()
                 .loginPage("/oauth_login")
                 .authorizationEndpoint()
@@ -131,8 +187,10 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessTokenResponseClient(accessTokenResponseClient())
                 .and()
                 .defaultSuccessUrl("/loginSuccess")
-                .failureUrl("/loginFailure")
-                ;
+                .failureUrl("/loginFailure");
+
+//                .and().apply(new JwtAuthenticationConfigurer(jwtAuthenticationService))
+//                ;
 //                .and()
 //                .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
 

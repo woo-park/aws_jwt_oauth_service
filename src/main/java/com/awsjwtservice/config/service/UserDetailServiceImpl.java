@@ -39,8 +39,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
 //        roles.add(new SimpleGrantedAuthority(account.getRole()));
 
         // AccountContext를 user extends해서 따로 만들수있지만 여기선 바로 진행하겠다.
-
-        UserDetails user = new User(username, account.getPassword(), AuthorityUtils.createAuthorityList(account.getRole()));
+        String password = null;
+        if(account.getPassword() == null) {
+            password = "";
+        } else {
+            password = account.getPassword();
+        }
+        UserDetails user = new User(username, password, AuthorityUtils.createAuthorityList(account.getRole()));
         return user;
     }
 

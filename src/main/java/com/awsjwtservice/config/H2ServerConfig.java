@@ -9,17 +9,7 @@ import java.sql.SQLException;
 @Configuration
 //@Profile("local")
 public class H2ServerConfig {
-
-//    @Bean
-//    public Server h2TcpServer() throws SQLException {
-//        return Server.createTcpServer().start();
-//    }
-
-//    @Bean(initMethod = "start", destroyMethod = "stop")
-//    public Server h2Server1() throws SQLException {
-//        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9080");
-//    }
-
+    
     @Bean
     public Server h2TcpServer() throws SQLException {
         Server h2Server = Server.createTcpServer().start();

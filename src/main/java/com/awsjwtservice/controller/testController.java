@@ -31,7 +31,8 @@ public class testController {
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
         if(user != null){
-            model.addAttribute("userName", user.getUsername());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("useremail", user.getEmail());
         }
 
 
