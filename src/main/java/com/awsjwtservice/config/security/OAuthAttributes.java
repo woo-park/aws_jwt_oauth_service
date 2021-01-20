@@ -2,6 +2,7 @@ package com.awsjwtservice.config.security;
 
 
 import com.awsjwtservice.domain.Account;
+import com.awsjwtservice.domain.LoginProvider;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,11 +10,13 @@ import java.util.Map;
 
 @Getter
 public class OAuthAttributes {
+
     private Map<String, Object> attributes;
     private String nameAttributeKey;
     private String username;
     private String email;
     private String picture;
+    private LoginProvider loginProvider;
 
     @Builder
     public OAuthAttributes(Map<String, Object> attributes,
@@ -38,6 +41,8 @@ public class OAuthAttributes {
         }
 
         if("kakao".equals(registrationId)){
+
+//            loginProvider = LoginProvider.KAKAO;
             return ofKakao("id", attributes);
         }
 
@@ -90,6 +95,8 @@ public class OAuthAttributes {
                 .email(email)
                 .picture(picture)
                 .role("ROLE_USER")
+//                .loginProvider(LoginProvider.KAKAO)
+
                 .build();
     }
 

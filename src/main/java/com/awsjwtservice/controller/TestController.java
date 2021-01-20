@@ -1,11 +1,13 @@
 package com.awsjwtservice.controller;
 
+import com.awsjwtservice.config.annotation.LoginUser;
 import com.awsjwtservice.dto.SessionUserDto;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -22,7 +24,7 @@ public class TestController {
 
     @GetMapping("/test")
 //    @PreAuthorize("hasRole('ROLE_USER') and #account.username == principal.username")
-    public String user(Principal principal, Model model, HttpServletRequest request) {
+    public String user(Principal principal, Model model, HttpServletRequest request, @LoginUser SessionUserDto loginUser) {
         System.out.println("Authorization Header Value ::" + request.getHeader("Authorization"));
 //        return principal;
 

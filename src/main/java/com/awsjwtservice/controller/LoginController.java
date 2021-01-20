@@ -53,18 +53,19 @@ public class LoginController {
         return "oauthLogin";
     }
 
-    @GetMapping("/loginSuccess")
+    @GetMapping("/loginSuccess")                    //authentication =- OAuth2AuthenticationToken
     public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication, HttpServletResponse servletResponse) {
         // 문제가 authentication.getName() 이 이름이 아닌 고유번호를 return 한다.
         // String username = authentication.getName();
-        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
+        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName()); //client = OAuth2AuthorizedClient
 
         ClientRegistrationRepository clientRegistrationRepository;
 
         // 이둘은 같다
         Object userDetailsTest = (Object)authentication.getPrincipal();
         Object currentAuth = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+        // currentAuth = DefaultOauth2User@12140
+        // userDetailsTest = DefaultOauth2User@12140
 
         String userInfoEndpointUri = client.getClientRegistration()
                 .getProviderDetails()
