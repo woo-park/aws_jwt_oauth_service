@@ -1,272 +1,218 @@
-/////**
-//// *
-//// */
-//package com.awsjwtservice.config;
-//
-////import com.awsjwtservice.config.security.CustomOAuth2AuthenticationProcessingFilter;
-//import com.awsjwtservice.config.security.JwtAuthenticationConfigurer;
-//import com.awsjwtservice.config.security.JwtAuthenticationService;
-////import com.awsjwtservice.config.security.OAuth2AuthenticationFilter;
-////import com.awsjwtservice.config.security.OAuth2AuthenticationProvider;
-////import com.awsjwtservice.config.security.OAuth2AuthenticationProvider;
-////import com.awsjwtservice.config.security.OAuth2AuthenticationFilter;
-//import com.awsjwtservice.config.security.OAuth2UserServiceImpl;
-//import com.awsjwtservice.config.service.UserDetailServiceImpl;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.web.servlet.FilterRegistrationBean;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.context.annotation.PropertySource;
-//import org.springframework.core.env.Environment;
-//import org.springframework.http.HttpMethod;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.config.http.SessionCreationPolicy;
-//import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
-//import org.springframework.security.core.AuthenticationException;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
-//import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-//import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider;
-//import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
-//import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
-//import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
-//import org.springframework.security.oauth2.client.registration.ClientRegistration;
-//import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-//import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
-//import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-//import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-//import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
-//import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
-//import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
-//import org.springframework.security.oauth2.core.user.OAuth2User;
-//import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-////import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
-////import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-//import org.springframework.web.cors.CorsConfiguration;
-//import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-//import org.springframework.web.filter.CorsFilter;
-//
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import java.io.IOException;
-//import java.util.Arrays;
-//import java.util.List;
-//import java.util.stream.Collectors;
-//
-////
-////
+package com.awsjwtservice.config;
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+//import com.awsjwtservice.config.oauth2request.CustomAuthorizationRequestResolver;
+import com.awsjwtservice.config.annotation.LoginUserHandlerMethodArgumentResolver;
+import com.awsjwtservice.config.formlogin.FormAccessDeniedHandler;
+import com.awsjwtservice.config.formlogin.FormAuthenticationProvider;
+import com.awsjwtservice.config.formlogin.FormSuccessHandler;
+import com.awsjwtservice.config.oauth2request.CustomOAuth2Provider;
+import com.awsjwtservice.config.oauth2request.CustomRequestEntityConverter;
+import com.awsjwtservice.config.oauth2request.CustomTokenResponseConverter;
+import com.awsjwtservice.config.security.JwtAuthenticationService;
+import com.awsjwtservice.config.security.OAuth2UserServiceImpl;
+import com.awsjwtservice.config.service.UserDetailServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.messaging.handler.invocation.HandlerMethodArgumentResolver;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
+import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
+import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.client.RestTemplate;
+
 //@Configuration
-//@EnableWebSecurity
-//@PropertySource("classpath:application-oauth.properties")
-//public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//
+@Configuration
+@EnableWebSecurity(debug = true)
+@PropertySource("classpath:application-oauth.properties")
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    @Autowired
+    UserDetailServiceImpl userDetailsService;
+
+
+
+
+    // 필터 건더뛰기
+    @Override
+    public void configure(WebSecurity web) throws Exception{
+        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
+
+
+    public SecurityConfig(OAuth2UserServiceImpl oAuth2UserServiceImpl) {
+        this.oAuth2UserServiceImpl = oAuth2UserServiceImpl;
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+	}
+
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    private final OAuth2UserServiceImpl oAuth2UserServiceImpl;
+
+//    @Autowired
+//    private DataSource dataSource;
 //
 //    @Autowired
-//    UserDetailServiceImpl userDetailsService;
-////
-//    @Autowired
-//    JwtAuthenticationService jwtAuthenticationService;
-//
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.jdbcAuthentication().dataSource(dataSource);
+//    }
+
+    @Autowired
+    JwtAuthenticationService jwtAuthenticationService;
+
+    public AccessDeniedHandler accessDeniedHandler() {
+        FormAccessDeniedHandler commonAccessDeniedHandler = new FormAccessDeniedHandler();
+        commonAccessDeniedHandler.setErrorPage("/denied");
+        return commonAccessDeniedHandler;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+
+    @Bean
+    public AuthenticationProvider authenticationProvider () {
+        return new FormAuthenticationProvider(passwordEncoder());
+    }
+
+    @Autowired
+    private AuthenticationSuccessHandler formAuthenticationSuccessHandler;
+    @Autowired
+    private AuthenticationFailureHandler formAuthenticationFailureHandler;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.csrf().disable()
+                .headers().frameOptions().disable();
+
+
+
+
+        http.authorizeRequests()
+                .antMatchers("/oauth_login", "/loginFailure", "/", "/h2-console", "/h2-console/**").permitAll()
+                .antMatchers("/register","/register/**").permitAll()
+                .antMatchers("/test").hasRole("ADMIN")
+                .antMatchers("/mypage").access("hasRole('ADMIN') or hasRole('USER') or hasRole('MANAGER')")
+                .antMatchers(HttpMethod.POST, "/login_proc").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
+
+                .anyRequest()
+                .authenticated();
+
+        http    .formLogin()
+                .loginPage("/oauth_login")
+                .loginProcessingUrl("/login_proc")
+//                .authenticationDetailsSource(formAuthenticationDetailsSource)
+                .successHandler(new FormSuccessHandler())
+                .failureHandler(formAuthenticationFailureHandler)
+                .permitAll()
+                .and()
+                .exceptionHandling()
+//                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login2"));
+                .accessDeniedPage("/denied")
+                .accessDeniedHandler(accessDeniedHandler());
+
+        http
+                .oauth2Login()
+                .loginPage("/oauth_login")
+                .authorizationEndpoint()
+                .baseUri("/oauth2/authorize-client")
+                .authorizationRequestRepository(authorizationRequestRepository())
+                .and()
+                .tokenEndpoint()
+                .accessTokenResponseClient(accessTokenResponseClient())
+                .and()
+                .defaultSuccessUrl("/loginSuccess")
+                .failureUrl("/loginFailure");
+
+//                .and().apply(new JwtAuthenticationConfigurer(jwtAuthenticationService))
+//                ;
+//                .and()
+//                .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
+
+
+
+        http
+                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionFixation().changeSessionId()    // servlet 3.1 이상은 기본으로 changeSessionId invoked되지만, custom할수있다 ( none, migrateSession <- 3.1이하 , newSession 으로  // 세션 고정 공격을 막기위해 cookie session id값을 바꿔줘야한다
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false) //default는 false    // true는 login을 아예 못하게 만드는 전략   // false는 이전session에서 더이상 활동못하게 막는 전략
+        ;
+    }
+
+
+
+
 //    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//	}
-//
-//    private final OAuth2UserServiceImpl oAuth2UserServiceImpl;
-//
-//    public SecurityConfig(OAuth2UserServiceImpl oAuth2UserServiceImpl) {
-//        this.oAuth2UserServiceImpl = oAuth2UserServiceImpl;
-//    }
-//
-//    private static List<String> clients = Arrays.asList("google");
-//
-//
-//
-//
-//    private static String CLIENT_PROPERTY_KEY
-//            = "spring.security.oauth2.client.registration.";
-//
-//    @Autowired
-//    private Environment env;
-////
-////    private ClientRegistration getRegistration(String client) {
-////        String clientId = env.getProperty(
-////                CLIENT_PROPERTY_KEY +  "google.client-id");
-////
-////        if (clientId == null) {
-////            return null;
-////        }
-////
-////        String clientSecret = env.getProperty(
-////                CLIENT_PROPERTY_KEY + client + ".client-secret");
-////
-////        if (client.equals("google")) {
-////            return CommonOAuth2Provider.GOOGLE.getBuilder(client)
-////                    .clientId(clientId).clientSecret(clientSecret).build();
-////        }
-////
-////        return null;
-////    }
-//
-//
-////    Override
-////    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-////        OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient =
-////                this.tokenEndpointConfig.accessTokenResponseClient;
-////        if (accessTokenResponseClient == null) {
-////            accessTokenResponseClient = new DefaultAuthorizationCodeTokenResponseClient();
-////        }
-////
-////        OAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService = getOAuth2UserService();
-////        OAuth2LoginAuthenticationProvider oauth2LoginAuthenticationProvider =
-////                new OAuth2LoginAuthenticationProvider(accessTokenResponseClient, oauth2UserService);
-////
-////        auth.authenticationProvider(new OAuth2AuthenticationProvider());
-////    }
-//
-////
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-////		http
-////		.authorizeRequests()
-////            .antMatchers("/test").hasRole("USER")
-////            .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
-////			.antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
-////
-////			.anyRequest().authenticated()
-////            .and()
-////            .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
-////		http
-////            .addFilterBefore(new CustomOAuth2AuthenticationProcessingFilter(), BasicAuthenticationFilter.class);
-//
-//
-//        http.authorizeRequests()
-//                .antMatchers("/oauth_login", "/loginFailure", "/", "/h2-console")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .oauth2Login()
-//                .loginPage("/oauth_login")
-//                .authorizationEndpoint()
-//                .baseUri("/oauth2/authorize-client")
-//                .authorizationRequestRepository(authorizationRequestRepository())
-//                .and()
-//                .tokenEndpoint()
-//                .accessTokenResponseClient(accessTokenResponseClient())
-//                .and()
-//                .defaultSuccessUrl("/loginSuccess")
-//                .failureUrl("/loginFailure");
-//
-////        http
-////            .oauth2Login()
-////                .clientRegistrationRepository(clientRegistrationRepository())
-////                .authorizedClientService(authorizedClientService())
-////            .loginPage("/login")
-////            .failureHandler(new AuthenticationFailureHandler() {
-////                @Override
-////                public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-////                    System.out.println("authentication" + exception.getMessage());
-////
-//////                    response.sendRedirect("/login");
-////                }
-////            })
-////            .userInfoEndpoint()     // 이것과 밑 userService는 연결되어있다
-////            .userService(oAuth2UserServiceImpl)
-////                .and()
-////                .defaultSuccessUrl("/")
-////                .failureUrl("/loginFailure");
-//
-//
-//		http
-//			.csrf().disable()
-//			.httpBasic().disable()
-//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//	}
-////
-////
-////	@Autowired
-////	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-////		auth.userDetailsService(userDetailsService)
-////			.passwordEncoder(encoder());
-////
-////        auth.authenticationProvider(new OAuth2AuthenticationProvider(OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient, ));
-////	}
-//
-//
-//
-//	@Bean
-//    public BCryptPasswordEncoder encoder(){
-//        return new BCryptPasswordEncoder();
-//    }
-////
-//	@Bean
-//    public FilterRegistrationBean<CorsFilter> corsFilter() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-//        config.addAllowedOrigin("*");
-//        config.addAllowedHeader("*");
-//        config.addAllowedMethod("*");
-//        source.registerCorsConfiguration("/**", config);
-//        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
-//        bean.setOrder(0);
-//        return bean;
-//    }
-//
-//
-//////    @Bean
-////    public ClientRegistrationRepository clientRegistrationRepository() {
-////        System.out.println(clients);
-//////
-//////        for (String each : clients) {
-//////            getRegistration(each);
-//////        }
-//////        List<ClientRegistration> registrations = clients.stream()
-//////                .map(c -> getRegistration(c))
-//////                .filter(registration -> registration != null)
-//////                .collect(Collectors.toList());
-////
-////
-////        String clientId = env.getProperty(
-////                CLIENT_PROPERTY_KEY +  "google.client-id");
-//////
-////        if (clientId == null) {
-////            return null;
-////        }
-////
-////        String clientSecret = env.getProperty(
-////                CLIENT_PROPERTY_KEY + "google.client-secret");
-////
-//////        if (client.equals("google")) {
-//////            return CommonOAuth2Provider.GOOGLE.getBuilder("google")
-//////                    .clientId(clientId).clientSecret(clientSecret).build();
-//////        }
-////
-//////        return null;
-////        return new InMemoryClientRegistrationRepository(CommonOAuth2Provider.GOOGLE.getBuilder("google")
-////                .clientId(clientId).clientSecret(clientSecret).build());
-////    }
-////
-////    public OAuth2AuthorizedClientService authorizedClientService() {
-////
-////        return new InMemoryOAuth2AuthorizedClientService(
-////                clientRegistrationRepository());
-////    }
-//
-//
-//
-//
-//
-//
-//
-//    //    @Bean
+    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
+        return new HttpSessionOAuth2AuthorizationRequestRepository();
+    }
+
+//    @Bean
+    public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient() {
+        DefaultAuthorizationCodeTokenResponseClient accessTokenResponseClient = new DefaultAuthorizationCodeTokenResponseClient();
+        accessTokenResponseClient.setRequestEntityConverter(new CustomRequestEntityConverter());
+
+        OAuth2AccessTokenResponseHttpMessageConverter tokenResponseHttpMessageConverter = new OAuth2AccessTokenResponseHttpMessageConverter();
+        tokenResponseHttpMessageConverter.setTokenResponseConverter(new CustomTokenResponseConverter());
+        RestTemplate restTemplate = new RestTemplate(Arrays.asList(new FormHttpMessageConverter(), tokenResponseHttpMessageConverter));
+        restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
+        accessTokenResponseClient.setRestOperations(restTemplate);
+        return accessTokenResponseClient;
+    }
+
+
+    // additional configuration for non-Spring Boot projects
+    private static List<String> clients = Arrays.asList("google");
+
+//    //@Bean
 //    public ClientRegistrationRepository clientRegistrationRepository() {
 //        List<ClientRegistration> registrations = clients.stream()
 //                .map(c -> getRegistration(c))
@@ -274,67 +220,76 @@
 //                .collect(Collectors.toList());
 //
 //        return new InMemoryClientRegistrationRepository(registrations);
+//
 //    }
-//
-//    //    @Bean
-//    public OAuth2AuthorizedClientService authorizedClientService() {
-//        return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository());
-//    }
-//
-////    private static String CLIENT_PROPERTY_KEY = "spring.security.oauth2.client.registration.";
-//
-////    @Autowired
-////    private Environment env;
-//
-//    private ClientRegistration getRegistration(String client) {
-//        String clientId = env.getProperty(CLIENT_PROPERTY_KEY + client + ".client-id");
-//
-//        if (clientId == null) {
-//            return null;
-//        }
-//
-//        String clientSecret = env.getProperty(CLIENT_PROPERTY_KEY + client + ".client-secret");
-//        if (client.equals("google")) {
-//            return CommonOAuth2Provider.GOOGLE.getBuilder(client)
-//                    .clientId(clientId)
-//                    .clientSecret(clientSecret)
-//                    .build();
-//        }
-//
-//        if (client.equals("naver")) {
-//
-//        }
-//
-//        if (client.equals("facebook")) {
-//            return CommonOAuth2Provider.FACEBOOK.getBuilder(client)
-//                    .clientId(clientId)
-//                    .clientSecret(clientSecret)
-//                    .build();
-//        }
-//        return null;
-//    }
-//
-//    @Bean
-//    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
-//        return new HttpSessionOAuth2AuthorizationRequestRepository();
-//    }
-//    @Bean
-//    public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient() {
-//        DefaultAuthorizationCodeTokenResponseClient accessTokenResponseClient = new DefaultAuthorizationCodeTokenResponseClient();
-//        return accessTokenResponseClient;
-//    }
-//
-//
-//
-//}
-//
-//
-//
-///* facade
-//*
-//* It is common for programmers to confuse the Facade pattern with the Adapter pattern. Keep in mind that Facade, in general, is about reducing the complexity of interfacing with a subsystem, whereas Adapter is more geared towards tweaking an existing interface to another interface that a client expects to work with.
-//
-//In Enterprise Applications developed with Spring, a facade is commonly used to consolidate all the business services the application provides to its users. In Spring applications, you will be often developing business and service facades that serves as a gateway to business logic and the service layer of the application. For persistence, you will write DAOs, a type of facade, but specific to the data layer. While I kept this example intentionally generic, you should be able to see how this would work nicely with Spring in the context of IoC and Dependency Injection.
-//*
-//*
-//* */
+
+    public ClientRegistrationRepository clientRegistrationRepository(
+            OAuth2ClientProperties oAuth2ClientProperties,
+            @Value("${custom.oauth2.kakao.client-id}") String kakaoClientId,
+            @Value("${custom.oauth2.kakao.client-secret}") String kakaoClientSecret,
+            @Value("${custom.oauth2.naver.client-id}") String naverClientId,
+            @Value("${custom.oauth2.naver.client-secret}") String naverClientSecret) {
+        List<ClientRegistration> registrations = oAuth2ClientProperties
+                .getRegistration()
+                .keySet().stream()
+                .map(client -> getRegistration(oAuth2ClientProperties, client))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        registrations.add(
+                CustomOAuth2Provider.KAKAO.getBuilder("kakao")
+                .clientId(kakaoClientId)
+                .clientSecret(kakaoClientSecret)
+                .jwkSetUri("temp")
+                .build()
+        );
+        registrations.add(
+                CustomOAuth2Provider.NAVER.getBuilder("naver")
+                .clientId(naverClientId)
+                .clientSecret(naverClientSecret)
+                .jwkSetUri("temp")
+                .build()
+        );
+
+        return new InMemoryClientRegistrationRepository(registrations);
+    }
+
+
+    private static String CLIENT_PROPERTY_KEY = "spring.security.oauth2.client.registration.";
+
+    @Autowired
+    private Environment env;
+
+    private ClientRegistration getRegistration(OAuth2ClientProperties clientProperties, String client) {
+
+        String clientId = env.getProperty(CLIENT_PROPERTY_KEY + client + ".client-id");
+
+        if (clientId == null) {
+            return null;
+        }
+
+        String clientSecret = env.getProperty(CLIENT_PROPERTY_KEY + client + ".client-secret");
+        if (client.equals("google")) {
+            OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("google");
+
+            return CommonOAuth2Provider.GOOGLE.getBuilder(client)
+                    .clientId(registration.getClientId())
+                    .clientSecret(registration.getClientSecret())
+                    .scope("email", "profile")
+                    .build();
+
+        }
+        if (client.equals("facebook")) {
+            OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("facebook");
+
+            return CommonOAuth2Provider.FACEBOOK.getBuilder(client)
+                    .clientId(registration.getClientId())
+                    .clientSecret(registration.getClientSecret())
+                    .userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
+                    .scope("email")
+                    .build();
+
+        }
+        return null;
+    }
+}

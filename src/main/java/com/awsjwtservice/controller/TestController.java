@@ -12,10 +12,10 @@ import java.security.Principal;
 
 
 @Controller
-public class testController {
+public class TestController {
     private final HttpSession httpSession;
 
-    public testController(HttpSession httpSession) {
+    public TestController(HttpSession httpSession) {
         this.httpSession = httpSession;
     }
 
@@ -31,7 +31,7 @@ public class testController {
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
         if(user != null){
-            model.addAttribute("username", user.getUsername());
+            model.addAttribute("name", user.getUsername());
             model.addAttribute("useremail", user.getEmail());
         }
 

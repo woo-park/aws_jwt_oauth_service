@@ -5,20 +5,17 @@ import java.util.*;
 
 import com.awsjwtservice.config.security.JwtAuthenticationService;
 import com.awsjwtservice.domain.Account;
-import com.awsjwtservice.domain.UserRepository;
+import com.awsjwtservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ResolvableType;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -123,10 +120,10 @@ public class LoginController {
             model.addAttribute("name", userAttributes.get("name"));
         }
 
-        return "loginSuccess";
+        return "redirect:mypage";
     }
 
-    @GetMapping(value="/denied")
+    @GetMapping("/denied")
     public String accessDenied(@RequestParam(value = "exception", required = false) String exception, Principal principal, Model model) throws Exception {
 
         Account account = null;

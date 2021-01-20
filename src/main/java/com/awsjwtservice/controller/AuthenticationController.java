@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.awsjwtservice.config.security.JwtAuthenticationService;
-import com.awsjwtservice.domain.UserRepository;
+import com.awsjwtservice.repository.UserRepository;
 import com.awsjwtservice.dto.AccountCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

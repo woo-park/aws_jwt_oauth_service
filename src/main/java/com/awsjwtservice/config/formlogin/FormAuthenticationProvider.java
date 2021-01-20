@@ -2,7 +2,7 @@ package com.awsjwtservice.config.formlogin;
 
 //import com.awswebservice.config.auth.security.service.AccountContext;
 import com.awsjwtservice.domain.Account;
-import com.awsjwtservice.domain.UserRepository;
+import com.awsjwtservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

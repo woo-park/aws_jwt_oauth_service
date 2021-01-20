@@ -1,5 +1,6 @@
-package com.awsjwtservice.domain;
+package com.awsjwtservice.repository;
 
+import com.awsjwtservice.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

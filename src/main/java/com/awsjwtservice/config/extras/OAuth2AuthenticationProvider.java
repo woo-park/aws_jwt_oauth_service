@@ -1,3 +1,4 @@
+
 //package com.awsjwtservice.config.security;
 //
 //import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;

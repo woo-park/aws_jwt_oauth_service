@@ -1,7 +1,7 @@
 package com.awsjwtservice.config.security;
 
 import com.awsjwtservice.domain.Account;
-import com.awsjwtservice.domain.UserRepository;
+import com.awsjwtservice.repository.UserRepository;
 import com.awsjwtservice.dto.SessionUserDto;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.http.HttpRequest;
@@ -10,7 +10,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequestEntityConverter;
@@ -19,7 +18,6 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2AuthorizationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -106,7 +104,7 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
 //        bearerTokenResolver.setBearerTokenHeaderName(HttpHeaders.PROXY_AUTHORIZATION);
 
 
-        httpSession.setAttribute("user", new SessionUserDto(user));
+        httpSession.setAttribute("user", SessionUserDto.builder().username(user.getUsername()).email(user.getEmail()).picture(user.getPicture()).build());
         httpSession.setAttribute("test", "test string");
         // end?
         return new DefaultOAuth2User(
