@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 //import com.awsjwtservice.config.oauth2request.CustomAuthorizationRequestResolver;
 import com.awsjwtservice.config.formlogin.FormAccessDeniedHandler;
 import com.awsjwtservice.config.formlogin.FormAuthenticationProvider;
+import com.awsjwtservice.config.formlogin.FormSuccessHandler;
 import com.awsjwtservice.config.oauth2request.CustomOAuth2Provider;
 import com.awsjwtservice.config.oauth2request.CustomRequestEntityConverter;
 import com.awsjwtservice.config.oauth2request.CustomTokenResponseConverter;
@@ -156,6 +157,7 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
 
                 .antMatchers("/test").hasRole("USER")
+                .antMatchers("/mypage").hasRole("USER")
                 .antMatchers(HttpMethod.POST, "/login_proc").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
@@ -167,14 +169,14 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/oauth_login")
                 .loginProcessingUrl("/login_proc")
 //                .authenticationDetailsSource(formAuthenticationDetailsSource)
-                .successHandler(formAuthenticationSuccessHandler)
+                .successHandler(new FormSuccessHandler())
                 .failureHandler(formAuthenticationFailureHandler)
-                .permitAll();
-//                .and()
-//                .exceptionHandling()
+                .permitAll()
+                .and()
+                .exceptionHandling()
 //                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login2"));
-//                .accessDeniedPage("/denied")
-//                .accessDeniedHandler(accessDeniedHandler())
+                .accessDeniedPage("/denied")
+                .accessDeniedHandler(accessDeniedHandler());
 
         http
                 .oauth2Login()
@@ -195,6 +197,14 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
 
 
+
+        http
+                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionFixation().changeSessionId()    // servlet 3.1 이상은 기본으로 changeSessionId invoked되지만, custom할수있다 ( none, migrateSession <- 3.1이하 , newSession 으로  // 세션 고정 공격을 막기위해 cookie session id값을 바꿔줘야한다
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false) //default는 false    // true는 login을 아예 못하게 만드는 전략   // false는 이전session에서 더이상 활동못하게 막는 전략
+        ;
     }
 
 
