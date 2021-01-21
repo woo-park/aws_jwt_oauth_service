@@ -52,6 +52,7 @@ import org.springframework.security.oauth2.core.http.converter.OAuth2AccessToken
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.client.RestTemplate;
 
 //@Configuration
@@ -138,6 +139,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register","/register/**").permitAll()
                 .antMatchers("/test").hasRole("ADMIN")
                 .antMatchers("/mypage").access("hasRole('ADMIN') or hasRole('USER') or hasRole('MANAGER')")
+                .antMatchers( "/forgotPwd","/resetPwd").permitAll()
                 .antMatchers(HttpMethod.POST, "/login_proc").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
@@ -151,6 +153,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .authenticationDetailsSource(formAuthenticationDetailsSource)
                 .successHandler(new FormSuccessHandler())
                 .failureHandler(formAuthenticationFailureHandler)
+                .usernameParameter("username")
+                .passwordParameter("password")
                 .permitAll()
                 .and()
                 .exceptionHandling()
@@ -176,7 +180,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
 
-
+        http
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .deleteCookies("SESSION", "JSESSIONID", "Jwt", "Session")
+                .invalidateHttpSession(true).permitAll();
 
         http
                 .sessionManagement()
