@@ -49,8 +49,6 @@ public class Account implements Serializable {
     @Enumerated(EnumType.STRING) // enum의 name을 DB에 저장하기 위해, 없을 경우 enum의 숫자가 들어간다.
     private LoginProvider loginProvider;
 
-
-
     @Builder
     public Account(String username, String email, String picture, String role, String password ) { //using the private field variables
         this.username = username;
@@ -60,7 +58,6 @@ public class Account implements Serializable {
         this.password = password;
 //        this.loginProvider = loginProvider;
     }                       // now you have .save and .etc methods provided by lombok
-
 
     public Account update(String username, String picture) {
         this.username = username;
