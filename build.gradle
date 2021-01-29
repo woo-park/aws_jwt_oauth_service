@@ -58,8 +58,9 @@ dependencies {
 
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-mustache')
-    compile('com.h2database:h2')
+//    compile('com.h2database:h2')
 
+    compile("mysql:mysql-connector-java:5.1.46")
 
 
     compile('org.springframework.session:spring-session-jdbc')      // to sync multiple tomcats' => session

@@ -13,3 +13,4 @@ generated
 application-oauth.properties
 application-google.properties
 application-oauth.yml
+/src/main/resources/application.yml

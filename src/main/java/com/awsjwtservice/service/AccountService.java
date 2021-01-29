@@ -17,4 +17,6 @@ public interface AccountService {
     void deleteUser(Long idx);
 
     void order();
+
+    void createUserIfNotFound(AccountDto accountDto);
 }

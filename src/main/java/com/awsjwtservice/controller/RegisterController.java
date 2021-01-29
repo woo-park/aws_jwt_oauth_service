@@ -28,12 +28,14 @@ public class RegisterController {
     @PostMapping("/register")
     public String createUser(AccountDto accountDto) {
         //ModelMapper api 를 사용한다, 그러면 dto를 바로 model로 map할수있다
-        ModelMapper modelMapper = new ModelMapper();
-        Account account = modelMapper.map(accountDto, Account.class);
+//        ModelMapper modelMapper = new ModelMapper();
+//        Account account = modelMapper.map(accountDto, Account.class);
+//
+//        account.setPassword(passwordEncoder.encode(account.getPassword()));
 
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
 
-        accountService.createUser(account);
+        accountService.createUserIfNotFound(accountDto);
+//        accountService.createUser(account);
 
 
         return "redirect:/mypage";

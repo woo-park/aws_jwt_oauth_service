@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,9 @@ public class AccountServiceImpl implements AccountService {
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     @Override
     public void createUser(Account account){
@@ -33,6 +37,33 @@ public class AccountServiceImpl implements AccountService {
 //        Set<Role> roles = new HashSet<>();
 //        roles.add(role);
 //        account.setUserRoles(roles);
+        userRepository.save(account);
+    }
+
+
+    @Transactional
+    public void createUserIfNotFound(AccountDto accountDto) {
+
+
+        Account account = userRepository.findByUsername(accountDto.getUsername());
+
+        if (account == null) {
+//            방법 1
+            account = Account.builder()
+                    .username(accountDto.getUsername())
+                    .email(accountDto.getEmail())
+//                        .password()
+                    .password(passwordEncoder.encode(accountDto.getPassword()))
+                    .role(accountDto.getRole())
+                    .build();
+
+            //방법 2
+//            ModelMapper modelMapper = new ModelMapper();
+//            Account account2 = modelMapper.map(accountDto, Account.class);
+//
+//            account.setPassword(passwordEncoder.encode(account.getPassword()));
+
+        }
         userRepository.save(account);
     }
 
