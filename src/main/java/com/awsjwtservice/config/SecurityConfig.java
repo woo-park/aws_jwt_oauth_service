@@ -58,7 +58,7 @@ import org.springframework.web.client.RestTemplate;
 //@Configuration
 @Configuration
 @EnableWebSecurity(debug = true)
-@PropertySource("classpath:application-oauth.properties")
+//@PropertySource("classpath:application-oauth.properties")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
