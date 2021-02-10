@@ -16,6 +16,9 @@ cache:
 # master 브랜치에 푸쉬 되었을때 수행하는 명령어
 script: "./gradlew clean build"
 
+before_install:
+  - chmod +x gradlew
+
 before_deploy:
   - zip -r aws_jwt_oauth_service *
   - mkdir -p deploy
