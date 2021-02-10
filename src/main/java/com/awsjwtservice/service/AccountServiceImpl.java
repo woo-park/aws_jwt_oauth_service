@@ -1,6 +1,7 @@
 package com.awsjwtservice.service;
 
 import com.awsjwtservice.domain.Account;
+import com.awsjwtservice.domain.LoginProvider;
 import com.awsjwtservice.repository.UserRepository;
 import com.awsjwtservice.dto.AccountDto;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service("accountService")
@@ -44,27 +46,29 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public void createUserIfNotFound(AccountDto accountDto) {
 
+        Optional<Account> accounts = userRepository.findByEmailOrUsername(accountDto.getEmail(), accountDto.getUsername());
+//        Account account = userRepository.findByUsername(accountDto.getUsername());
 
-        Account account = userRepository.findByUsername(accountDto.getUsername());
-
-        if (account == null) {
-//            방법 1
-            account = Account.builder()
+//        if (account == null) {
+        if(accounts.isEmpty()){
+            // 방법 1
+            Account account = Account.builder()
                     .username(accountDto.getUsername())
                     .email(accountDto.getEmail())
-//                        .password()
                     .password(passwordEncoder.encode(accountDto.getPassword()))
                     .role(accountDto.getRole())
+                    .loginProvider(LoginProvider.DEFAULT)
                     .build();
 
             //방법 2
-//            ModelMapper modelMapper = new ModelMapper();
-//            Account account2 = modelMapper.map(accountDto, Account.class);
-//
-//            account.setPassword(passwordEncoder.encode(account.getPassword()));
+            // ModelMapper modelMapper = new ModelMapper();
+            // Account account2 = modelMapper.map(accountDto, Account.class);
+            // account.setPassword(passwordEncoder.encode(account.getPassword()));
 
+            userRepository.save(account);
+        } else {
+            // must throw an error message to client
         }
-        userRepository.save(account);
     }
 
     @Transactional

@@ -2,6 +2,7 @@ package com.awsjwtservice.config.formlogin;
 
 //import com.awswebservice.config.auth.security.service.AccountContext;
 import com.awsjwtservice.domain.Account;
+import com.awsjwtservice.domain.LoginProvider;
 import com.awsjwtservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -40,12 +41,12 @@ public class FormAuthenticationProvider implements AuthenticationProvider {
 
         String loginId = authentication.getName();
         String password = (String) authentication.getCredentials();
-
+        LoginProvider loginProvider = LoginProvider.DEFAULT;
 
         //UserDetailsServiceImpl의 loadUserByUsername(String username)
 
 
-        Account account = userRepository.findByUsername(loginId);
+        Account account = userRepository.findByUsernameAndLoginProvider(loginId, loginProvider);
         if (account == null) {
             if (userRepository.countByUsername(loginId) == 0) {
                 throw new UsernameNotFoundException("No user found with username: " + loginId);

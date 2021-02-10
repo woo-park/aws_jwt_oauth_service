@@ -1,6 +1,7 @@
 package com.awsjwtservice.listener;
 
 import com.awsjwtservice.domain.Account;
+import com.awsjwtservice.domain.LoginProvider;
 import com.awsjwtservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -33,7 +34,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         }
 
         setupSecurityResources();
-//
 //        setupAccessIpData();
 
         alreadySetup = true;
@@ -67,9 +67,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             account = Account.builder()
                     .username(userName)
                     .email(email)
-//                        .password()
                     .password(passwordEncoder.encode(password))
                     .role(role)
+                    .loginProvider(LoginProvider.DEFAULT)
                     .build();
         }
         return userRepository.save(account);
