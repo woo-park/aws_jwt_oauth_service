@@ -32,7 +32,7 @@ deploy:
     region: ap-northeast-2
     skip_cleanup: true
     acl: private # zip 파일접근을 private 으로 (엑세스 제어 목록)
-    local_dir: deploy # before_deploy에서 생성한 디렉토리
+    local_dir: deploy # before_ deploy에서 생성한 디렉토리
     wait-until-deployed: true
 
 # CI 실행 완료 시 메일로 알람
