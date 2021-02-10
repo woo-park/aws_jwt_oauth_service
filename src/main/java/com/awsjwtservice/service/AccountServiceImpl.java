@@ -50,7 +50,7 @@ public class AccountServiceImpl implements AccountService {
 //        Account account = userRepository.findByUsername(accountDto.getUsername());
 
 //        if (account == null) {
-        if(accounts.isEmpty()){
+        if(accounts.isPresent()){
             // 방법 1
             Account account = Account.builder()
                     .username(accountDto.getUsername())
