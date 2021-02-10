@@ -1,8 +1,8 @@
 package com.awsjwtservice.domain;
 
 public enum LoginProvider {
-    FORM("form"),
-    KAKAO("kakaos"),
+    DEFAULT("default"),
+    KAKAO("kakao"),
     NAVER("naver"),
     GOOGLE("google");
 

@@ -163,12 +163,16 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
 
 
     private Account saveOrUpdate(OAuthAttributes attributes) {
-        Account user = userRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getUsername(), attributes.getPicture()))    //update takes in two args
+        Account account = userRepository.findByEmail(attributes.getEmail())
+                .map(entity -> entity.update(attributes.getUsername(), attributes.getPicture(), attributes.getLoginProvider()))
                 .orElse(attributes.toEntity()); // if findByEmail fails
 
+//        Account user = userRepository.findByEmail(attributes.getEmail())
+//                .map(entity -> entity.update(attributes.getUsername(), attributes.getPicture()))    //update takes in two args
+//                .orElse(attributes.toEntity()); // if findByEmail fails
+
         // User user Entity made
-        return userRepository.save(user);   // now saved to repo
+        return userRepository.save(account);   // now saved to repo
     }
 
 }

@@ -23,13 +23,15 @@ public class OAuthAttributes {
                            String nameAttributeKey,
                            String username,
                            String email,
-                           String picture
+                           String picture,
+                           LoginProvider loginProvider
     ) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.username = username;
         this.email = email;
         this.picture = picture;
+        this.loginProvider = loginProvider;
     }
 
     public static OAuthAttributes of(String registrationId,
@@ -59,6 +61,7 @@ public class OAuthAttributes {
                 .picture((String) response.get("profileImage"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
+                .loginProvider(LoginProvider.NAVER)
                 .build();
     }
 
@@ -70,6 +73,7 @@ public class OAuthAttributes {
                 .picture((String) attributes.get("picture"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)        //huh
+                .loginProvider(LoginProvider.GOOGLE)
                 .build();
     }
 
@@ -83,6 +87,7 @@ public class OAuthAttributes {
 
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
+                .loginProvider(LoginProvider.KAKAO)
                 .build();
     }
 
@@ -95,8 +100,7 @@ public class OAuthAttributes {
                 .email(email)
                 .picture(picture)
                 .role("ROLE_USER")
-//                .loginProvider(LoginProvider.KAKAO)
-
+                .loginProvider(loginProvider)
                 .build();
     }
 

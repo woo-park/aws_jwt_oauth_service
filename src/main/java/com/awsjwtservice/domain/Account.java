@@ -50,19 +50,19 @@ public class Account implements Serializable {
     private LoginProvider loginProvider;
 
     @Builder
-    public Account(String username, String email, String picture, String role, String password ) { //using the private field variables
+    public Account(String username, String email, String picture, String role, String password, LoginProvider loginProvider) { //using the private field variables
         this.username = username;
         this.email = email;
         this.picture = picture;
         this.role = role;
         this.password = password;
-//        this.loginProvider = loginProvider;
+        this.loginProvider = loginProvider;
     }                       // now you have .save and .etc methods provided by lombok
 
-    public Account update(String username, String picture) {
+    public Account update(String username, String picture, LoginProvider loginProvider) {
         this.username = username;
         this.picture = picture;
-
+        this.loginProvider = loginProvider;
         return this;
     }
 
