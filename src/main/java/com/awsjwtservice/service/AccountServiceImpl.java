@@ -51,6 +51,9 @@ public class AccountServiceImpl implements AccountService {
 
 //        if (account == null) {
         if(accounts.isPresent()){
+            // must throw an error message to client
+        } else {
+
             // 방법 1
             Account account = Account.builder()
                     .username(accountDto.getUsername())
@@ -66,8 +69,6 @@ public class AccountServiceImpl implements AccountService {
             // account.setPassword(passwordEncoder.encode(account.getPassword()));
 
             userRepository.save(account);
-        } else {
-            // must throw an error message to client
         }
     }
 

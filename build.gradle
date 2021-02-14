@@ -22,7 +22,8 @@ apply plugin: "com.ewerk.gradle.plugins.querydsl"
 
 
 group 'com.awsservice'
-version '1.0-SNAPSHOT'
+//version '1.0-SNAPSHOT'
+version '1.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 compileQuerydsl{
