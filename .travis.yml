@@ -42,7 +42,7 @@ deploy:
     bucket: wooinabillion # s3 버켓 이름
     key: aws_jwt_oauth_service.zip # 빌드파일을 압축해서 전달
     bundle_type: zip # 압축 확장자
-    application: awsservice # 웹 컨솔에서 등록한 codedeploy 애플리케이션
+    application: aws_jwt_oauth_service # 웹 컨솔에서 등록한 codedeploy 애플리케이션
     deployment_group: aws_jwt_oauth_service_group  # 웹 컨솔에서 등록한 CodeDeploy 배포 그룹
     region: ap-northeast-2
     wait-until-deployed: true
