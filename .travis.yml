@@ -20,10 +20,22 @@ script: "./gradlew clean build"
 #before_install:
 #  - chmod +x gradlew
 
+
+# 이렇게 사용하면, 프로젝트의 모든 파일을 zip파일로 만드는데, 실제로 필요한 파일들은 Jar, appspec.yml, 배포를 위한 스크립트 들입니다.
+# 그래서 before_deploy를 아래와 같이 수정합니다.
+#before_deploy:
+#  - zip -r aws_jwt_oauth_service *
+#  - mkdir -p deploy
+#  - mv aws_jwt_oauth_service.zip deploy/aws_jwt_oauth_service.zip
+
 before_deploy:
-  - zip -r aws_jwt_oauth_service *
-  - mkdir -p deploy
-  - mv aws_jwt_oauth_service.zip deploy/aws_jwt_oauth_service.zip
+  - mkdir -p before-deploy # zip에 포함시킬 파일들을 담을 디텍토리 생성
+  - cp scripts/*.sh before-deploy/
+  - cp appspec.yml before-deploy/
+  - cp build/libs/*.jar before-deploy/
+  - cd before-deploy && zip -r before-deploy * # before-deploy로 이동후 전체 압축
+  - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동 후 deploy 디렉토리 생성
+  - mv before-deploy/before-deploy.zip deploy/aws_jwt_oauth_service.zip # deploy로 zip 파일 이동
 
 deploy:
   - provider: s3
