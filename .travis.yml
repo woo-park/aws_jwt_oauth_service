@@ -17,8 +17,8 @@ cache:
 script: "./gradlew clean build"
 
 # 권환이 없을시에 2번째 방법
-#before_install:
-#  - chmod +x gradlew
+before_install:
+  - chmod +x gradlew
 
 
 # 이렇게 사용하면, 프로젝트의 모든 파일을 zip파일로 만드는데, 실제로 필요한 파일들은 Jar, appspec.yml, 배포를 위한 스크립트 들입니다.
