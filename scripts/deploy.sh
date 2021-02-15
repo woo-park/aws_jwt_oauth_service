@@ -10,10 +10,10 @@ cp $REPOSITORY/zip/*.jar $REPOSITORY/
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 
 CURRENT_PID=$(pgrep -fl aws_jwt_oauth_service | grep jar | awk '{print $1}')
-TEST_CURRENT_PID=$(pgrep -fl aws_jwt_oauth_service)
+#TEST_CURRENT_PID=$(pgrep -fl aws_jwt_oauth_service)
 
 echo "현재 구동중인 어플리케이션 pid: $CURRENT_PID"
-echo "현재 테스트 pid: $TEST_CURRENT_PID"
+#echo "현재 테스트 pid: $TEST_CURRENT_PID"
 
 if [ -z "$CURRENT_PID" ]; then
   echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
