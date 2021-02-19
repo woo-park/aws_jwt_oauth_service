@@ -107,7 +107,16 @@ dependencies {
 
     //추가 2020/12/29
     compile 'org.modelmapper:modelmapper:2.3.3'
+    // AWS S3
+
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
+    compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.820'
+
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.820'
 }
+
+
 
 
 def querydslSrcDir = 'src/main/generated'

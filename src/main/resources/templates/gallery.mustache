@@ -1,3 +1,6 @@
+{{>layout/header}}
+
+
 <h1>victory 파일 업로드</h1> <hr>
 
 <form action="/gallery" method="post" enctype="multipart/form-data">
@@ -8,9 +11,8 @@
 
 <hr>
 
-
 <h1>
-    jojoldu S3 이미지 업로더
+    jojoldu S3 이미지 업로더 / gallery 로 포스팅
 </h1>
 <div class="col-md-12">
     <div class="col-md-2">
@@ -33,6 +35,7 @@
     $('#btn-save').on('click', uploadImage);
 
     function uploadImage() {
+        console.log('clicked')
         var file = $('#img')[0].files[0];
         var formData = new FormData();
         formData.append('data', file);
@@ -50,6 +53,7 @@
         })
     }
 </script>
+{{>layout/footer}}
 
 
 

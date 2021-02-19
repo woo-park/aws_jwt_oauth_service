@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+import com.awsjwtservice.dto.GalleryDto;
+import com.awsjwtservice.s3.GalleryService;
+import com.awsjwtservice.s3.S3Service;
 import com.awsjwtservice.storage.StorageFileNotFoundException;
 import com.awsjwtservice.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +32,30 @@ public class FileUploadController {
     private final StorageService storageService;
 
     @Autowired
+    private S3Service s3Service;
+    @Autowired
+    private GalleryService galleryService;
+
+    @Autowired
     public FileUploadController(StorageService storageService) {
         this.storageService = storageService;
     }
 
+    @GetMapping("/gallery")
+    public String dispWrite() {
+
+        return "/gallery";
+    }
+
+    @PostMapping("/gallery")
+    public String execWrite(GalleryDto galleryDto, MultipartFile file) throws IOException {
+        String imgPath = s3Service.upload(file);
+        galleryDto.setFilePath(imgPath);
+
+        galleryService.savePost(galleryDto);
+
+        return "redirect:/gallery";
+    }
 
     @GetMapping("/files")
     public String listUploadedFiles(Model model) throws IOException {
