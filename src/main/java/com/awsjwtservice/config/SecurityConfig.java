@@ -140,6 +140,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/test").hasRole("ADMIN")
                 .antMatchers("/mypage").access("hasRole('ADMIN') or hasRole('USER') or hasRole('MANAGER')")
                 .antMatchers( "/forgotPwd","/resetPwd").permitAll()
+
+                .antMatchers("/files", "/files/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/files").permitAll()
+
                 .antMatchers(HttpMethod.POST, "/login_proc").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
