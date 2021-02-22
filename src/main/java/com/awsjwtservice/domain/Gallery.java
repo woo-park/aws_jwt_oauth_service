@@ -4,8 +4,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -23,10 +26,22 @@ public class Gallery {
     @Column(columnDefinition = "TEXT")
     private String filePath;
 
+    @CreationTimestamp
+    private LocalDateTime regdate;
+
+    @UpdateTimestamp
+    private LocalDateTime uptdate;
+
+    private Long userSeq;
+
+    @Column(columnDefinition = "0")
+    private int delCheck;
+
     @Builder
-    public Gallery(Long id, String title, String filePath) {
+    public Gallery(Long id, String title, String filePath, Long userSeq) {
         this.id = id;
         this.title = title;
         this.filePath = filePath;
+        this.userSeq = userSeq;
     }
 }

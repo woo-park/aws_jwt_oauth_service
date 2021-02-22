@@ -21,7 +21,7 @@ public class FormSuccessHandler implements AuthenticationSuccessHandler {
 
         Account authenticatedUser = (Account) authentication.getPrincipal();
 
-        session.setAttribute("user", SessionUserDto.builder().username(authenticatedUser.getUsername()).email(authenticatedUser.getEmail()).build());
+        session.setAttribute("user", SessionUserDto.builder().username(authenticatedUser.getUsername()).email(authenticatedUser.getEmail()).userSeq(authenticatedUser.getId()).build());
         session.setAttribute("test", "test string");
         // end?
         response.sendRedirect("/mypage");

@@ -29,8 +29,12 @@ public class TestController {
 //        return principal;
 
 
-
+        System.out.println(loginUser + ":login user");
+        System.out.println(principal + ": principal");
+        System.out.println(loginUser.getUsername() + ":login user name thru loginUser annotation");
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+//        결국 httpSession 에서 가져오나, @LoginUser annotation 으로 부터 가져온 dto 나 같은것이다.
+        System.out.println(loginUser.getUserSeq()+":userSeq");
 
         if(user != null){
             model.addAttribute("name", user.getUsername());

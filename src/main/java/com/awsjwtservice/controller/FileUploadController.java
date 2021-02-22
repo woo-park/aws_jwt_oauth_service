@@ -4,10 +4,14 @@ package com.awsjwtservice.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
+import com.awsjwtservice.config.annotation.LoginUser;
+import com.awsjwtservice.domain.Gallery;
 import com.awsjwtservice.dto.GalleryDto;
+import com.awsjwtservice.dto.SessionUserDto;
 import com.awsjwtservice.s3.GalleryService;
 import com.awsjwtservice.s3.S3Service;
 import com.awsjwtservice.storage.StorageFileNotFoundException;
@@ -47,14 +51,50 @@ public class FileUploadController {
         return "/gallery";
     }
 
+    @GetMapping("/s3basket")
+    public String images(Model model) {
+
+        // db 에서 찾습니다.
+        List<Gallery> files = galleryService.getAllFiles();
+
+//        List<String> imgUrls = new ArrayList<>();
+
+        List<String> imgUrls = files.stream().map(each -> each.getFilePath()).collect(Collectors.toList());
+        // prolly best to return dto here
+
+
+        model.addAttribute("files", imgUrls);
+
+
+        return "/s3basket";
+    }
+
     @PostMapping("/gallery")
-    public String execWrite(GalleryDto galleryDto, MultipartFile file) throws IOException {
+    public String execWrite(GalleryDto galleryDto, MultipartFile file, @LoginUser SessionUserDto loginUser) throws IOException {
+        // s3 에 먼저 올립니다.
+
         String imgPath = s3Service.upload(file);
         galleryDto.setFilePath(imgPath);
 
+        // 누가 올렸는지도 이름으로 저장하면 좋으려나?
+        String username = loginUser.getUsername();
+        Long userSeq = loginUser.getUserSeq();
+        galleryDto.setUserSeq(userSeq);
+
+        // db 에 url, etc. 를 저장 합니다
         galleryService.savePost(galleryDto);
 
         return "redirect:/gallery";
+    }
+
+    @GetMapping("/s3basket/{fileseq:.+}")
+    public String getImgFile(Model model, @PathVariable String fileseq) throws IOException {
+//            Long fileSeq = Long.valueOf(fileseq);
+//            Gallery file = galleryService.getFile(fileSeq);
+//            System.out.println(file);
+////        Resource file = storageService.loadAsResource(filename);
+//
+        return "";
     }
 
     @GetMapping("/files")
