@@ -147,6 +147,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/gallery", "/gallery/**","/s3basket").permitAll()
                 .antMatchers(HttpMethod.POST, "/gallery").permitAll()
 
+                .antMatchers("/sites", "/sites/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/sites", "/sites/**").permitAll()
+
                 .antMatchers(HttpMethod.POST, "/login_proc").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()

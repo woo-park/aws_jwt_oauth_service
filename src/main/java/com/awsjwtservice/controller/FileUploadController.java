@@ -87,15 +87,16 @@ public class FileUploadController {
         return "redirect:/gallery";
     }
 
-    @GetMapping("/s3basket/{fileseq:.+}")
-    public String getImgFile(Model model, @PathVariable String fileseq) throws IOException {
-//            Long fileSeq = Long.valueOf(fileseq);
-//            Gallery file = galleryService.getFile(fileSeq);
-//            System.out.println(file);
-////        Resource file = storageService.loadAsResource(filename);
-//
-        return "";
-    }
+
+//    @GetMapping("/s3basket/{fileseq:.+}")
+//    public String getImgFile(Model model, @PathVariable String fileseq) throws IOException {
+////            Long fileSeq = Long.valueOf(fileseq);
+////            Gallery file = galleryService.getFile(fileSeq);
+////            System.out.println(file);
+//////        Resource file = storageService.loadAsResource(filename);
+////
+//        return "";
+//    }
 
     @GetMapping("/files")
     public String listUploadedFiles(Model model) throws IOException {

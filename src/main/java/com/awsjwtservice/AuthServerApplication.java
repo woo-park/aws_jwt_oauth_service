@@ -1,8 +1,11 @@
 package com.awsjwtservice;
 
 
+import com.awsjwtservice.domain.Site;
+import com.awsjwtservice.service.SiteService;
 import com.awsjwtservice.storage.StorageProperties;
 import com.awsjwtservice.storage.StorageService;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +28,14 @@ public class AuthServerApplication {
         return (args) -> {
             storageService.deleteAll();
             storageService.init();
+        };
+    }
+
+    @Bean
+    public ApplicationRunner siteInitializer(SiteService siteService) {
+        return args -> {
+            siteService.deleteAll();
+          siteService.create(Site.builder().siteUrl("tempUrl").userSeq((long) 99).title("test title").build());
         };
     }
 }

@@ -1,0 +1,18 @@
+GET http://localhost:8080/sites
+Connection: keep-alive
+Accept: application/json
+
+###
+
+POST http://localhost:8080/sites
+Connection: keep-alive
+Content-Type: application/json
+
+{
+  "userSeq": "13",
+  "siteUrl": "t33",
+  "title": "tittttta"
+}
+
+
+###

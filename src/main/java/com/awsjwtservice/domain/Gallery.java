@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -34,7 +35,7 @@ public class Gallery {
 
     private Long userSeq;
 
-    @Column(columnDefinition = "0")
+    @ColumnDefault("0")
     private int delCheck;
 
     @Builder

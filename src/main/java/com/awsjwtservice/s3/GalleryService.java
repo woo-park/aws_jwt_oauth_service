@@ -23,5 +23,5 @@ public class GalleryService {
         return galleryRepository.findAll();
     }
 
-    public Gallery getFile(Long fileSeq) { return galleryRepository.findById(fileSeq);}
+    public Optional<Gallery> getFile(Long fileSeq) { return galleryRepository.findById(fileSeq);}
 }
