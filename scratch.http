@@ -16,3 +16,33 @@ Content-Type: application/json
 
 
 ###
+
+
+POST http://localhost:8080/sites
+Connection: keep-alive
+Content-Type: application/json
+
+{
+  "userSeq": "14",
+  "siteUrl": "trythis",
+  "title": "trythis!"
+}
+
+
+###
+
+
+
+POST http://localhost:8080/sites
+Connection: keep-alive
+Content-Type: application/json
+
+{
+  "userSeq": "14",
+  "siteUrl": "tyty",
+  "title": "tyty!"
+}
+
+###
+
+POST http://localhost:8080/gallery/delete?fileseq=8

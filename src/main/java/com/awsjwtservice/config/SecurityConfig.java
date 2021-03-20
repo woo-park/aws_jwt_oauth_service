@@ -17,6 +17,8 @@ import com.awsjwtservice.config.oauth2request.CustomTokenResponseConverter;
 import com.awsjwtservice.config.security.JwtAuthenticationService;
 import com.awsjwtservice.config.security.OAuth2UserServiceImpl;
 import com.awsjwtservice.config.service.UserDetailServiceImpl;
+import com.awsjwtservice.domain.Site;
+import com.awsjwtservice.repository.SiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
@@ -125,8 +127,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler formAuthenticationFailureHandler;
 
+
+    @Autowired
+    private SiteRepository siteRepository;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        matchUrlAndAuthority(http);
 
         http.csrf().disable()
                 .headers().frameOptions().disable();
@@ -150,12 +157,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/sites", "/sites/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/sites", "/sites/**").permitAll()
 
+                .antMatchers("/users/export/pdf").permitAll()
+
+//                .antMatchers("/**").permitAll()
+
                 .antMatchers(HttpMethod.POST, "/login_proc").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
 
-                .anyRequest()
-                .authenticated();
+                .anyRequest().access("@authorizationChecker.check(request, authentication)");
+//                .authenticated();
 
         http    .formLogin()
                 .loginPage("/oauth_login")
@@ -205,6 +216,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 
+    private void matchUrlAndAuthority(HttpSecurity http) throws Exception {
+        List<Site> urlMatchers = siteRepository.findAll();
+        for (Site matcher : urlMatchers) {
+            http
+                    .authorizeRequests()
+                    .antMatchers("/" + matcher.getSiteUrl()).permitAll();//.hasAuthority(matcher.getAuthority()
+
+
+
+        }
+    }
 
 
 

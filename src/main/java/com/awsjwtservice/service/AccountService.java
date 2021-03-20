@@ -19,4 +19,7 @@ public interface AccountService {
     void order();
 
     void createUserIfNotFound(AccountDto accountDto);
+
+
+    List<Account> listAll();
 }

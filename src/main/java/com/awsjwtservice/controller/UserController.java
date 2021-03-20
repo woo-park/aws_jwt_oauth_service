@@ -1,23 +1,38 @@
 package com.awsjwtservice.controller;
 
+import java.io.IOException;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.awsjwtservice.config.annotation.LoginUser;
+import com.awsjwtservice.domain.Account;
 import com.awsjwtservice.dto.SessionUserDto;
+import com.awsjwtservice.service.AccountService;
+import com.awsjwtservice.service.UserPDFExporter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//@RestController
+
+
+import com.lowagie.text.DocumentException;
 
 @Controller
 public class UserController {
 
 	private final HttpSession httpSession;
+
+	@Autowired
+	AccountService accountService;
 
 	public UserController(HttpSession httpSession) {
 		this.httpSession = httpSession;
@@ -56,5 +71,22 @@ public class UserController {
 		return "mypage";
 	}
 
+
+	@GetMapping("/users/export/pdf")
+	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+
+		List<Account> listUsers = accountService.listAll();
+
+		UserPDFExporter exporter = new UserPDFExporter(listUsers);
+		exporter.export(response);
+
+	}
 
 }

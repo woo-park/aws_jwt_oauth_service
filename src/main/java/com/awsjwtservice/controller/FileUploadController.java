@@ -61,12 +61,21 @@ public class FileUploadController {
 
         List<String> imgUrls = files.stream().map(each -> each.getFilePath()).collect(Collectors.toList());
         // prolly best to return dto here
-
+//        List<GalleryDto> resultDtos = new ArrayList<>();
+//
+//        GalleryDto.builder().build();
 
         model.addAttribute("files", imgUrls);
 
 
         return "/s3basket";
+    }
+
+    @PostMapping("/gallery/delete")
+    public void deleteFile(@RequestParam String fileseq, @LoginUser SessionUserDto loginUser) throws IOException {
+        System.out.println(fileseq + "fileseq");
+        Long fileSeq = Long.valueOf(fileseq);
+        galleryService.deleteFile(fileSeq);
     }
 
     @PostMapping("/gallery")

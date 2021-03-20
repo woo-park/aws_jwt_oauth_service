@@ -14,5 +14,5 @@ public interface SiteRepository extends JpaRepository<Site, Long> {
 
     Site findByUserSeq(long userSeq);
     Site findById(long siteSeq);
-
+    Site findBySiteUrl(String siteUrl);
 }

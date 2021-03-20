@@ -20,8 +20,15 @@ public class GalleryService {
     }
 
     public List<Gallery> getAllFiles() {
-        return galleryRepository.findAll();
+        return galleryRepository.findAllByDelCheck(0);
     }
 
     public Optional<Gallery> getFile(Long fileSeq) { return galleryRepository.findById(fileSeq);}
+
+    public void deleteFile(Long gallerySeq) {
+        Optional<Gallery> file = galleryRepository.findById(gallerySeq);
+        if (file.isPresent()) {
+            file.get().setDelCheck(1);
+        }
+    }
 }

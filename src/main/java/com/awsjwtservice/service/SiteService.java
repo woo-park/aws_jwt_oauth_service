@@ -10,5 +10,7 @@ public interface SiteService {
     Site create(Site site);
     Optional<Site> find(long id);
 
+    Optional<Site> findBySiteUrl(String siteUrl);
+
     void deleteAll();
 }

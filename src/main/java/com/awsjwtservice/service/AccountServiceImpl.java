@@ -7,6 +7,7 @@ import com.awsjwtservice.dto.AccountDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -122,5 +123,9 @@ public class AccountServiceImpl implements AccountService {
     @Secured("ROLE_MANAGER")
     public void order() {
         System.out.println("order");
+    }
+
+    public List<Account> listAll() {
+        return userRepository.findAll(Sort.by("email").ascending());
     }
 }

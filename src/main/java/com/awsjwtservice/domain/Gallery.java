@@ -45,4 +45,8 @@ public class Gallery {
         this.filePath = filePath;
         this.userSeq = userSeq;
     }
+
+    public void setDelCheck(int delCheck) {
+        this.delCheck = delCheck;
+    }
 }
