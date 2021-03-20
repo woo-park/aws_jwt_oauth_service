@@ -133,6 +133,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+
+
         matchUrlAndAuthority(http);
 
         http.csrf().disable()
@@ -142,6 +144,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         http.authorizeRequests()
+                .antMatchers("/css/base.css").permitAll()
                 .antMatchers("/oauth_login", "/loginFailure", "/", "/h2-console", "/h2-console/**").permitAll()
                 .antMatchers("/register","/register/**").permitAll()
                 .antMatchers("/test").hasRole("USER")
@@ -152,7 +155,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/files").permitAll()
 
                 .antMatchers("/gallery", "/gallery/**","/s3basket").permitAll()
-                .antMatchers(HttpMethod.POST, "/gallery").permitAll()
+                .antMatchers(HttpMethod.POST, "/gallery", "/gallery/upload").permitAll()
 
                 .antMatchers("/sites", "/sites/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/sites", "/sites/**").permitAll()

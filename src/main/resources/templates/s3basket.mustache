@@ -1,41 +1,42 @@
 {{>layout/header}}
 
-<a href="/gallery">Upload to s3 basket</a>
+<a style="color:white;" href="/gallery">Upload More Contents to S3 Basket</a>
 
 
-{{#files}}
-    <img src="{{.}}">
-
-{{/files}}
+<div style="display: flex; flex-wrap: wrap; width: 100%; height: 100vh; justify-content: center; align-items: center;">
+    {{#files}}
+        <img style="max-height: 200px; padding: 2px; " src="{{.}}">
+    {{/files}}
+</div>
 
 <script>
 
     // $('#more').on('click', fetchMoreImages);
 
-    function fetchMoreImages() {
-
-    }
-
-    $('#btn-save').on('click', uploadImage);
-
-    function uploadImage() {
-        console.log('clicked')
-        var file = $('#img')[0].files[0];
-        var formData = new FormData();
-        formData.append('data', file);
-
-        $.ajax({
-            type: 'POST',
-            url: '/gallery',
-            data: formData,
-            processData: false,
-            contentType: false
-        }).done(function (data) {
-            $('#result-image').attr("src", data);
-        }).fail(function (error) {
-            alert(error);
-        })
-    }
+    // function fetchMoreImages() {
+    //
+    // }
+    //
+    // $('#btn-save').on('click', uploadImage);
+    //
+    // function uploadImage() {
+    //     console.log('clicked')
+    //     var file = $('#img')[0].files[0];
+    //     var formData = new FormData();
+    //     formData.append('data', file);
+    //
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/gallery',
+    //         data: formData,
+    //         processData: false,
+    //         contentType: false
+    //     }).done(function (data) {
+    //         $('#result-image').attr("src", data);
+    //     }).fail(function (error) {
+    //         alert(error);
+    //     })
+    // }
 </script>
 {{>layout/footer}}
 

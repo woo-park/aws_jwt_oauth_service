@@ -1,24 +1,23 @@
 {{>layout/header}}
 
 
-<h1>victory 파일 업로드</h1> <hr>
-
+<!--victory-->
+<h1>Upload File</h1> <hr>
 <form action="/gallery" method="post" enctype="multipart/form-data">
     제목 : <input type="text" name="title"> <br>
     파일 : <input type="file" name="file"> <br>
     <button>등록하기</button>
 </form>
 
+<!--    jojoldu S3 이미지 업로더 / gallery 로 포스팅-->
 <hr>
 
-<h1>
-    jojoldu S3 이미지 업로더 / gallery 로 포스팅
-</h1>
 <div class="col-md-12">
     <div class="col-md-2">
         <form>
             <div class="form-group">
                 <label for="img">파일 업로드</label>
+                제목 : <input id="file_title" type="text" name="title"> <br>
                 <input type="file" id="img">
             </div>
             <button type="button" class="btn btn-primary" id="btn-save">저장</button>
@@ -31,30 +30,54 @@
 </div>
 
 
+
+<!--부트스트랩 js, jquery 추가-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <script>
     $('#btn-save').on('click', uploadImage);
 
     function uploadImage() {
         console.log('clicked')
-        var file = $('#img')[0].files[0];
-        var formData = new FormData();
-        formData.append('data', file);
+        let fileTitle = $('#file_title').val();
+        let file = $('#img')[0].files[0];
+        let formData = new FormData();
+        formData.append('file', file);
+        formData.append('title', fileTitle);
 
         $.ajax({
             type: 'POST',
-            url: '/gallery',
+            url: '/gallery/upload',
+            async: true,
             data: formData,
             processData: false,
             contentType: false
         }).done(function (data) {
-            $('#result-image').attr("src", data);
+            console.log('received data: ', data);
+            // $('#result-image').attr("src", "https://" + data);
         }).fail(function (error) {
-            alert(error);
-        })
+            console.warn(error);
+        });
     }
-</script>
-{{>layout/footer}}
 
+
+    /*{
+    "readyState": 4,
+    "responseText": "{\"timestamp\":\"2021-03-20T13:10:19.683+0000\",\"status\":500,\"error\":\"Internal Server Error\",\"message\":\"No message available\",\"path\":\"/gallery\"}",
+    "responseJSON": {
+    "timestamp": "2021-03-20T13:10:19.683+0000",
+    "status": 500,
+    "error": "Internal Server Error",
+    "message": "No message available",
+    "path": "/gallery"
+    },
+    "status": 500,
+    "statusText": "error"
+    }*/
+</script>
+</body>
+</html>
 
 
 <!--<div th:each="gallery : ${galleryList}">-->
