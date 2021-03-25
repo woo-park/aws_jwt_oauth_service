@@ -99,18 +99,18 @@ public class LoginController {
 
 
 
-            // jwt 만들기 위해선 유저 이름이 필요합니다
-            Account userAccount = this.userRepository.findByUsername(username);
-            String role = userAccount.getRole();
-            List<String> list = new ArrayList<>();
-            list.add(role);
-            String jwtToken = jwtAuthenticationService.createToken(username, list);
-            // headers.add("JwtAuthorization","Bearer " + jwtToken );
-            // headers.add(HttpHeaders.AUTHORIZATION, "Bearer" + jwtToken);
-
-            // jwt 쿠키 response에 추가합니다.
-            Cookie cookie = new Cookie("Jwt", "Bearer" + jwtToken);
-            servletResponse.addCookie(cookie);
+//            // jwt 만들기 위해선 유저 이름이 필요합니다
+//            Account userAccount = this.userRepository.findByUsername(username);
+//            String role = userAccount.getRole();
+//            List<String> list = new ArrayList<>();
+//            list.add(role);
+//            String jwtToken = jwtAuthenticationService.createToken(username, list);
+//            // headers.add("JwtAuthorization","Bearer " + jwtToken );
+//            // headers.add(HttpHeaders.AUTHORIZATION, "Bearer" + jwtToken);
+//
+//            // jwt 쿠키 response에 추가합니다.
+//            Cookie cookie = new Cookie("Jwt", "Bearer" + jwtToken);
+//            servletResponse.addCookie(cookie);
 
 
             HttpEntity<String> entity = new HttpEntity<String>("", headers);

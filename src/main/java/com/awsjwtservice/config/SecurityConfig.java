@@ -145,7 +145,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/css/base.css").permitAll()
-                .antMatchers("/oauth_login", "/loginFailure", "/", "/h2-console", "/h2-console/**").permitAll()
+                .antMatchers("/oauth_login","/oauth_login/**","/login_proc", "/oauth2/authorize-client","/oauth2/authorize-client/**", "/loginSuccess", "/loginFailure", "/loginSuccess/**", "/loginFailure/**", "/", "/h2-console", "/h2-console/**").permitAll()
                 .antMatchers("/register","/register/**").permitAll()
                 .antMatchers("/test").hasRole("USER")
                 .antMatchers("/mypage").access("hasRole('ADMIN') or hasRole('USER') or hasRole('MANAGER')")
