@@ -3,7 +3,6 @@ package com.awsjwtservice.controller;
 import java.security.Principal;
 import java.util.*;
 
-import com.awsjwtservice.config.security.JwtAuthenticationService;
 import com.awsjwtservice.domain.Account;
 import com.awsjwtservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +41,12 @@ public class LoginController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    JwtAuthenticationService jwtAuthenticationService;
 
 
     @GetMapping("/oauth_login")
     public String getLoginPage(Principal principal, Model model, HttpServletRequest request) {
 
-        System.out.println("Authorization Header Value ::" + request.getHeader("Authorization") + request.getHeader("JwtAuthorization"));
+//        System.out.println("Authorization Header Value ::" + request.getHeader("Authorization") + request.getHeader("JwtAuthorization"));
         return "oauthLogin";
     }
 
@@ -97,20 +94,6 @@ public class LoginController {
                 username = (String) authentication.getPrincipal().getAttributes().get("name");
             }
 
-
-
-//            // jwt 만들기 위해선 유저 이름이 필요합니다
-//            Account userAccount = this.userRepository.findByUsername(username);
-//            String role = userAccount.getRole();
-//            List<String> list = new ArrayList<>();
-//            list.add(role);
-//            String jwtToken = jwtAuthenticationService.createToken(username, list);
-//            // headers.add("JwtAuthorization","Bearer " + jwtToken );
-//            // headers.add(HttpHeaders.AUTHORIZATION, "Bearer" + jwtToken);
-//
-//            // jwt 쿠키 response에 추가합니다.
-//            Cookie cookie = new Cookie("Jwt", "Bearer" + jwtToken);
-//            servletResponse.addCookie(cookie);
 
 
             HttpEntity<String> entity = new HttpEntity<String>("", headers);

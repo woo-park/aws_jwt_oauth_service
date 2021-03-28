@@ -8,7 +8,6 @@ import static org.springframework.http.ResponseEntity.ok;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.awsjwtservice.config.security.JwtAuthenticationService;
 import com.awsjwtservice.repository.UserRepository;
 import com.awsjwtservice.dto.AccountCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,6 @@ public class AuthenticationController {
 	@Autowired
 	AuthenticationManager authenticationManager;
 
-	@Autowired
-	JwtAuthenticationService jwtAuthenticationService;
 
 	@Autowired
 	UserRepository userRepository;
@@ -49,9 +46,8 @@ public class AuthenticationController {
 
 			list.add(this.userRepository.findByUsername(credentials.getUsername()).getRole());
 
-			String token = jwtAuthenticationService.createToken(credentials.getUsername(), list);
-
-			response.setHeader("token", token);
+//			String token = jwtAuthenticationService.createToken(credentials.getUsername(), list);
+//			response.setHeader("token", token);
 			response.setHeader("username", credentials.getUsername());
 
 

@@ -1,0 +1,51 @@
+<div>
+    <!--    "userSeq": "14",-->
+    <!--    "siteUrl": "trythis",-->
+    <!--    "title": "trythis!"-->
+    <form id="myForm" >
+        <input id="userSeq" type="text" name="userSeq" value="{{#userSeq}}{{userSeq}}{{/userSeq}}" hidden/>
+        <input id="siteUrl" type="text" name="siteUrl" placeholder="site url" />
+        <input id="title" type="text" name="title" placeholder="title" />
+        <button id="btn-save" type="button"> Save</button>
+
+    </form>
+
+
+
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $('#btn-save').on('click', saveSite);
+    function saveSite() {
+
+        // var formData = JSON.stringify($("#myForm").serializeArray());
+        let userSeq = $("#userSeq").val();
+        if (userSeq == '') {
+            alert("log in first !");
+            return false;
+        }
+        let siteDto = {
+            "userSeq": userSeq,
+            "siteUrl": $("#siteUrl").val(),
+            "title": $("#title").val()
+        }
+
+        $.ajax({
+            type : 'POST',
+            // dataType:'JSON',
+            url: '/sites',
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(siteDto),
+
+        })
+
+
+
+    }
+
+</script>

@@ -14,7 +14,6 @@ import com.awsjwtservice.config.formlogin.FormSuccessHandler;
 import com.awsjwtservice.config.oauth2request.CustomOAuth2Provider;
 import com.awsjwtservice.config.oauth2request.CustomRequestEntityConverter;
 import com.awsjwtservice.config.oauth2request.CustomTokenResponseConverter;
-import com.awsjwtservice.config.security.JwtAuthenticationService;
 import com.awsjwtservice.config.security.OAuth2UserServiceImpl;
 import com.awsjwtservice.config.service.UserDetailServiceImpl;
 import com.awsjwtservice.domain.Site;
@@ -94,16 +93,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final OAuth2UserServiceImpl oAuth2UserServiceImpl;
 
-//    @Autowired
-//    private DataSource dataSource;
-//
-//    @Autowired
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication().dataSource(dataSource);
-//    }
-
-    @Autowired
-    JwtAuthenticationService jwtAuthenticationService;
 
     public AccessDeniedHandler accessDeniedHandler() {
         FormAccessDeniedHandler commonAccessDeniedHandler = new FormAccessDeniedHandler();
@@ -141,10 +130,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable();
 
 
-
-
         http.authorizeRequests()
                 .antMatchers("/css/base.css").permitAll()
+                .antMatchers("/denied").permitAll()
                 .antMatchers("/oauth_login","/oauth_login/**","/login_proc", "/oauth2/authorize-client","/oauth2/authorize-client/**", "/loginSuccess", "/loginFailure", "/loginSuccess/**", "/loginFailure/**", "/", "/h2-console", "/h2-console/**").permitAll()
                 .antMatchers("/register","/register/**").permitAll()
                 .antMatchers("/test").hasRole("USER")
@@ -157,7 +145,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/gallery", "/gallery/**","/s3basket").permitAll()
                 .antMatchers(HttpMethod.POST, "/gallery", "/gallery/upload").permitAll()
 
-                .antMatchers("/sites", "/sites/**").permitAll()
+                .antMatchers("/sites", "/sites/**","/site/create").permitAll()
                 .antMatchers(HttpMethod.POST, "/sites", "/sites/**").permitAll()
 
                 .antMatchers("/users/export/pdf").permitAll()
@@ -198,11 +186,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .defaultSuccessUrl("/loginSuccess")
                 .failureUrl("/loginFailure");
-
-//                .and().apply(new JwtAuthenticationConfigurer(jwtAuthenticationService))
-//                ;
-//                .and()
-//                .apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
 
         http
                 .logout()

@@ -1,37 +1,40 @@
 {{>layout/header}}
 
 
-<!--victory-->
-<h1>Upload File</h1> <hr>
-<form action="/gallery" method="post" enctype="multipart/form-data">
-    제목 : <input type="text" name="title"> <br>
-    파일 : <input type="file" name="file"> <br>
-    <button>등록하기</button>
-</form>
 
-<!--    jojoldu S3 이미지 업로더 / gallery 로 포스팅-->
+<!--victory, this works, but ajax way is better thus we keep it as a reference-->
+<!--<h1>Upload File</h1> <hr>
+<form action="/gallery" method="post" enctype="multipart/form-data">
+    title : <input type="text" name="title"> <br>
+    file : <input type="file" name="file"> <br>
+    <button id="uploadBtn" onclick="">upload</button>
+</form> -->
+
+
+
+<!--    jojoldu S3 image uploader / gallery post -->
 <hr>
 
 <div class="col-md-12">
     <div class="col-md-2">
         <form>
             <div class="form-group">
-                <label for="img">파일 업로드</label>
-                제목 : <input id="file_title" type="text" name="title"> <br>
+                <label for="img">Upload Image</label>
+                Title : <input id="file_title" type="text" name="title"> <br>
                 <input type="file" id="img">
             </div>
-            <button type="button" class="btn btn-primary" id="btn-save">저장</button>
+            <button type="button" class="btn btn-primary" id="btn-save">Save</button>
         </form>
     </div>
-    <div class="col-md-10">
-        <p><strong>결과 이미지입니다.</strong></p>
-        <img src="" id="result-image">
-    </div>
+    <!--    <div class="col-md-10">-->
+    <!--        <p><strong>결과 이미지입니다.</strong></p>-->
+    <!--        <img src="" id="result-image">-->
+    <!--    </div>-->
 </div>
 
 
 
-<!--부트스트랩 js, jquery 추가-->
+<!--bootstrap js, jquery -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
@@ -42,9 +45,19 @@
         console.log('clicked')
         let fileTitle = $('#file_title').val();
         let file = $('#img')[0].files[0];
+        console.log(fileTitle,'filet')
+        console.log(file,'file')
         let formData = new FormData();
-        formData.append('file', file);
-        formData.append('title', fileTitle);
+        if(typeof fileTitle !== '' && typeof file !== 'undefined') {
+
+            formData.append('file', file);
+            formData.append('title', fileTitle);
+
+        } else {
+            alert("Please upload Img with Title before saving");
+            return false;
+        }
+
 
         $.ajax({
             type: 'POST',
@@ -55,6 +68,7 @@
             contentType: false
         }).done(function (data) {
             console.log('received data: ', data);
+            window.location = "/s3basket";
             // $('#result-image').attr("src", "https://" + data);
         }).fail(function (error) {
             console.warn(error);
