@@ -106,14 +106,16 @@ public class FileUploadController {
     public String galleryUpload(GalleryDto galleryDto, MultipartFile file, @LoginUser SessionUserDto loginUser) throws IOException {
         // s3 에 먼저 올립니다.
 
-        String imgPath = s3Service.upload(file);
-        galleryDto.setFilePath(imgPath);
+
 
 
         // login안되있을시를 체크해야합니다. 에러
 //        java.lang.NullPointerException: null 나옵니다.    try and catch 로하면 더 좋을거같습니다.
 
         if(loginUser != null) {
+            String imgPath = s3Service.upload(file);
+            galleryDto.setFilePath(imgPath);
+
             // 누가 올렸는지도 이름으로 저장하면 좋으려나?
             String username = loginUser.getUsername();
             Long userSeq = loginUser.getUserSeq();
@@ -121,6 +123,8 @@ public class FileUploadController {
 
             // db 에 url, etc. 를 저장 합니다
             galleryService.savePost(galleryDto);
+        } else {
+            return "redirect:/oauth_login";     // 안된다
         }
 //        if(imgPath != null || imgPath != ""){
 //            String[] urls = imgPath.split("https://", 2);
