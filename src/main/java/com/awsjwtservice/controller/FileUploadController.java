@@ -48,7 +48,7 @@ public class FileUploadController {
     @GetMapping("/gallery")
     public String dispWrite() {
 
-        return "/gallery";
+        return "gallery";
     }
 
     @GetMapping("/s3basket")
@@ -68,7 +68,7 @@ public class FileUploadController {
         model.addAttribute("files", imgUrls);
 
 
-        return "/s3basket";
+        return "s3basket";
     }
 
     @PostMapping("/gallery/delete")
