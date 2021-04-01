@@ -23,20 +23,26 @@ public class AuthServerApplication {
         SpringApplication.run(AuthServerApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner init(StorageService storageService) {
-        return (args) -> {
-            storageService.deleteAll();
-            storageService.init();
-        };
-    }
+//    @Bean
+//    CommandLineRunner init(StorageService storageService) {
+//        return (args) -> {
+//            storageService.deleteAll();
+//    public ApplicationRunner siteInitializer(SiteService siteService) {
+//        return args -> {
+//            siteService.deleteAll();
+//          siteService.create(Site.builder().siteUrl("tempUrl").userSeq((long) 99).title("test title").build());
+//        };
+//    }
+//            storageService.init();
+//        };
+//    }
 
-    @Bean
-    public ApplicationRunner siteInitializer(SiteService siteService) {
-        return args -> {
-            siteService.deleteAll();
-          siteService.create(Site.builder().siteUrl("tempUrl").userSeq((long) 99).title("test title").build());
-        };
-    }
+//    @Bean
+//    public ApplicationRunner siteInitializer(SiteService siteService) {
+//        return args -> {
+//            siteService.deleteAll();
+//          siteService.create(Site.builder().siteUrl("tempUrl").userSeq((long) 99).title("test title").build());
+//        };
+//    }
 }
 
