@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -48,12 +49,24 @@ public class SitesRestController {
 
 
         SiteDto newSiteDto = objectMapper.readValue(siteDto, SiteDto.class);
-        System.out.println(newSiteDto +"newSiteDto!!");
+//        System.out.println(newSiteDto +"newSiteDto!!");
+        try {
+            Optional<Site> site = siteService.findBySiteUrl(newSiteDto.getSiteUrl());
+            if(site.isPresent()) {
+                System.out.println("already exists!");
 
-        Site created = siteService.create(Site.builder().userSeq(Long.parseLong(newSiteDto.getUserSeq())).title(newSiteDto.getTitle()).siteUrl(newSiteDto.getSiteUrl()).build());
-        URI newSiteUri = uriBuilder.path("/sites/{siteSeq}").build(created.getId());
-//
-        return ResponseEntity.created(newSiteUri).body(created);
+                return ResponseEntity.badRequest().build();
+            } else {
+                Site created = siteService.create(Site.builder().userSeq(Long.parseLong(newSiteDto.getUserSeq())).title(newSiteDto.getTitle()).siteUrl(newSiteDto.getSiteUrl()).build());
+                URI newSiteUri = uriBuilder.path("/sites/{siteSeq}").build(created.getId());
+                return ResponseEntity.created(newSiteUri).body(created);
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+
 //        return (ResponseEntity<Site>) ResponseEntity.ok();
     }
 
