@@ -58,15 +58,12 @@ public class UserController {
 	@GetMapping("/mypage")
 	public String mypage(Model model, HttpServletRequest request) throws Exception {
 
-
 		SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
 		if(user != null){
 			model.addAttribute("username", user.getUsername());
 			model.addAttribute("useremail", user.getEmail());
 		}
-
-
 
 		return "mypage";
 	}

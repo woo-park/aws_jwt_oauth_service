@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -51,15 +52,27 @@ public class SitesRestController {
         SiteDto newSiteDto = objectMapper.readValue(siteDto, SiteDto.class);
 //        System.out.println(newSiteDto +"newSiteDto!!");
         try {
-            Optional<Site> site = siteService.findBySiteUrl(newSiteDto.getSiteUrl());
-            if(site.isPresent()) {
-                System.out.println("already exists!");
-
+            Optional<Site> siteInfo = siteService.findBySiteUrl(newSiteDto.getSiteUrl());
+            if(siteInfo.isPresent()) {
+//                System.out.println("already exists!");
                 return ResponseEntity.badRequest().build();
             } else {
-                Site created = siteService.create(Site.builder().userSeq(Long.parseLong(newSiteDto.getUserSeq())).title(newSiteDto.getTitle()).siteUrl(newSiteDto.getSiteUrl()).build());
+                String title = newSiteDto.getTitle().trim();
+                String siteUrl = newSiteDto.getSiteUrl().replaceAll("\\s+","");
+
+                Site created = siteService.create(Site.builder().userSeq(Long.parseLong(newSiteDto.getUserSeq())).title(title).siteUrl(siteUrl).build());
                 URI newSiteUri = uriBuilder.path("/sites/{siteSeq}").build(created.getId());
                 return ResponseEntity.created(newSiteUri).body(created);
+
+                /*
+                    delCheck: 0
+                    id: 5
+                    regdate: "2021-05-23T01:33:20.821256"
+                    siteUrl: "wavy"
+                    title: "wavy"
+                    uptdate: "2021-05-23T01:33:20.822947"
+                    userSeq: 4
+                * */
             }
 
         } catch (Exception e) {

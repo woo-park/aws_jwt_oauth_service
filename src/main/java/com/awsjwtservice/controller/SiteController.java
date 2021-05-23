@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,6 +21,8 @@ public class SiteController {
 
     @GetMapping("/site/create")
     public String createSite(Model model, @LoginUser SessionUserDto user) throws Exception {
+
+        // template 으로 userSeq 넘김
         if(user != null) {
             model.addAttribute("userSeq", user.getUserSeq());
             model.addAttribute("email", user.getEmail());
@@ -33,10 +36,10 @@ public class SiteController {
     @GetMapping("/{siteUrl}")
     public String getSite(@PathVariable("siteUrl") String siteUrl, Model model) {
 
-        Optional<Site> sites = siteService.findBySiteUrl(siteUrl);
-        if(sites.isPresent()) {
+        Optional<Site> site = siteService.findBySiteUrl(siteUrl);
+        if(site.isPresent()) {
 
-            model.addAttribute("title", sites.get().getTitle());
+            model.addAttribute("title", site.get().getTitle());
 
             return "site";
         } else {

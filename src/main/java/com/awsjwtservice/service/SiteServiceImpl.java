@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,10 +22,13 @@ public class SiteServiceImpl implements SiteService{
 
     @Override
     public Site create(Site site) {
-//        Site resultSite = siteRepository.findById(site.getUserSeq());
-//        if(resultSite.)
-
-        return siteRepository.save(site);
+        // ensure site url doesn't exists
+        Site siteInfo = siteRepository.findBySiteUrl(site.getSiteUrl());
+        if (siteInfo == null) {
+            return siteRepository.save(site);
+        } else {
+            return  null;
+        }
     }
 
     @Override
@@ -39,4 +43,5 @@ public class SiteServiceImpl implements SiteService{
 
     @Override
     public Optional<Site> findBySiteUrl(String siteUrl) { return Optional.ofNullable(siteRepository.findBySiteUrl(siteUrl)); }
+
 }

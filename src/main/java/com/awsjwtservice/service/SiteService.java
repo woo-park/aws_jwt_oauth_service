@@ -2,6 +2,7 @@ package com.awsjwtservice.service;
 
 import com.awsjwtservice.domain.Site;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SiteService {
@@ -11,6 +12,7 @@ public interface SiteService {
     Optional<Site> find(long id);
 
     Optional<Site> findBySiteUrl(String siteUrl);
+
 
     void deleteAll();
 }

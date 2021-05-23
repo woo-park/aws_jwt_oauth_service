@@ -1,37 +1,48 @@
 <div>
-    <!--    "userSeq": "14",-->
-    <!--    "siteUrl": "trythis",-->
-    <!--    "title": "trythis!"-->
     <form id="myForm" >
         <input id="userSeq" type="text" name="userSeq" value="{{#userSeq}}{{userSeq}}{{/userSeq}}" hidden/>
         <input id="siteUrl" type="text" name="siteUrl" placeholder="site url" />
         <input id="title" type="text" name="title" placeholder="title" />
         <button id="btn-save" type="button"> Save</button>
-
     </form>
-
-
-
 </div>
-
-
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $('#btn-save').on('click', saveSite);
+
+    $('#myForm').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            saveSite();
+        }
+        event.stopPropagation();
+    });
+
     function saveSite() {
 
         // var formData = JSON.stringify($("#myForm").serializeArray());
         let userSeq = $("#userSeq").val();
+        let siteUrl = $("#siteUrl").val().trim();
+        let title = $("#title").val().trim();
+
         if (userSeq == '') {
-            alert("log in first !");
+            alert("Please Log In First!");
+            window.location = "/oauth_login";
+            return false;
+        } else if (siteUrl === '') {
+            alert("Please choose site url.");
+            return false;
+        } else if (title === '') {
+            alert("Please choose a title of your site.");
             return false;
         }
+
         let siteDto = {
             "userSeq": userSeq,
-            "siteUrl": $("#siteUrl").val(),
-            "title": $("#title").val()
+            "siteUrl": siteUrl,
+            "title": title
         }
 
         $.ajax({
@@ -41,11 +52,21 @@
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(siteDto),
+            success: function(res) {
+                console.log(res);
+                window.location = "/" + res.siteUrl;
+            },
+            error: function(err) {
 
-        })
-
-
-
+                console.log(err);
+                if(err.status == 400) {
+                    alert("Site already exists.");
+                    window.location = "/site/create";
+                } else {
+                    alert("An Error Found. Redirecting To Home.");
+                    window.location = "/";
+                }
+            }
+        });
     }
-
 </script>
