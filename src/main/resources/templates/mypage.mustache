@@ -4,12 +4,10 @@
 <div class="container">
     <div class="row align-items-start">
         {{>layout/nav}}
-
         <div style="padding-top:50px;"  class="col">
             <div class="container text-center">
                 <h1 class="text-primary">{{#useremail}}{{useremail}}{{/useremail}}</h1>
-                <h1 class="text-primary">{{#name}}{{name}}{{/name}}</h1>
-                <h1><span class="alert alert-danger" />{{#name}}{{name}}{{/name}}Welcome to My Page</h1>
+                <h1><span class="alert alert-danger" />Welcome {{#username}}{{username}}{{/username}}</h1>
             </div>
         </div>
     </div>

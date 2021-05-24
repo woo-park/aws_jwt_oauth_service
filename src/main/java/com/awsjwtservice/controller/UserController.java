@@ -50,6 +50,13 @@ public class UserController {
 		if(user != null) {
 			model.addAttribute("name", user.getUsername());
 			model.addAttribute("email", user.getEmail());
+
+			String role = user.getRole();
+			if(role.equals("ROLE_ADMIN")) {
+				model.addAttribute("admin", true);
+			} else if (role.equals("ROLE_MANAGER")) {
+				model.addAttribute("manager", true);
+			}
 		}
 
 		return "index";
@@ -63,6 +70,14 @@ public class UserController {
 		if(user != null){
 			model.addAttribute("username", user.getUsername());
 			model.addAttribute("useremail", user.getEmail());
+
+			String role = user.getRole();
+			if(role.equals("ROLE_ADMIN")) {
+			    model.addAttribute("admin", true);
+			} else if (role.equals("ROLE_MANAGER")) {
+				model.addAttribute("manager", true);
+			}
+
 		}
 
 		return "mypage";

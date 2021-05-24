@@ -10,11 +10,12 @@ import java.io.Serializable;
 
 @Getter
 @Builder
-public class SessionUserDto implements Serializable {
+public class  SessionUserDto implements Serializable {
     private String username;
     private String email;
     private String picture;
     private Long userSeq;
+    private String role;
 
 
 }

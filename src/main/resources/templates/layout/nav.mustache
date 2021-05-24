@@ -3,20 +3,47 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 <div style="padding-top:10px;" class="nav flex-column nav-pills" aria-orientation="vertical">
+
+                {{#admin}}
                     <a href="/" style="margin:5px;" class="nav-link">Home</a>
                     <a href="/mypage" style="margin:5px;" class="nav-link">My Activity</a>
                     <a href="/register" style="margin:5px;" class="nav-link">Register</a>
-<!--                    <a href="/files" style="margin:5px;" class="nav-link">My Local Files</a>-->
-<!--                    <a href="/files/upload" style="margin:5px;" class="nav-link">upload to local dir</a>-->
                     <a href="/gallery" style="margin:5px;" class="nav-link">Upload to Gallery</a>
                     <a href="/s3basket" style="margin:5px;" class="nav-link">Gallery</a>
                     <a href="/site/create" style="margin:5px;" class="nav-link">Create Site</a>
                     <a href="/sites" style="margin:5px;" class="nav-link">All Sites</a>
                     <a href="/users/export/pdf" style="margin:5px;" class="nav-link">All Users Pdf</a>
-<!--                    <a href="/test" style="margin:5px;" class="nav-link">Test</a>-->
                     <a href="/logout" style="margin:5px;" class="nav-link">Logout</a>
+                    <!--                    <a href="/files" style="margin:5px;" class="nav-link">My Local Files</a>-->
+                    <!--                    <a href="/files/upload" style="margin:5px;" class="nav-link">upload to local dir</a>-->
+                    <!--                    <a href="/test" style="margin:5px;" class="nav-link">Test</a>-->
                     <!--                    <a th:href="/messages" style="margin:5px;" class="nav-link text-primary">메시지</a>-->
                     <!--                    <a th:href="/config" style="margin:5px;" class="nav-link text-primary">환경설정</a>-->
+                {{/admin}}
+
+                {{#manager}}
+                    <a href="/" style="margin:5px;" class="nav-link">Home</a>
+                    <a href="/mypage" style="margin:5px;" class="nav-link">My Activity</a>
+                    <a href="/register" style="margin:5px;" class="nav-link">Register</a>
+                    <a href="/gallery" style="margin:5px;" class="nav-link">Upload to Gallery</a>
+                    <a href="/s3basket" style="margin:5px;" class="nav-link">Gallery</a>
+                    <a href="/site/create" style="margin:5px;" class="nav-link">Create Site</a>
+                    <a href="/sites" style="margin:5px;" class="nav-link">All Sites</a>
+                    <a href="/users/export/pdf" style="margin:5px;" class="nav-link">All Users Pdf</a>
+                    <a href="/logout" style="margin:5px;" class="nav-link">Logout</a>
+                {{/manager}}
+
+                {{^admin}}
+                    {{^manager}}
+                        <a href="/" style="margin:5px;" class="nav-link">Home</a>
+                        <a href="/mypage" style="margin:5px;" class="nav-link">My Activity</a>
+                        <a href="/register" style="margin:5px;" class="nav-link">Register</a>
+                        <a href="/site/create" style="margin:5px;" class="nav-link">Create Site</a>
+                        <a href="/sites" style="margin:5px;" class="nav-link">All Sites</a>
+                        <a href="/logout" style="margin:5px;" class="nav-link">Logout</a>
+                    {{/manager}}
+                {{/admin}}
+
                 </div>
             </li>
         </ul>

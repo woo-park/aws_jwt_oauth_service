@@ -104,8 +104,8 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
 //        bearerTokenResolver.setBearerTokenHeaderName(HttpHeaders.PROXY_AUTHORIZATION);
 
 
-        httpSession.setAttribute("user", SessionUserDto.builder().username(user.getUsername()).email(user.getEmail()).picture(user.getPicture()).userSeq(user.getId()).build());
-        httpSession.setAttribute("test", "test string");
+        httpSession.setAttribute("user", SessionUserDto.builder().role(user.getRole()).username(user.getUsername()).email(user.getEmail()).picture(user.getPicture()).userSeq(user.getId()).build());
+        httpSession.setAttribute("httpSessionTestAttribute", "OAuth2UserServiceImpl");
         // end?
         return new DefaultOAuth2User(
                 Collections.singleton(
