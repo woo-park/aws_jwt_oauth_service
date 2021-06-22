@@ -23,7 +23,7 @@
 
 */
 
-const socket = io();
+// const socket = io();
 let world;
 let myMap;
 
@@ -86,62 +86,62 @@ function setup() {
 
 
   world = new World('VRScene');
-  socket.emit('setupReady');
+  // socket.emit('setupReady');
 
-  socket.on('newMap', function(data) {
-    // console.log('socket.on recieved new map from server', data.newMap);
-
-    myMap = data.newMap;
-
-    mapColLength = myMap.length
-    mapRowLength;
-
-
-
-    function findRowLength() {
-      let rowLengthFound = false;
-
-      for (let i = 0; i < mapColLength; i++) {
-        if (rowLengthFound != true) {
-          mapRowLength = myMap[i].length
-          rowLengthFound = true;
-        }
-        return;
-      }
-      return;
-    }
-    findRowLength();
-
-    tileSizeWidth = worldSize / mapColLength; //clean up a lil bit here
-    tileSizeLength = worldSize / mapRowLength;
-    console.log(mapRowLength,'mapRowLength');
-    console.log(mapColLength,'mapColLength');
-
-    mapTileWidth = canvasWidth / mapColLength;
-    mapTileHeight = canvasHeight / mapRowLength;
-    console.log(myMap);
-    for (let r = 0; r < myMap.length; r++) {
-      for (let c = 0; c < myMap[r].length; c++) {
-        // stroke(2)
-
-
-        if ( myMap[r][c] == 3 ) {
-          fill('crimson')
-        }
-        else if ( myMap[r][c] == 1 ) {
-          fill('green')
-        }
-        else if ( myMap[r][c] == 5 ) {
-          fill('yellow')
-
-        } else {
-          fill('black')
-        }
-
-        rect(c * mapTileWidth, r * mapTileHeight, mapTileWidth, mapTileHeight);
-      }
-    }
-  });
+  // socket.on('newMap', function(data) {
+  //   // console.log('socket.on recieved new map from server', data.newMap);
+  //
+  //   myMap = data.newMap;
+  //
+  //   mapColLength = myMap.length
+  //   mapRowLength;
+  //
+  //
+  //
+  //   function findRowLength() {
+  //     let rowLengthFound = false;
+  //
+  //     for (let i = 0; i < mapColLength; i++) {
+  //       if (rowLengthFound != true) {
+  //         mapRowLength = myMap[i].length
+  //         rowLengthFound = true;
+  //       }
+  //       return;
+  //     }
+  //     return;
+  //   }
+  //   findRowLength();
+  //
+  //   tileSizeWidth = worldSize / mapColLength; //clean up a lil bit here
+  //   tileSizeLength = worldSize / mapRowLength;
+  //   console.log(mapRowLength,'mapRowLength');
+  //   console.log(mapColLength,'mapColLength');
+  //
+  //   mapTileWidth = canvasWidth / mapColLength;
+  //   mapTileHeight = canvasHeight / mapRowLength;
+  //   console.log(myMap);
+  //   for (let r = 0; r < myMap.length; r++) {
+  //     for (let c = 0; c < myMap[r].length; c++) {
+  //       // stroke(2)
+  //
+  //
+  //       if ( myMap[r][c] == 3 ) {
+  //         fill('crimson')
+  //       }
+  //       else if ( myMap[r][c] == 1 ) {
+  //         fill('green')
+  //       }
+  //       else if ( myMap[r][c] == 5 ) {
+  //         fill('yellow')
+  //
+  //       } else {
+  //         fill('black')
+  //       }
+  //
+  //       rect(c * mapTileWidth, r * mapTileHeight, mapTileWidth, mapTileHeight);
+  //     }
+  //   }
+  // });
 
 
 
@@ -158,10 +158,10 @@ function setup() {
 	world.camera.cursor.addChild(avatar);
 
   console.log('socket.emit worldReady')
-  socket.emit('worldReady')
+  // socket.emit('worldReady')
 
-  currentPlayersFunc();
-  broadcastFunc();
+  // currentPlayersFunc();
+  // broadcastFunc();
 
   //fog
 	// world.threeSceneReference.fog = new THREE.FogExp2( 0xffffff, 0.1)
