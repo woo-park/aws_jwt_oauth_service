@@ -42,11 +42,8 @@ let mapLoaded = false;
 
 let currentPlayerNumber = 0;
 
-
 let firstScreen;
 let textHolder;
-
-
 
 let ending = false;
 let endScreen;
@@ -165,10 +162,10 @@ function setup() {
 
   //fog
 	// world.threeSceneReference.fog = new THREE.FogExp2( 0xffffff, 0.1)
-  world.camera.holder.setAttribute('wasd-controls','enabled:false');
+    world.camera.holder.setAttribute('wasd-controls','enabled:false');
 
 	let ground = new Plane({x:0, y:0, z:0, width:worldSize, height:worldSize, rotationX:-90, metalness:0.25, asset:'asphalt'});
-  ground.tag.object3D.userData.solid = true;
+    ground.tag.object3D.userData.solid = true;
 	world.add(ground);
 
 } // end of setup
@@ -343,88 +340,88 @@ function draw() {
     }
 
 
-    if (changed == true) {
-      //** emit the new position of THIS character // emit('setPos')
-
-      playerArrayClient.forEach((each) => {
-        if (socket.id == each.id) {
-
-          // console.log(each.getWorldPosition().x,'each whatever')
-          // map not working - find out why
-          // somehow normalize it
-          // need to find which block it's currently on -> then get the index of loc, change the number to 7
-
-          // this here will change color based on the number on map
-
-
-          // console.log('after')
-          // console.log(each.getWorldPosition().x,'each whatever')
-          // fill(random(255));
-          // rect(0,0,20,20);
-
-
-
-          if (frameCount % 5 == 0) {
-            console.log(each.rotationY,'ROTATION Y VALUE');
-            //!important  // should this go 'here mark'
-            console.log('socket.emit sendBack_newPos');
-            socket.emit('sendBack_newPos', {
-              newPosX:each.getWorldPosition().x,
-              newPosY:each.getWorldPosition().y,
-              newPosZ:each.getWorldPosition().z,
-              userId:each.id,
-              yCurrentRotation:each.rotationY
-            });
-          }
-
-
-        }
-      });
-      updateMap();
-      function updateMap() {
-        if(frameCount % 10 == 0 ) {   //// optimizing
-          console.log('updating map')
-          let currentLocX = map(world.camera.getX(), -worldSize, worldSize, 0, canvasWidth);
-          let currentLocZ = map(world.camera.getZ(), -worldSize, worldSize, 0, canvasHeight);
-
-          console.log(currentLocX,'currentLocX')
-
-          for (let r = 0; r < myMap.length; r++) {
-            for (let c = 0; c < myMap[r].length; c++) {
-              let gridX = r * mapTileWidth;
-              let gridY = c * mapTileHeight;
-              let nextGridX = gridX + mapTileWidth;
-              let nextGridY = gridY + mapTileHeight;
-
-              if (gridX <= currentLocX &&
-                  gridY <= currentLocZ &&
-                  currentLocX < nextGridX &&
-                  currentLocZ < nextGridY) {
-                  myMap[c][r] = 7;
-              }
-              // else if (myMap[c][r] == 7) {
-              //   myMap[c][r] = 0;
-              // }
-              // else {
-              //   myMap[c][r] = 0;
-              // }
-
-              if ( myMap[c][r] === 7 ) {
-                fill('blue');
-                rect(r * mapTileWidth, c * mapTileHeight, mapTileWidth, mapTileHeight);
-
-              }
-              // if (myMap[c][r] === 0) {
-              //   // fill(random(0));
-              //   fill(0)
-              //   rect(r * mapTileWidth, c * mapTileHeight, mapTileWidth, mapTileHeight);
-              // }
-
-            }
-          }
-         }
-        }
-      }
+    // if (changed == true) {
+    //   //** emit the new position of THIS character // emit('setPos')
+    //
+    //   playerArrayClient.forEach((each) => {
+    //     if (socket.id == each.id) {
+    //
+    //       // console.log(each.getWorldPosition().x,'each whatever')
+    //       // map not working - find out why
+    //       // somehow normalize it
+    //       // need to find which block it's currently on -> then get the index of loc, change the number to 7
+    //
+    //       // this here will change color based on the number on map
+    //
+    //
+    //       // console.log('after')
+    //       // console.log(each.getWorldPosition().x,'each whatever')
+    //       // fill(random(255));
+    //       // rect(0,0,20,20);
+    //
+    //
+    //
+    //       if (frameCount % 5 == 0) {
+    //         console.log(each.rotationY,'ROTATION Y VALUE');
+    //         //!important  // should this go 'here mark'
+    //         console.log('socket.emit sendBack_newPos');
+    //         socket.emit('sendBack_newPos', {
+    //           newPosX:each.getWorldPosition().x,
+    //           newPosY:each.getWorldPosition().y,
+    //           newPosZ:each.getWorldPosition().z,
+    //           userId:each.id,
+    //           yCurrentRotation:each.rotationY
+    //         });
+    //       }
+    //
+    //
+    //     }
+    //   });
+    //   updateMap();
+    //   function updateMap() {
+    //     if(frameCount % 10 == 0 ) {   //// optimizing
+    //       console.log('updating map')
+    //       let currentLocX = map(world.camera.getX(), -worldSize, worldSize, 0, canvasWidth);
+    //       let currentLocZ = map(world.camera.getZ(), -worldSize, worldSize, 0, canvasHeight);
+    //
+    //       console.log(currentLocX,'currentLocX')
+    //
+    //       for (let r = 0; r < myMap.length; r++) {
+    //         for (let c = 0; c < myMap[r].length; c++) {
+    //           let gridX = r * mapTileWidth;
+    //           let gridY = c * mapTileHeight;
+    //           let nextGridX = gridX + mapTileWidth;
+    //           let nextGridY = gridY + mapTileHeight;
+    //
+    //           if (gridX <= currentLocX &&
+    //               gridY <= currentLocZ &&
+    //               currentLocX < nextGridX &&
+    //               currentLocZ < nextGridY) {
+    //               myMap[c][r] = 7;
+    //           }
+    //           // else if (myMap[c][r] == 7) {
+    //           //   myMap[c][r] = 0;
+    //           // }
+    //           // else {
+    //           //   myMap[c][r] = 0;
+    //           // }
+    //
+    //           if ( myMap[c][r] === 7 ) {
+    //             fill('blue');
+    //             rect(r * mapTileWidth, c * mapTileHeight, mapTileWidth, mapTileHeight);
+    //
+    //           }
+    //           // if (myMap[c][r] === 0) {
+    //           //   // fill(random(0));
+    //           //   fill(0)
+    //           //   rect(r * mapTileWidth, c * mapTileHeight, mapTileWidth, mapTileHeight);
+    //           // }
+    //
+    //         }
+    //       }
+    //      }
+    //     }
+    //   }
 
 
 
@@ -620,65 +617,65 @@ function drawMap() {
 
   containerMap = new Container3D({x:-worldSize/2, y:0, z:-worldSize/2}); // move to the center
 
-  for (let row = 0; row < myMap.length; row++) {
-    for (let col = 0; col < myMap[row].length; col++) {
-      console.log(tileSizeWidth,'huh')
-      console.log(tileSizeLength,'huh')
-      let xPos = col * tileSizeWidth;
-      let zPos = row * tileSizeLength;
-
-      let block = new Box({
-          x:xPos, y:3, z:zPos,
-          opacity: 1,
-          width: tileSizeWidth,
-          depth: tileSizeLength,
-          height: 15,
-          asset: 'brick',
-          metalness:0.25,   //maybe not
-          repeatX: 25,
-          repeatY: 50,
-          red: random(100,240), green:random(100,240), blue:random(100,240)
-      });
-      block.tag.object3D.userData.solid = true;
-
-
-      if ( myMap[row][col] == 3 ) {
-        containerMap.addChild(block);
-      }
-      else if ( myMap[row][col] == 1 ) {
-        containerMap.addChild(block);
-      }
-      else if ( myMap[row][col] == 5 ) {
-        treasure = new OBJ({
-      		asset: 'treasure',
-      		mtl: 'treasure_mtl',
-      		x: xPos,
-      		y: 3.5,
-      		z: zPos,
-      		rotationX:0,
-      		rotationY:180,
-      		scaleX:5,
-      		scaleY:5,
-      		scaleZ:5,
-      	});
-        treasureBox = new Box({
-          x:xPos, y:3, z:zPos,
-          opacity: 0.1,
-          width: tileSizeWidth/4,
-          depth: tileSizeLength/4,
-          height: 1.5,
-          red: random(100,240), green:random(100,240), blue:random(100,240),
-          clickFunction: function(t) {
-            // console.log("Clicked");
-            //Ideally we want to move the winning screen
-          }
-        });
-        treasureBox.tag.object3D.userData.solid = true;
-				treasureBox.tag.object3D.userData.treasure = true;
-        containerMap.addChild(treasure);
-        containerMap.addChild(treasureBox);
-      }
-    }
-  }
+  // for (let row = 0; row < myMap.length; row++) {
+  //   for (let col = 0; col < myMap[row].length; col++) {
+  //     console.log(tileSizeWidth,'huh')
+  //     console.log(tileSizeLength,'huh')
+  //     let xPos = col * tileSizeWidth;
+  //     let zPos = row * tileSizeLength;
+  //
+  //     let block = new Box({
+  //         x:xPos, y:3, z:zPos,
+  //         opacity: 1,
+  //         width: tileSizeWidth,
+  //         depth: tileSizeLength,
+  //         height: 15,
+  //         asset: 'brick',
+  //         metalness:0.25,   //maybe not
+  //         repeatX: 25,
+  //         repeatY: 50,
+  //         red: random(100,240), green:random(100,240), blue:random(100,240)
+  //     });
+  //     block.tag.object3D.userData.solid = true;
+  //
+  //
+  //     if ( myMap[row][col] == 3 ) {
+  //       containerMap.addChild(block);
+  //     }
+  //     else if ( myMap[row][col] == 1 ) {
+  //       containerMap.addChild(block);
+  //     }
+  //     else if ( myMap[row][col] == 5 ) {
+  //       treasure = new OBJ({
+  //     		asset: 'treasure',
+  //     		mtl: 'treasure_mtl',
+  //     		x: xPos,
+  //     		y: 3.5,
+  //     		z: zPos,
+  //     		rotationX:0,
+  //     		rotationY:180,
+  //     		scaleX:5,
+  //     		scaleY:5,
+  //     		scaleZ:5,
+  //     	});
+  //       treasureBox = new Box({
+  //         x:xPos, y:3, z:zPos,
+  //         opacity: 0.1,
+  //         width: tileSizeWidth/4,
+  //         depth: tileSizeLength/4,
+  //         height: 1.5,
+  //         red: random(100,240), green:random(100,240), blue:random(100,240),
+  //         clickFunction: function(t) {
+  //           // console.log("Clicked");
+  //           //Ideally we want to move the winning screen
+  //         }
+  //       });
+  //       treasureBox.tag.object3D.userData.solid = true;
+	// 			treasureBox.tag.object3D.userData.treasure = true;
+  //       containerMap.addChild(treasure);
+  //       containerMap.addChild(treasureBox);
+  //     }
+  //   }
+  // }
   world.add(containerMap);
 }

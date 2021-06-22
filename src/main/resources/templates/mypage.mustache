@@ -1,89 +1,63 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-    <title>Truly Yours</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <head>
+        <title>Truly Yours</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-    <!--    &lt;!&ndash;부트스트랩 css 추가&ndash;&gt;-->
-    <!--    <link rel="stylesheet" href="/css/base.css" />-->
-    <!--    css 저게 겁나 redirect 땡김 니다 -->
-    <!--    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" />-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-    <script src="/js/p5/p5.min.js" type="text/javascript"></script>
-    <script src="/js/p5/p5.dom.js" type="text/javascript"></script>
-    <script src="/js/p5/p5.sound.min.js" type="text/javascript"></script>
-    <!-- A-Frame libraries -->
-    <script language="javascript" type="text/javascript" src="/js/p5/aframe.min.js"></script>
-    <!-- AFrameP5 library -->
-    <script language="javascript" type="text/javascript" src="/js/p5/aframep5.js"></script>
+        <!-- p5 libraries -->
+        <script src="/js/p5/p5.min.js" type="text/javascript"></script>
+        <script src="/js/p5/p5.dom.js" type="text/javascript"></script>
+        <script src="/js/p5/p5.sound.min.js" type="text/javascript"></script>
+        <!-- A-Frame libraries -->
+        <script language="javascript" type="text/javascript" src="/js/p5/aframe.min.js"></script>
+        <!-- AFrameP5 library -->
+        <script language="javascript" type="text/javascript" src="/js/p5/aframep5.js"></script>
 
-</head>
-<body>
-
-<div class="container">
-    <div class="row align-items-start">
-        {{>layout/nav}}
-        <div style="padding-top:50px;"  class="col">
-            <div class="container text-center">
-                <h1 class="text-primary">{{#useremail}}{{useremail}}{{/useremail}}</h1>
-                <h1><span class="alert alert-danger" />Welcome {{#username}}{{username}}{{/username}}</h1>
+        <style>
+            #VRScene {
+                position:absolute;
+                z-index: -999;
+                left:0;
+                top:0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row align-items-start">
+                {{>layout/nav}}
+                <div style="padding-top:50px;" class="col">
+                    <div class="container text-center">
+                        <h1 class="text-primary">{{#useremail}}{{useremail}}{{/useremail}}</h1>
+                        <h1><span class="alert alert-danger"/>Welcome {{#username}}{{username}}{{/username}}</h1>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
 
-<a-scene id="VRScene">
+        <a-scene id="VRScene">
 
-    <img src="/images/asphalt.png" id="asphalt">
+            <img src="/images/asphalt.png" id="asphalt">
+            <img src="/images/stonebrick_mossy.png" id="stone">
+            <img src="/images/prismarine_bricks_blue.png" id="blueStone">
+            <img src="/images/stone_andesite_smooth.png" id="brick">
 
-    <!-- <a-asset id="tree1_obj" src="./objects/tree1/model.obj"></a-asset>
-    <a-asset id="tree1_mtl" src="./objects/tree1/materials.mtl"></a-asset> -->
+        </a-scene>
 
+        <!-- vr aframeP5 main js -->
+        <script src="/js/main/index.js"></script>
 
-    <img src="/images/stonebrick_mossy.png" id="stone">
-    <img src="/images/prismarine_bricks_blue.png" id="blueStone">
+        <!-- 부트스트랩 js, jquery 추가 -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-
-    <img src="/images/stone_andesite_smooth.png" id="brick">
-<!--    &lt;!&ndash; ok make it move based on mouse too, next task &ndash;&gt;-->
-<!--    &lt;!&ndash; <a-camera wasd-controls-enabled="false"></a-camera> &ndash;&gt;-->
-<!--    <img src="images/asphalt.png" id="asphalt">-->
-
-<!--    &lt;!&ndash; <a-asset id="tree1_obj" src="./objects/tree1/model.obj"></a-asset>-->
-<!--    <a-asset id="tree1_mtl" src="./objects/tree1/materials.mtl"></a-asset> &ndash;&gt;-->
-
-
-<!--    <img src="./images/stonebrick_mossy.png" id="stone">-->
-<!--    <img src="./images/prismarine_bricks_blue.png" id="blueStone">-->
-
-
-<!--    <img src="./images/stone_andesite_smooth.png" id="brick">-->
-
-<!--    <a-asset id="ghost2_obj" src="./objects/ghost2/model.obj"></a-asset>-->
-<!--    <a-asset id="ghost2_mtl" src="./objects/ghost2/materials.mtl"></a-asset>-->
-
-<!--    <a-asset id="treasure" src="./objects/treasure/model.obj"></a-asset>-->
-<!--    <a-asset id="treasure_mtl" src="./objects/treasure/materials.mtl"></a-asset>-->
-<!--    &lt;!&ndash;-->
-<!--    <a-asset id="tornado_obj" src="./objects/tornado/model.obj"></a-asset>-->
-<!--    <a-asset id="tornado_mtl" src="./objects/tornado/materials.mtl"></a-asset> &ndash;&gt;-->
-
-
-</a-scene>
-
-<!--<script src="/socket.io/socket.io.js"></script>-->
-<script src="/js/p5/main.js"></script>
-
-<!--부트스트랩 js, jquery 추가-->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-<!--index.js 추가-->
-<script src="/js/app/index.js"></script>
-</body>
+        <!-- index.js 추가 -->
+        <script src="/js/app/index.js"></script>
+    </body>
 </html>
 
 

@@ -156,6 +156,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
                 .antMatchers("/js/p5/**").permitAll()
+                .antMatchers("/js/main/**").permitAll()
                 .antMatchers("/images/**").permitAll()
                 .anyRequest().access("@authorizationChecker.check(request, authentication)");
 //                .authenticated();
