@@ -32,16 +32,17 @@ function setup() {
 
 
     let character = new OBJ({
-        asset: 'ghost2_obj',
-        mtl: 'ghost2_mtl',
+        asset: 'paperplane_obj',
+        mtl: 'paperplane_mtl',
         // x:each.xPos, y:each.yPos, z:each.zPos,
-        x:0, y:0, z:0,
-        rotationX:-60,
-        rotationY:180,
+
+        x:0, y:1.3, z:-2,
+        rotationX:0,
+        rotationY:0,
         rotationZ:0,
-        scaleX:0.03,
-        scaleY:0.03,
-        scaleZ:0.04
+        scaleX:0.01,
+        scaleY:0.01,
+        scaleZ:0.02
     });
     character.id = "68686868"
 

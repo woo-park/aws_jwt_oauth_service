@@ -158,6 +158,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/p5/**").permitAll()
                 .antMatchers("/js/main/**").permitAll()
                 .antMatchers("/images/**").permitAll()
+                .antMatchers("/objects/**").permitAll()
+                .antMatchers("/objects/paperplane/**").permitAll()
                 .anyRequest().access("@authorizationChecker.check(request, authentication)");
 //                .authenticated();
 
