@@ -16,7 +16,7 @@ function setup() {
 
     // user POV
     avatar = new Box({
-        red: 255, green: 255, blue: 0,
+        red: 255, green: 255, blue: 255,
         width: 0.1, height: 0.1, depth: 0.1,
         z: -0.5, y: -0.5
     });
@@ -63,7 +63,7 @@ function setup() {
     world.camera.cursor.addChild(container);
 
     sensor = new Sensor();
-}
+} // end of setup
 
 /* draw global var */
 let changed = false;
@@ -170,7 +170,14 @@ function draw() {
         }
     }
 
-}
+    if (mouseIsPressed) {
+        world.moveUserForward(0.05);
+        changed = true;
+
+        // world.camera.holder.setAttribute('look-controls', {enabled:true})
+    }
+
+} // end of draw
 
 
 
