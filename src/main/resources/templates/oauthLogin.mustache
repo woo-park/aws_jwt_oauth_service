@@ -1,30 +1,33 @@
 {{>layout/header}}
 
-<div class="container">
-    <div class="col-sm-3 well">
+<article>
+
+    <div id="login-container-oauth">
         <h3>Login with:</h3>
-        <div class="list-group">
-            <a href="oauth2/authorize-client/google" class="list-group-item active">google Client</a>
-            <a href="oauth2/authorize-client/kakao" class="list-group-item active">kakao Client</a>
-            <a href="oauth2/authorize-client/naver" class="list-group-item active">naver Client</a>
-        </div>
-        <div class="list-group">
-            <form id="myForm" action="/login_proc" class="form-signin" method="post" >
-                <input type="hidden" value="secret" name="secret_key" />
-                <div class="form-group">
-                    <input type="text" class="form-control" name="username" placeholder="Username" required="required" autofocus="autofocus">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-                </div>
-                <!--                <button type="button" onclick="formLogin()" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>-->
-                <button type="submit" onclick="checkForm();" class="btn btn-lg btn-primary btn-block">Login</button>
-                <!--        <button type="button" onclick="formLogin();" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>-->
-            </form>
+        <div>
+            <a href="oauth2/authorize-client/google" class="">google Client</a>
+            <a href="oauth2/authorize-client/kakao" class="">kakao Client</a>
+            <a href="oauth2/authorize-client/naver" class="">naver Client</a>
         </div>
     </div>
 
+    <div id="login-container-default">
+        <form id="myForm" action="/login_proc" class="" method="post" >
+            <input type="hidden" value="secret" name="secret_key" />
+            <div class="form-group">
+                <input type="text" class="" name="username" placeholder="Username" required="required" autofocus="autofocus">
+            </div>
+            <div class="form-group">
+                <input type="password" class="" name="password" placeholder="Password" required="required">
+            </div>
+            <!--                <button type="button" onclick="formLogin()" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>-->
+            <button type="submit" onclick="checkForm();" class="">Login</button>
+            <!--        <button type="button" onclick="formLogin();" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>-->
+        </form>
+    </div>
+
+</article>
 
 
-</div>
+
 {{>layout/footer}}

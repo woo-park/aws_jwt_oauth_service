@@ -132,6 +132,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/css/base.css").permitAll()
+                .antMatchers("/css/style.css").permitAll()
+
                 .antMatchers("/denied").permitAll()
                 .antMatchers("/oauth_login","/oauth_login/**","/login_proc", "/oauth2/authorize-client","/oauth2/authorize-client/**", "/loginSuccess", "/loginFailure", "/loginSuccess/**", "/loginFailure/**", "/", "/h2-console", "/h2-console/**").permitAll()
                 .antMatchers("/register","/register/**").permitAll()
