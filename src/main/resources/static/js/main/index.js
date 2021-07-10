@@ -150,7 +150,7 @@ function draw() {
 
         if (okToMove) {
             changed = true;
-            nudgeForward(1);
+            nudgeForward(0.1);
         }
 
     } if ( keyIsDown(DOWN_ARROW) && pressed) {
@@ -166,7 +166,7 @@ function draw() {
 
         if (okToMove) {
             changed = true;
-            nudgeForward(-1);
+            nudgeForward(-0.1);
 
         }
     }
