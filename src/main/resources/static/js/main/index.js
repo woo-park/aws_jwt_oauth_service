@@ -26,9 +26,9 @@ function setup() {
     world.camera.holder.setAttribute('wasd-controls','enabled:false');
 
 
-    let ground = new Plane({x:0, y:0, z:0, width:worldSize, height:worldSize, rotationX:-90, metalness:0.25, asset:'asphalt'});
-    ground.tag.object3D.userData.solid = true;
-    world.add(ground);
+    // let ground = new Plane({x:0, y:0, z:0, width:worldSize, height:worldSize, rotationX:-90, metalness:0.25, asset:'asphalt'});
+    // ground.tag.object3D.userData.solid = true;
+    // world.add(ground);
 
 
     let character = new OBJ({

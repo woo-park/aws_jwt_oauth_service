@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-
         <!-- p5 libraries -->
         <script src="/js/p5/p5.min.js" type="text/javascript"></script>
         <script src="/js/p5/p5.dom.js" type="text/javascript"></script>
@@ -26,17 +25,16 @@
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="row align-items-start">
-                {{>layout/nav}}
-                <div style="padding-top:50px;" class="col">
-                    <div class="container text-center">
-                        <h1 class="text-primary">{{#useremail}}{{useremail}}{{/useremail}}</h1>
-                        <h1><span class="alert alert-danger"/>Welcome {{#username}}{{username}}{{/username}}</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <section>
+            {{>layout/nav}}
+        </section>
+        <section>
+            <article>
+                <h1 class="text-primary">{{#useremail}}{{useremail}}{{/useremail}}</h1>
+                <h1><span class="alert alert-danger"/>Welcome {{#username}}{{username}}{{/username}}</h1>
+            </article>
+        </section>
 
 
         <a-scene id="VRScene">
@@ -50,7 +48,23 @@
             <a-asset id="paperplane_obj" src="/objects/paperplane/model.obj"></a-asset>
             <a-asset id="paperplane_mtl" src="/objects/paperplane/materials.mtl"></a-asset>
 
+            <a-assets>
+            <!-- Images. -->
+            <img id="city" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg">
+            <img id="city-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg">
+            </a-assets>
+            <a-sky
+                    id="image-360" radius="10" src="#city"
+                    animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+                    animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-sky>
+
         </a-scene>
+
+
+
+
+
+
 
         <!-- vr aframeP5 main js -->
         <script src="/js/main/index.js"></script>

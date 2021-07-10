@@ -1,18 +1,30 @@
 {{>layout/header}}
 
-<div class="container">
-    <div class="row align-items-start">
+{{>layout/nav}}
 
-        {{>layout/nav}}
-        <div style="padding-top:50px;"  class="col">
-            <div class="container text-center">
-                <h1 class="text-primary">Fixed Market Price Ver 0.1</h1>
-                <div class="security"></div>
-                <h1>{{#name}}{{name}}{{/name}}</h1>
-                <h1>{{#email}}{{email}}{{/email}}</h1>
-            </div>
+<section class="main-section">
+    <article>
+        <div>
+            <h1>{{#name}}{{name}} , {{/name}}Welcome to BAY</h1>
+            <h1>{{#email}}{{email}}{{/email}}</h1>
         </div>
-    </div>
-</div>
+    </article>
+    <article>
+        <a href="">
+            <div>Check Your Progress</div>
+        </a>
+        <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa laboriosam facilis tenetur atque, tempore, qui amet harum, molestias odio accusamus minus? Quaerat animi, delectus odit iste necessitatibus neque est quo.</div>
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas consequuntur maiores placeat dolorum sed veritatis numquam, optio sit, minima asperiores nihil quod et alias ipsam. Praesentium et tempora culpa iusto.</div>
+    </article>
+    <article>
+        <a href="">
+            <div>Submit New Goal</div>
+        </a>
+        <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores consectetur numquam voluptas magni doloribus asperiores qui laboriosam quaerat, id saepe sunt ab, quam eos ipsa quos inventore explicabo reiciendis similique.</div>
+    </article>
+    <article>
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo recusandae molestiae odit consequatur ipsa. Impedit et optio voluptatem, mollitia necessitatibus non dolorem labore excepturi suscipit, sequi consequatur error, ex quisquam.</div>
+    </article>
+</section>
 
 {{>layout/footer}}
