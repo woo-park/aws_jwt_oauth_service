@@ -8,15 +8,17 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@Table(name="USER")
 public class Account implements Serializable {
     @Id
+    @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -35,6 +37,9 @@ public class Account implements Serializable {
     @Column(nullable = true)
     private String password;
 
+    @Column(nullable = true)
+    private String test;
+
     //@NotNull
     @CreationTimestamp
     private LocalDateTime regdate;
@@ -48,6 +53,15 @@ public class Account implements Serializable {
 
     @Enumerated(EnumType.STRING) // enum의 name을 DB에 저장하기 위해, 없을 경우 enum의 숫자가 들어간다.
     private LoginProvider loginProvider;
+
+    /* order fields testing */
+
+    @Embedded
+    private Address address;
+
+    @OneToMany(mappedBy = "account")
+    private List<Orders> orders = new ArrayList<Orders>();
+
 
     @Builder
     public Account(String username, String email, String picture, String role, String password, LoginProvider loginProvider) { //using the private field variables

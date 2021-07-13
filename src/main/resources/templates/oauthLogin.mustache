@@ -8,36 +8,6 @@
 </head>
 
 <body class="align">
-<!--    <article>-->
-
-<!--        <div id="login-container-oauth">-->
-<!--            <h3>Login with:</h3>-->
-<!--            <div>-->
-<!--                <a href="oauth2/authorize-client/google" class="">google Client</a>-->
-<!--                <a href="oauth2/authorize-client/kakao" class="">kakao Client</a>-->
-<!--                <a href="oauth2/authorize-client/naver" class="">naver Client</a>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div id="login-container-default">-->
-<!--            <form id="myForm" action="/login_proc" class="" method="post" >-->
-<!--                <input type="hidden" value="secret" name="secret_key" />-->
-<!--                <div class="form-group">-->
-<!--                    <input type="text" class="" name="username" placeholder="Username" required="required" autofocus="autofocus">-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <input type="password" class="" name="password" placeholder="Password" required="required">-->
-<!--                </div>-->
-<!--                &lt;!&ndash;                <button type="button" onclick="formLogin()" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>&ndash;&gt;-->
-<!--                <button type="submit" onclick="checkForm();" class="">Login</button>-->
-<!--                &lt;!&ndash;        <button type="button" onclick="formLogin();" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>&ndash;&gt;-->
-<!--            </form>-->
-<!--        </div>-->
-
-<!--    </article>-->
-
-
-
     <div class="grid">
 
         <form id="myForm" action="/login_proc" method="post" class="form login">
@@ -89,10 +59,11 @@
 
         </form>
 
-        <p class="text--center">Not a member? <a href="#">Sign up now</a> <svg class="icon">
-            <use xlink:href="#icon-arrow-right"></use>
-        </svg></p>
-
+        <p class="text--center">Not a member? <a href="#">Sign up now</a>
+            <svg class="icon">
+                <use xlink:href="#icon-arrow-right"></use>
+            </svg>
+        </p>
 
     </div>
 
@@ -108,8 +79,36 @@
         </symbol>
     </svg>
 
+
+
+
+
+    <!--    <article>
+            <div id="login-container-oauth">
+                <h3>Login with:</h3>
+                <div>
+                    <a href="oauth2/authorize-client/google" class="">google Client</a>
+                    <a href="oauth2/authorize-client/kakao" class="">kakao Client</a>
+                    <a href="oauth2/authorize-client/naver" class="">naver Client</a>
+                </div>
+            </div>
+
+            <div id="login-container-default">
+                <form id="myForm" action="/login_proc" class="" method="post" >
+                    <input type="hidden" value="secret" name="secret_key" />
+                    <div class="form-group">
+                        <input type="text" class="" name="username" placeholder="Username" required="required" autofocus="autofocus">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="" name="password" placeholder="Password" required="required">
+                    </div>
+                                    <button type="button" onclick="formLogin()" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>
+                    <button type="submit" onclick="checkForm();" class="">Login</button>
+                            <button type="button" onclick="formLogin();" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>
+                </form>
+            </div>
+
+    </article>-->
 </body>
-
-
 
 {{>layout/footer}}
