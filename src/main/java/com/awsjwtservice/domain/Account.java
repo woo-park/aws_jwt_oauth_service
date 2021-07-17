@@ -57,10 +57,12 @@ public class Account implements Serializable {
     /* order fields testing */
 
     @Embedded
+    @Column(nullable = true)
     private Address address;
 
-    @OneToMany(mappedBy = "account")
-    private List<Orders> orders = new ArrayList<Orders>();
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    @Column(nullable = true)
+    private List<Orders> orders;
 
 
     @Builder
