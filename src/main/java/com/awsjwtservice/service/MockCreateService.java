@@ -30,16 +30,16 @@ public class MockCreateService {
     public void initCreateMock() {
 
 
-        Account member = userRepository.findByUsername("manager");
-        member.setAddress(new Address("서울", "강가", "123-123"));
-
-        userRepository.save(member);
-
-        Book book = createBook("시골개발자의 JPA 책", 20000, 10);
-        itemService.saveItem(book);
-        itemService.saveItem(createBook("토비의 봄", 40000, 20));
-
-        orderService.order(member.getId(), book.getId(), 5);
+//        Account member = userRepository.findByUsername("manager");
+//        member.setAddress(new Address("서울", "강가", "123-123"));
+//
+//        userRepository.save(member);
+//
+//        Book book = createBook("시골개발자의 JPA 책", 20000, 10);
+//        itemService.saveItem(book);
+//        itemService.saveItem(createBook("토비의 봄", 40000, 20));
+//
+//        orderService.order(member.getId(), book.getId(), 5);
 
     }
 

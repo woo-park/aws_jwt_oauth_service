@@ -37,43 +37,44 @@ public class OrderController {
     public String createForm(Model model) {
 
         List<Account> users = userService.getUsers();
-        List<Item> items = itemService.findItems();
+//        List<Item> items = itemService.findItems();
 
-        model.addAttribute("users", users);
-        model.addAttribute("items", items);
+//        model.addAttribute("users", users);
+//        model.addAttribute("items", items);
+
 
         return "order/orderForm";
     }
 
-    @RequestMapping(value = "/order", method = RequestMethod.POST)
-    public String order(@RequestParam("userId") long memberId, @RequestParam("itemId") long itemId, @RequestParam("count") int count) {
+//    @RequestMapping(value = "/order", method = RequestMethod.POST)
+//    public String order(@RequestParam("userId") long memberId, @RequestParam("itemId") long itemId, @RequestParam("count") int count) {
+//
+//        orderService.order(memberId, itemId, count);
+//        return "redirect:/orders";
+//    }
 
-        orderService.order(memberId, itemId, count);
-        return "redirect:/orders";
-    }
-
-    @RequestMapping(value = "/orders", method = RequestMethod.GET)
-    public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
-
-        List<Orders> orders = orderService.findOrders(orderSearch);
-//        List<OrdersDto> ordersDto = new ArrayList<OrdersDto>();       // used to be like this, but i changed to using dtos
-
-        List<OrdersDto> ordersDto = orders.stream().map(e ->
-                OrdersDto.builder()
-                        .id(e.getId())
-                        .delivery(e.getDelivery())
-                        .orderDate(e.getOrderDate())
-                        .status(e.getStatus())
-                        .username(e.getAccount().getUsername())
-                        .orderItems(e.getOrderItems())
-                        .orderBoolean(Boolean.valueOf(e.getStatus().toString() == "ORDER" ? true : false))
-                        .build()).collect(Collectors.toList());
-
-
-        model.addAttribute("orders", ordersDto);
-
-        return "order/orderList";
-    }
+//    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+//    public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
+//
+//        List<Orders> orders = orderService.findOrders(orderSearch);
+////        List<OrdersDto> ordersDto = new ArrayList<OrdersDto>();       // used to be like this, but i changed to using dtos
+//
+//        List<OrdersDto> ordersDto = orders.stream().map(e ->
+//                OrdersDto.builder()
+//                        .id(e.getId())
+//                        .delivery(e.getDelivery())
+//                        .orderDate(e.getOrderDate())
+//                        .status(e.getStatus())
+//                        .username(e.getAccount().getUsername())
+//                        .orderItems(e.getOrderItems())
+//                        .orderBoolean(Boolean.valueOf(e.getStatus().toString() == "ORDER" ? true : false))
+//                        .build()).collect(Collectors.toList());
+//
+//
+//        model.addAttribute("orders", ordersDto);
+//
+//        return "order/orderList";
+//    }
 
 
     @RequestMapping(value = "/orders/{orderId}/cancel")
