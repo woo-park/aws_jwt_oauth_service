@@ -135,6 +135,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/style.css").permitAll()
                 .antMatchers("/css/login.css").permitAll()
 
+                .antMatchers("/items/**").permitAll()
+                .antMatchers("/items/**/edit").permitAll()
+
                 .antMatchers("/denied").permitAll()
                 .antMatchers("/oauth_login","/oauth_login/**","/login_proc", "/oauth2/authorize-client","/oauth2/authorize-client/**", "/loginSuccess", "/loginFailure", "/loginSuccess/**", "/loginFailure/**", "/", "/h2-console", "/h2-console/**").permitAll()
                 .antMatchers("/register","/register/**").permitAll()
@@ -152,6 +155,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/sites", "/sites/**").permitAll()
 
                 .antMatchers("/users/export/pdf").permitAll()
+                .antMatchers("/users").permitAll()
+
+                .antMatchers("/orders").permitAll()
+                .antMatchers("/orders/**/cancel").permitAll()
+                .antMatchers("/order").permitAll()
+
+
 
 //                .antMatchers("/**").permitAll()
 

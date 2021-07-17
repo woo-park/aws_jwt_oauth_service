@@ -1,0 +1,31 @@
+{{>layout/header}}
+<div>
+    <table class="">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>재고수량</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {{#items}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{price}}</td>
+                <td>{{stockQuantity}}</td>
+                <td>
+                    <a href="/items/{{id}}/edit" class="btn btn-primary" role="button">수정</a>
+                </td>
+            </tr>
+        {{/items}}
+
+        </tbody>
+    </table>
+</div>
+
+{{>layout/footer}}

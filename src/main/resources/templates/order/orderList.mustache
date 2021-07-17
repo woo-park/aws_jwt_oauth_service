@@ -1,0 +1,43 @@
+{{>layout/header}}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>회원명</th>
+            <th>대표상품 이름</th>
+            <th>대표상품 주문가격</th>
+            <th>대표상품 주문수량</th>
+            <th>상태</th>
+            <th>일시</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {{#orders}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{username}}</td>
+            <td>{{orderItems.0.item.name}}</td>
+            <td>{{#.}}{{orderItems.0.orderPrice}}{{/.}}</td>
+            <td>{{#.}}{{orderItems.0.count}}{{/.}}</td>
+            <td>{{status}}</td>
+            <td>{{orderDate}}</td>
+            <td>
+                {{#orderBoolean}}
+                    <a href="/orders/{{id}}/cancel" class="btn btn-danger">주문취소</a>
+                {{/orderBoolean}}
+            </td>
+        </tr>
+    {{/orders}}
+
+<!--            <td>${item.orderItems[0].item.name}</td>-->
+<!--            <td>${item.orderItems[0].orderPrice}</td>-->
+<!--            <td>${item.orderItems[0].count}</td>-->
+<!--            <td>${item.status}</td>-->
+<!--            <td>${item.orderDate}</td>-->
+
+    </tbody>
+</table>
+{{>layout/footer}}

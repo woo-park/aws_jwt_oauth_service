@@ -128,4 +128,13 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> listAll() {
         return userRepository.findAll(Sort.by("email").ascending());
     }
+
+
+// use this later to validate -> good reference
+//    private void validateDuplicateMember(Member member) {
+//        List<Member> findMembers = memberRepository.findByName(member.getName());
+//        if (!findMembers.isEmpty()) {
+//            throw new IllegalStateException("이미 존재하는 회원입니다.");
+//        }
+//    }
 }

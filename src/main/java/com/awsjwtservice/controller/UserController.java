@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import com.lowagie.text.DocumentException;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class UserController {
@@ -100,5 +101,14 @@ public class UserController {
 		exporter.export(response);
 
 	}
+
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public String list(Model model) {
+
+		List<Account> users = accountService.getUsers();
+		model.addAttribute("users", users);
+		return "members/userList";
+	}
+
 
 }
