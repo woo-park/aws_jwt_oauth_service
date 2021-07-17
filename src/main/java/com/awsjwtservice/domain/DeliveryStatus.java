@@ -1,5 +1,5 @@
-//package com.awsjwtservice.domain;
-//
-//public enum DeliveryStatus {
-//    READY, COMP
-//}
+package com.awsjwtservice.domain;
+
+public enum DeliveryStatus {
+    READY, COMP
+}
