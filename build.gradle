@@ -2,7 +2,8 @@ buildscript {
     ext {
         springBootVersion = '2.2.6.RELEASE'
         querydslPluginVersion = '1.0.10'
-        aspectjVersion = '1.8.12'
+//        aspectjVersion = '1.8.12'
+
     }
     repositories {
         mavenCentral()
@@ -16,7 +17,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath "io.spring.gradle:dependency-management-plugin:1.0.7.RELEASE"
         classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVersion}")
-        classpath("gradle.plugin.aspectj:gradle-aspectj:0.1.6")
+
     }
 }
 
@@ -63,8 +64,11 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
 //    runtimeOnly group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.5'
+    // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+    runtimeOnly("org.aspectj:aspectjweaver:1.9.5")
+
 //    compile("org.aspectj:aspectjrt:1.8.5")
-    compile("org.aspectj:aspectjweaver:1.9.5")
+
 
     // lombok
     compile('org.projectlombok:lombok')
