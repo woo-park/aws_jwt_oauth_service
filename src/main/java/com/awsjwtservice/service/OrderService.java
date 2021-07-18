@@ -33,8 +33,11 @@ public class OrderService {
         Account member = memberRepository.findOneById(memberId);
         Item item = itemService.findOne(itemId);
 
+
+
         //배송정보 생성
         Delivery delivery = new Delivery(member.getAddress());
+
         //주문상품 생성
         OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
         //주문 생성
@@ -43,6 +46,8 @@ public class OrderService {
         //주문 저장
         orderRepository.save(order);
         return order.getId();
+
+
     }
 
 
