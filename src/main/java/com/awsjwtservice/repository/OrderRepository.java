@@ -47,8 +47,8 @@ public class OrderRepository {
         }
         //회원 이름 검색
         if (StringUtils.hasText(orderSearch.getMemberName())) {
-            Join<Orders, Account> m = o.join("member", JoinType.INNER); //회원과 조인
-            Predicate name = cb.like(m.<String>get("name"), "%" + orderSearch.getMemberName() + "%");
+            Join<Orders, Account> m = o.join("account", JoinType.INNER); //회원과 조인
+            Predicate name = cb.like(m.<String>get("username"), "%" + orderSearch.getMemberName() + "%");
             criteria.add(name);
         }
 

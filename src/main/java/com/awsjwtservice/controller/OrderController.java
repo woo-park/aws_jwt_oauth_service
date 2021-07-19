@@ -69,7 +69,7 @@ public class OrderController {
                         .orderBoolean(Boolean.valueOf(e.getStatus().toString() == "ORDER" ? true : false))
                         .build()).collect(Collectors.toList());
 
-
+//        model.addAttribute("orderSearchDto", orderSearchDto);
         model.addAttribute("orders", ordersDto);
 
         return "order/orderList";

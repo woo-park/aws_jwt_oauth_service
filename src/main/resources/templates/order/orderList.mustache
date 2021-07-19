@@ -1,5 +1,23 @@
 {{>layout/header}}
 
+
+<form class="navbar-form navbar-left" role="search">
+    <div class="form-group">
+        <input type="text" name="memberName" class="form-control" placeholder="회원명" value="{{#orderSearch}}{{#memberName}}{{/memberName}}{{/orderSearch}}">
+    </div>
+    <div class="form-group">
+        <select class="form-control" name="orderStatus">
+            <option value="">주문상태</option>
+            <option value="ORDER">주문</option>
+            <option value="CANCEL">>취소</option>
+<!--            <option value="ORDER" <c:if test="${orderSearch.orderStatus eq 'ORDER'}">selected</c:if> >주문</option>-->
+<!--            <option value="CANCEL" <c:if test="${orderSearch.orderStatus eq 'CANCEL'}">selected</c:if> >취소</option>-->
+        </select>
+    </div>
+    <button type="submit" class="btn btn-default">검색</button>
+</form>
+
+
 <table class="table table-striped">
     <thead>
         <tr>
