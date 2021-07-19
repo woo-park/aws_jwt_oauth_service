@@ -13,8 +13,12 @@ import com.awsjwtservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -79,6 +83,18 @@ public class OrderController {
 
 //        model.addAttribute("orderSearchDto", orderSearchDto);
         model.addAttribute("orders", ordersDto);
+
+        //주문 상태 검색 //회원 이름 검색
+        if (orderSearch.getOrderStatus() != null && StringUtils.hasText(orderSearch.getMemberName())) {
+            if(orderSearch.getOrderStatus().toString() == "ORDER") {
+                model.addAttribute("orderSearchOrderBoolean", true);
+            } else if (orderSearch.getOrderStatus().toString() == "CANCEL") {
+                model.addAttribute("orderSearchCancelBoolean", true);
+            }
+
+            model.addAttribute("orderSearchUsername", orderSearch.getMemberName());
+//            model.addAttribute("orderSearch", orderSearch);       // this also works
+        }
 
         return "order/orderList";
     }
