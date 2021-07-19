@@ -9,9 +9,26 @@
     --main-black-color: #222222;
 }
 
-section { background-color: var(--main-tea-color); }
+section {
+    background-color: var(--main-tea-color);
+    border-radius: 5px;
+    box-shadow: var(--main-cafe-color);
+}
 
-article { background-color: var(--main-cafe-color); }
+article {
+    background-color: var(--main-white-color);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: var(--main-cafe-color);
+    min-width: 250px;
+
+}
+
+article > div {
+    padding:1rem;
+}
 
 a, a:hover {
     color: var(--main-black-color);

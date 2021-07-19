@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -35,12 +36,12 @@ public class OrderController {
     /* make order */
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public String createForm(Model model) {
-
         List<Account> users = userService.getUsers();
         List<Item> items = itemService.findItems();
 
         model.addAttribute("users", users);
         model.addAttribute("items", items);
+
 
         return "order/orderForm";
     }
@@ -48,8 +49,15 @@ public class OrderController {
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     public String order(@RequestParam("userId") long memberId, @RequestParam("itemId") long itemId, @RequestParam("count") int count) {
 
-        orderService.order(memberId, itemId, count);
-        return "redirect:/orders";
+        try {
+            orderService.order(memberId, itemId, count);
+            return "redirect:/orders";
+        } catch (Exception e) {
+//            return "redirect:/order?msg:nada";
+            return "redirect:/order?msg:notEnoughStock";
+        }
+
+
     }
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)

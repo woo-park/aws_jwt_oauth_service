@@ -55,5 +55,6 @@ public class OrderRepository {
         cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
         TypedQuery<Orders> query = em.createQuery(cq).setMaxResults(1000); //최대 검색 1000 건으로 제한
         return query.getResultList();
+
     }
 }
