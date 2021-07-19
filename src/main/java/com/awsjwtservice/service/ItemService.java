@@ -24,6 +24,10 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    public void saveArt(Item item) {
+        itemRepository.save(item);
+    }
+
     public List<Item> findItems() {
         return itemRepository.findAll();
     }

@@ -24,4 +24,38 @@
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
+
+
+<form role="form" action="/items/new/art" method="post">
+    <div class="form-group">
+        <label for="name">상품명</label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="이름을 입력하세요">
+    </div>
+    <div class="form-group">
+        <label for="price">가격</label>
+        <input type="number" name="price" class="form-control" id="price" placeholder="가격을 입력하세요">
+    </div>
+    <div class="form-group">
+        <label for="stockQuantity">수량</label>
+        <input type="number" name="stockQuantity" class="form-control" id="stockQuantity" placeholder="수량을 입력하세요">
+    </div>
+    <div class="form-group">
+        <label for="author">저자</label>
+        <input type="text" name="author" class="form-control" id="author" placeholder="저자를 입력하세요">
+    </div>
+    <div class="form-group">
+        <label for="height">높이</label>
+        <input type="number" step="1" min="0" required name="height" class="form-control" id="height" placeholder="높이를 입력하세요" value="0">
+    </div>
+    <div class="form-group">
+        <label for="width">길이</label>
+        <input type="number" step="1" min="0" required name="width" class="form-control" id="width" placeholder="길이를 입력하세요" value="0">
+    </div>
+    <div class="form-group">
+        <label for="depth">폭</label>
+        <input type="number" step="1" min="0" required name="depth" class="form-control" id="height" placeholder="폭을 입력하세요" value="0">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
 {{>layout/footer}}

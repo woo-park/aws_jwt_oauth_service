@@ -1,5 +1,6 @@
 package com.awsjwtservice.controller;
 
+import com.awsjwtservice.domain.item.Art;
 import com.awsjwtservice.domain.item.Book;
 import com.awsjwtservice.domain.item.Item;
 import com.awsjwtservice.service.ItemService;
@@ -31,6 +32,13 @@ public class ItemController {
         return "redirect:/items";
     }
 
+    @RequestMapping(value = "/items/new/art", method = RequestMethod.POST)
+    public String create(Art item) {
+
+        itemService.saveArt(item);
+        return "redirect:/items";
+    }
+
     /**
      * 상품 수정 폼
      */
@@ -38,6 +46,11 @@ public class ItemController {
     public String updateItemForm(@PathVariable("itemId") long itemId, Model model) {
 
         Item item = itemService.findOne(itemId);
+
+
+        // need to figure out types of an item, then show different forms based on their types
+
+
         model.addAttribute("item", item);
         return "items/updateItemForm";
     }
