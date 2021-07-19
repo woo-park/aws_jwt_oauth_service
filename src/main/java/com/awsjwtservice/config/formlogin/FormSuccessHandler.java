@@ -1,9 +1,11 @@
 package com.awsjwtservice.config.formlogin;
 
 import com.awsjwtservice.domain.Account;
+import com.awsjwtservice.dto.AccountDto;
 import com.awsjwtservice.dto.SessionUserDto;
+//import com.awsjwtservice.dto.UserDetails;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
@@ -19,6 +21,8 @@ public class FormSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
+//        Object authenticatedUser = authentication.getPrincipal();
+//        UserDetails authenticatedUser = (UserDetails) authentication.getPrincipal();
         Account authenticatedUser = (Account) authentication.getPrincipal();
 
         session.setAttribute("user", SessionUserDto.builder().role(authenticatedUser.getRole()).username(authenticatedUser.getUsername()).email(authenticatedUser.getEmail()).userSeq(authenticatedUser.getId()).build());
