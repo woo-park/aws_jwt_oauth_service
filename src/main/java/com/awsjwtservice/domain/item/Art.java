@@ -46,6 +46,12 @@ public class Art extends Item {
 
     @Override
     public String toString() {
-        return "Art{}";
+        return "Art{" +
+                "id=" + super.getId() +
+                ", name='" + super.getName() + '\'' +
+                ", price=" + super.getPrice() +
+                ", author=" + author +
+                ", size=" + height + "x" + width + "x" + depth +
+                '}';
     }
 }

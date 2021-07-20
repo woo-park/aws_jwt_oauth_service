@@ -17,3 +17,5 @@ application-oauth.yml
 
 !/upload-dir/
 upload-dir/
+!/testing-disabled-console.log
+testing-disabled-console.log
