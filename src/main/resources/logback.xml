@@ -5,7 +5,7 @@
         <!-- Timestamp used into the Log Stream Name -->
         <timestamp key="timestamp" datePattern="yyyyMMddHHmmssSSS"/>
         <appender name="ASYNC_AWS_LOGS" class="ca.pjer.logback.AwsLogsAppender">
-    
+
             <layout>
                 <pattern>%d{yyyyMMdd'T'HHmmss} %thread %level %logger{15} %msg%n</pattern>
             </layout>
