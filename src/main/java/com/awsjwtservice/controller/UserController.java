@@ -32,6 +32,9 @@ public class UserController {
 
 	private final HttpSession httpSession;
 
+	// get a logger
+	private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
+
 	@Autowired
 	AccountService accountService;
 
@@ -58,13 +61,12 @@ public class UserController {
 			} else if (role.equals("ROLE_MANAGER")) {
 				model.addAttribute("manager", true);
 			}
+
+			logger.info(user.getUsername() + "reached" + ": \"/\"");
 		}
 
-
-		// get a logger
-		org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
 		// log
-		logger.info("HelloWorld");
+		logger.info("reached" + ": \"/\"");
 
 		return "index";
 	}
