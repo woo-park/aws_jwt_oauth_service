@@ -60,6 +60,12 @@ public class UserController {
 			}
 		}
 
+
+		// get a logger
+		org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
+		// log
+		logger.info("HelloWorld");
+
 		return "index";
 	}
 
