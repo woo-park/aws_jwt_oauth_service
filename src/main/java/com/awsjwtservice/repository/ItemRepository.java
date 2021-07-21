@@ -19,7 +19,7 @@ import java.util.List;
 public class ItemRepository {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(ItemRepository.class);
+//    private static final Logger logger = LoggerFactory.getLogger(ItemRepository.class);
 
     @PersistenceContext
     EntityManager em;
@@ -33,8 +33,8 @@ public class ItemRepository {
             em.merge(item);
         }
 
-        logger.info("Saving item...");
-        logger.info(item.toString());
+//        logger.info("Saving item...");
+//        logger.info(item.toString());
     }
 
     public Item findOne(Long id) {
