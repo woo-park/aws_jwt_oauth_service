@@ -5,27 +5,11 @@
         <!-- Timestamp used into the Log Stream Name -->
         <timestamp key="timestamp" datePattern="yyyyMMddHHmmssSSS"/>
         <appender name="ASYNC_AWS_LOGS" class="ca.pjer.logback.AwsLogsAppender">
-            <!-- Send only WARN and above -->
-            <!--        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
-            <!--            <springProfile name="dev">-->
-            <!--                <level>DEBUG</level>-->
-            <!--            </springProfile>-->
-            <!--            <springProfile name="prod">-->
-            <!--                <level>INFO</level>-->
-            <!--            </springProfile>-->
-            <!--        </filter>-->
-            <!-- Nice layout pattern -->
+    
             <layout>
                 <pattern>%d{yyyyMMdd'T'HHmmss} %thread %level %logger{15} %msg%n</pattern>
             </layout>
-            <!-- Hardcoded Log Group Name -->
-            <!-- Timestamped Log Stream Name -->
-            <!--        <springProfile name="dev">-->
-            <!--            <logGroupName>/test-dev-api</logGroupName>-->
-            <!--        </springProfile>-->
-            <!--        <springProfile name="prod">-->
-            <!--            <logGroupName>/test-op-api</logGroupName>-->
-            <!--        </springProfile>-->
+
             <logStreamName>test-api-${timestamp}</logStreamName>
 
             <!-- Hardcoded AWS region -->
@@ -41,8 +25,6 @@
             <!-- when > 0: this is the maximum time the logging thread will wait for the logger, -->
             <!-- when == 0: the logging thread will never wait for the logger, discarding events while the queue is full -->
             <maxBlockTimeMillis>5000</maxBlockTimeMillis>
-<!--            <accessKeyId>AKIA3Y7POBNX2WZIRTHQ</accessKeyId>-->
-<!--            <secretKey>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</secretKey>-->
         </appender>
 
 
