@@ -62,10 +62,10 @@ public class UserController {
 				model.addAttribute("manager", true);
 			}
 
-			logger.info(user.getUsername() + "reached" + ": \"/\"");
+//			logger.info(user.getUsername() + "reached" + ": \"/\"");
 		} else {
 			// log
-			logger.info("reached" + ": \"/\"");
+//			logger.info("reached" + ": \"/\"");
 		}
 
 
