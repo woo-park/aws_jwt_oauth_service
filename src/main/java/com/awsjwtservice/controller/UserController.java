@@ -63,10 +63,12 @@ public class UserController {
 			}
 
 			logger.info(user.getUsername() + "reached" + ": \"/\"");
+		} else {
+			// log
+			logger.info("reached" + ": \"/\"");
 		}
 
-		// log
-		logger.info("reached" + ": \"/\"");
+
 
 		return "index";
 	}
@@ -88,10 +90,12 @@ public class UserController {
 			}
 
 			logger.info(user.getUsername() + "reached" + ": \"/\"");
+		} else {
+			// log
+			logger.info("reached" + ": \"/\"");
 		}
 
-		// log
-		logger.info("reached" + ": \"/\"");
+
 
 		return "mypage";
 	}

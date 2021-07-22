@@ -15,7 +15,7 @@
                 <pattern>[%date] %highlight([%level]) [%logger{10} %file:%line] %msg%n</pattern>
             </layout>
 
-            <logStreamName>test-api-${timestamp}</logStreamName>
+            <logStreamName>localhost-test-api-${timestamp}</logStreamName>
 
             <!-- Hardcoded AWS region -->
             <!-- So even when running inside an AWS instance in us-west-1, logs will go to us-west-2 -->
@@ -32,13 +32,14 @@
             <maxBlockTimeMillis>5000</maxBlockTimeMillis>
         </appender>
 
-
         <!-- A console output -->
-        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender" additivity="false">
             <encoder>
                 <pattern>%d{yyyyMMdd'T'HHmmss} %thread %level %logger{15} %msg%n</pattern>
             </encoder>
         </appender>
+
+
 
         <root level="info">
 

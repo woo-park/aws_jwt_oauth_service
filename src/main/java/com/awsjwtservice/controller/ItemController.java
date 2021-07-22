@@ -32,6 +32,8 @@ public class ItemController {
     public String create(Book item) {
 
         itemService.saveItem(item);
+
+        logger.info("book item saved: " + item.getName());
         return "redirect:/items";
     }
 
@@ -39,6 +41,8 @@ public class ItemController {
     public String create(Art item) {
 
         itemService.saveArt(item);
+
+        logger.info("art item saved: " + item.getName());
         return "redirect:/items";
     }
 
@@ -79,6 +83,8 @@ public class ItemController {
         List<Item> items = itemService.findItems();
 
         model.addAttribute("items", items);
+
+        logger.info("/items reached");
         return "items/itemList";
     }
 
