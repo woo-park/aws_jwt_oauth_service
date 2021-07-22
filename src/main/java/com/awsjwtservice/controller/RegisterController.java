@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegisterController {
 
+    // get a logger
+    private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -22,6 +25,7 @@ public class RegisterController {
 
     @GetMapping("/register")                                   // hmmm interesting approach: using term 'users' as registering page, and also as a receiving portal for post method
     public String createUser(Model model) {
+        logger.info("/register reached");
         return "register";
     }
 
@@ -36,6 +40,9 @@ public class RegisterController {
 
         accountService.createUserIfNotFound(accountDto);
 //        accountService.createUser(account);
+
+        // log
+        logger.info("registered: " + accountDto.getEmail());
 
 
         return "redirect:/mypage";

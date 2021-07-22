@@ -87,7 +87,11 @@ public class UserController {
 				model.addAttribute("manager", true);
 			}
 
+			logger.info(user.getUsername() + "reached" + ": \"/\"");
 		}
+
+		// log
+		logger.info("reached" + ": \"/\"");
 
 		return "mypage";
 	}

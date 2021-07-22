@@ -16,6 +16,10 @@ import java.util.Optional;
 
 @Controller
 public class SiteController {
+
+    // get a logger
+    private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     SiteService siteService;
 
@@ -27,6 +31,7 @@ public class SiteController {
             model.addAttribute("userSeq", user.getUserSeq());
             model.addAttribute("email", user.getEmail());
         }
+
 
         return "createSite";
     }

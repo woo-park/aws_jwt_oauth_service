@@ -37,6 +37,9 @@ public class OrderController {
     ItemService itemService;
 
 
+    // get a logger
+    private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
+
     /* make order */
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public String createForm(Model model) {
@@ -46,6 +49,7 @@ public class OrderController {
         model.addAttribute("users", users);
         model.addAttribute("items", items);
 
+        logger.info("/order reached");
 
         return "order/orderForm";
     }
@@ -55,11 +59,15 @@ public class OrderController {
 
         try {
             orderService.order(memberId, itemId, count);
+
+            logger.info(memberId + "ordered" + " itemId" + itemId);
+
             return "redirect:/orders";
         } catch (Exception e) {
 //            return "redirect:/order?msg:nada";
             return "redirect:/order?msg:notEnoughStock";
         }
+
 
 
     }

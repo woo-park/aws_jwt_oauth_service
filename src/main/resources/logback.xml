@@ -6,8 +6,13 @@
         <timestamp key="timestamp" datePattern="yyyyMMddHHmmssSSS"/>
         <appender name="ASYNC_AWS_LOGS" class="ca.pjer.logback.AwsLogsAppender">
 
+<!--            <layout>-->
+<!--                <pattern>%d{yyyyMMdd'T'HHmmss} %thread %level %logger{15} %msg%n</pattern>-->
+<!--            </layout>-->
+
+            <!-- Nice layout pattern -->
             <layout>
-                <pattern>%d{yyyyMMdd'T'HHmmss} %thread %level %logger{15} %msg%n</pattern>
+                <pattern>[%date] %highlight([%level]) [%logger{10} %file:%line] %msg%n</pattern>
             </layout>
 
             <logStreamName>test-api-${timestamp}</logStreamName>

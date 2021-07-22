@@ -17,6 +17,9 @@ import java.util.List;
 @Controller
 public class ItemController {
 
+    // get a logger
+    private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     ItemService itemService;
 

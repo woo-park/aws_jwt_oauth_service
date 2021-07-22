@@ -26,6 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class AuthenticationController {
 
+	// get a logger
+	private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
+
 	@Autowired
 	AuthenticationManager authenticationManager;
 
