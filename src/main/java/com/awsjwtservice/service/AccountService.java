@@ -4,6 +4,7 @@ import com.awsjwtservice.domain.Account;
 import com.awsjwtservice.dto.AccountDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AccountService {
     void createUser(Account account);
@@ -20,6 +21,11 @@ public interface AccountService {
 
     void createUserIfNotFound(AccountDto accountDto);
 
+    Optional<Account> getUser(String email);
+
+    Account findUser(String email);
+
+    void updateUser(Account account);
 
     List<Account> listAll();
 

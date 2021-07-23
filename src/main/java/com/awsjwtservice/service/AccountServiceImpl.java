@@ -73,6 +73,8 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+
+
     @Transactional
     @Override
     public void modifyUser(AccountDto accountDto){
@@ -112,6 +114,21 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public List<Account> getUsers() {
         return userRepository.findAll();
+    }
+
+    @Transactional
+    public Optional<Account> getUser(String usernameOrEmail) {
+        return userRepository.findByEmailOrUsername(usernameOrEmail, usernameOrEmail);
+    }
+
+    @Transactional
+    public Account findUser(String usernameOrEmail) {
+        return userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
+    }
+
+    @Override
+    public void updateUser(Account account) {
+        userRepository.save(account);
     }
 
     @Override

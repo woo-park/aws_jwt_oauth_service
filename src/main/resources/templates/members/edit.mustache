@@ -1,0 +1,66 @@
+
+
+{{>layout/header}}
+
+
+<div class="container d-flex justify-content-center">
+    <div style="width:700px; margin-top: 30px;">
+        <form class="form-horizontal" action="/member/edit" method="post">
+
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Username</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control input-large" name="username" id="username" placeholder="username" value="{{#user}}{{username}}{{/user}}" disabled>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control input-large" name="email" id="email" placeholder="Email" value="{{#user}}{{email}}{{/user}}" disabled>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPhoneNumber">Zipcode</label>
+                <input type="text" name="zipcode" class="form-control" id="zipcode" placeholder="zipcode를 입력하세요" {{^user}}disabled{{/user}}>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPhoneNumber">Street</label>
+                <input type="text" name="street" class="form-control" id="street" placeholder="street을 입력하세요" {{^user}}disabled{{/user}}>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPhoneNumber">City</label>
+                <input type="text" name="city" class="form-control" id="city" placeholder="city를 입력하세요" {{^user}}disabled{{/user}}>
+            </div>
+
+
+<!--            <div class="form-group">-->
+<!--                <label for="inputPhoneNumber">휴대폰 번호</label>-->
+<!--                <input type="tel" name="phoneNumber" class="form-control" id="inputPhoneNumber" placeholder="휴대폰 번호를 입력하세요">-->
+<!--            </div>-->
+
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="Submit" class="btn btn-dark btn-lg" {{^user}}disabled{{/user}}>수정</button>
+                </div>
+
+                {{^user}}
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <a href="/oauth_login" class="btn btn-dark btn-lg">로그인 하러 가기</a>
+                    </div>
+                {{/user}}
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+
+{{>layout/footer}}

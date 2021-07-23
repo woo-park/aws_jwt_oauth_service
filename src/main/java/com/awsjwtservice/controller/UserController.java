@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.awsjwtservice.config.annotation.LoginUser;
 import com.awsjwtservice.domain.Account;
+import com.awsjwtservice.domain.Address;
 import com.awsjwtservice.dto.SessionUserDto;
 import com.awsjwtservice.service.AccountService;
 import com.awsjwtservice.service.UserPDFExporter;
@@ -123,8 +125,60 @@ public class UserController {
 
 		List<Account> users = accountService.getUsers();
 		model.addAttribute("users", users);
+
+
 		return "members/userList";
 	}
 
+	@RequestMapping(value = "/user/edit", method = RequestMethod.GET)
+	public String editUser(Model model) {
+
+		SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+
+		if(user != null){
+			Account account = accountService.findUser(user.getEmail());
+
+			try {
+				model.addAttribute("user", account);
+			} catch (Exception e) {
+				logger.info("can't find user");
+			}
+
+
+
+		} else {
+			// log
+//			logger.info("reached" + ": \"/\"");
+		}
+
+		return "members/edit";
+	 }
+
+
+	@RequestMapping(value = "/member/edit", method = RequestMethod.POST)
+	public String editUser(Address address) {
+
+		SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+
+		if(user != null) {
+
+			try{
+				Account account = accountService.findUser(user.getEmail());
+				account.setAddress(address);
+
+				accountService.updateUser(account);
+
+				logger.info("account address updated");
+
+				return "redirect:/users";
+			} catch (Exception e) {
+				logger.info("can't find a user");
+				return "redirect:/user/edit";
+			}
+		}
+
+		return "redirect:/user/edit";
+
+	}
 
 }

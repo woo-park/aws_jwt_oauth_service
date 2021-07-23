@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<Account, Long> {
 
     Optional<Account> findByEmail(String email);
 
-
+    Account findByUsernameOrEmail(String username, String email);
 
     Account findOneById(long id);
 
