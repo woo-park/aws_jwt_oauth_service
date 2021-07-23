@@ -14,10 +14,7 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * User: HolyEyE
- * Date: 2013. 12. 3. Time: 오후 10:28
- */
+
 @Repository
 public class OrderRepository {
 

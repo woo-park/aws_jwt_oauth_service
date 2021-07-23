@@ -84,7 +84,7 @@ public class Orders implements Serializable {
         delivery.setOrder(this);
     }
 
-    //==Getter, Setter==//
+    /* Getter, Setter */
     public Long getId() {
         return id;
     }

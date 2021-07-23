@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by holyeye on 2014. 3. 12..
- */
+
 
 @Service
 @Transactional

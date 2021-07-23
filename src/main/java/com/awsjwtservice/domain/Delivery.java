@@ -33,7 +33,6 @@ public class Delivery {
         this.status = DeliveryStatus.READY;
     }
 
-
     @Override
     public String toString() {
         return "Delivery{" +

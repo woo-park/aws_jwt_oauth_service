@@ -7,9 +7,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by holyeye on 2014. 3. 11..
- */
 @Entity
 public class Category {
 
@@ -41,7 +38,6 @@ public class Category {
     public void addItem(Item item) {
         items.add(item);
     }
-
 
     public Long getId() {
         return id;

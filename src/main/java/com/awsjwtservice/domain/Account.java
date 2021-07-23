@@ -29,7 +29,7 @@ public class Account implements Serializable {
     private String email;
 
     @Column(nullable = true)
-    private String picture;     //not sure how picture is a string
+    private String picture;
 
     @Column(nullable = true)
     private String role;
@@ -44,27 +44,23 @@ public class Account implements Serializable {
     @CreationTimestamp
     private LocalDateTime regdate;
 
-    //@NotNull
     @UpdateTimestamp
     private LocalDateTime uptdate;
 
-    @ColumnDefault("0") //default 0
+    @ColumnDefault("0")
     private int delCheck;
 
-    @Enumerated(EnumType.STRING) // enum의 name을 DB에 저장하기 위해, 없을 경우 enum의 숫자가 들어간다.
+    // enum의 name을 DB에 저장하기 위해, default는 숫자
+    @Enumerated(EnumType.STRING)
     private LoginProvider loginProvider;
-
-    /* order fields testing */
 
     @Embedded
     private Address address;
 
-
-
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)        //Unable to evaluate the expression Method threw 'org.hibernate.LazyInitializationException' exception. -> change LAZY to EAGER
+    //Unable to evaluate the expression Method threw 'org.hibernate.LazyInitializationException' exception. -> change LAZY to EAGER
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     @Column(nullable = true)
     private List<Orders> orders;
-
 
     @Builder
     public Account(String username, String email, String picture, String role, String password, LoginProvider loginProvider) { //using the private field variables
@@ -74,7 +70,7 @@ public class Account implements Serializable {
         this.role = role;
         this.password = password;
         this.loginProvider = loginProvider;
-    }                       // now you have .save and .etc methods provided by lombok
+    }
 
     public Account update(String username, String picture, LoginProvider loginProvider) {
         this.username = username;
@@ -83,5 +79,6 @@ public class Account implements Serializable {
         return this;
     }
 
+    // .save, getter, setter, .etc methods provided by lombok
 }
 

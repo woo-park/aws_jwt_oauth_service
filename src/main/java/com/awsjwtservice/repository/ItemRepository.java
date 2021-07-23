@@ -10,10 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * User: HolyEyE
- * Date: 2013. 12. 3. Time: 오후 9:48
- */
 
 @Repository
 public class ItemRepository {

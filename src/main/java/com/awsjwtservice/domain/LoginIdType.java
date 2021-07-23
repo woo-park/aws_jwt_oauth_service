@@ -1,5 +1,6 @@
 package com.awsjwtservice.domain;
 
+/*
 public enum LoginIdType {
     SELEC7(0),
     FACEBOOK(1),
@@ -16,3 +17,4 @@ public enum LoginIdType {
         return type;
     }
 }
+*/

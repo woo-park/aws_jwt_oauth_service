@@ -10,10 +10,6 @@
 //
 //import javax.annotation.PostConstruct;
 //
-///**
-// * User: HolyEyE
-// * Date: 2013. 12. 4. Time: 오후 10:51
-// */
 //@Service
 //public class MockCreateService {
 //
