@@ -57,10 +57,11 @@ public class Account implements Serializable {
     /* order fields testing */
 
     @Embedded
-    @Column(nullable = true)
     private Address address;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)        //Unable to evaluate the expression Method threw 'org.hibernate.LazyInitializationException' exception. -> change LAZY to EAGER
     @Column(nullable = true)
     private List<Orders> orders;
 
