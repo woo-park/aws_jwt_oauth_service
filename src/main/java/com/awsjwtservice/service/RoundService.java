@@ -1,15 +1,17 @@
 package com.awsjwtservice.service;
 
 
-import com.awsjwtservice.domain.Account;
-import com.awsjwtservice.domain.Delivery;
-import com.awsjwtservice.domain.OrderItem;
-import com.awsjwtservice.domain.Orders;
+import com.awsjwtservice.domain.*;
 import com.awsjwtservice.domain.item.Item;
+import com.awsjwtservice.repository.RoundRepository;
 import com.awsjwtservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -21,29 +23,26 @@ public class RoundService {
     @Autowired
     RoundRepository roundRepository;
 
+    @Autowired
+    RoundService roundService;
 
+
+    public Rounds findRound(long roundId) {
+        return roundRepository.findOne(roundId);
+    }
     /** 주문 */
-    public Long order(Long memberId, Long itemId, int count) {
+    public Long createRound(Account member, String courseName) {
 
-        //엔티티 조회
-        Account member = memberRepository.findOneById(memberId);
-        Item item = itemService.findOne(itemId);
-
-
-
-        //배송정보 생성
-        Delivery delivery = new Delivery(member.getAddress());
-
-        //주문상품 생성
-        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
-        //주문 생성
-        Orders order = Orders.createOrder(member, delivery, orderItem);
-
-        //주문 저장
-        orderRepository.save(order);
-        return order.getId();
-
-
+        List<Holes> holes = new ArrayList<>();
+//
+        Rounds round = Rounds.createRound(member, courseName, holes);
+//
+//        for(int i = 0; i < 18; i++) {
+//            holes.add(Hole.createHoleInformation(round, 0));
+//        }
+//
+        roundRepository.save(round);
+        return round.getId();
     }
 
 }

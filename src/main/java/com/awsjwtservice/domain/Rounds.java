@@ -1,6 +1,8 @@
 package com.awsjwtservice.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,10 +13,12 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "round")
+@Table(name = "rounds")
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class Round implements Serializable {
+public class Rounds implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "round_id")
@@ -25,20 +29,26 @@ public class Round implements Serializable {
     private Account account;
     //
     @OneToMany(mappedBy = "round", cascade = CascadeType.ALL)
-    private List<Hole> holes = new ArrayList<Hole>();
+    private List<Holes> holes = new ArrayList<Holes>();
 
+    @Column
     private Date roundDate;     //주문시간
+
+    @Column
+    private String courseName;
 
 //    @Enumerated(EnumType.STRING)
 //    private OrderStatus status;//주문상태
 
     //==생성 메서드==//
-    public static Round createRound(Account account, Hole... holes) {
+    public static Rounds createRound(Account account, String courseName, List<Holes> holes) {
 
-        Round round = new Round();
+        Rounds round = new Rounds();
         round.setAccount(account);
 
-        for (Hole hole : holes) {
+        round.setCourseName(courseName);
+
+        for (Holes hole : holes) {
             round.addHoles(hole);
         }
 //        order.setStatus(OrderStatus.ORDER);
@@ -76,7 +86,7 @@ public class Round implements Serializable {
         account.getRounds().add(this);
     }
 
-    public void addHoles(Hole hole) {
+    public void addHoles(Holes hole) {
         holes.add(hole);
         hole.setRound(this);
     }
@@ -87,6 +97,8 @@ public class Round implements Serializable {
         return "Round{" +
                 "id=" + id +
                 ", roundDate=" + roundDate +
+                ", holes=" + holes +
+                ", account=" + account +
                 '}';
     }
 

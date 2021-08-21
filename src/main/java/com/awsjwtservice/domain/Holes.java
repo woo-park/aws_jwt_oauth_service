@@ -1,48 +1,43 @@
 package com.awsjwtservice.domain;
 
 import com.awsjwtservice.domain.item.Item;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "hole")
-@Getter
-@Setter
-public class Hole {
+@Table(name = "holes")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Holes {
 
     @Id
     @GeneratedValue
     @Column(name = "hole_id")
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "item_id")
-//    private Item item;      //주문 상품
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "round_id")
-    private Round round;    //주문
+    private Rounds round;    //주문
 
     private int fairway;
     private int par;
-    private int on;
-    private String up_down;
+    private int onGreen;
+    private int upDown;
     private int bunker;
     private int putt;
     private int score;
 
 
-    //==생성 메서드==//
-    public static Hole createHoleInformation(Round round, int score) {
-        Hole hole = new Hole();
-        hole.setScore(score);
-        hole.setRound(round);
-
-        return hole;
-    }
+//    //==생성 메서드==//
+//    public static Hole createHoleInformation(Round round, int score) {
+//        Hole hole = new Hole();
+//        hole.setScore(score);
+//        hole.setRound(round);
+//
+//        return hole;
+//    }
 
 
     //==비즈니스 로직==//
@@ -59,16 +54,19 @@ public class Hole {
 
     @Override
     public String toString() {
-        return "Hole{" +
+        return "Holes{" +
                 "id=" + id +
-                ", round=" + round +
+                ", rounds=" + round +
                 ", fairway=" + fairway +
                 ", par=" + par +
-                ", on=" + on +
-                ", up_down=" + up_down +
+                ", onGreen=" + onGreen +
+                ", upDown=" + upDown +
                 ", bunker=" + bunker +
                 ", putt=" + putt +
                 ", score=" + score +
                 '}';
+    }
+
+    public void setRound(Rounds rounds) {
     }
 }

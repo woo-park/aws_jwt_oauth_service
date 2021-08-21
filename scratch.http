@@ -46,3 +46,14 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/gallery/delete?fileseq=8
+
+###
+
+POST http://localhost:8080/rounds?courseName=88cc
+Connection: keep-alive
+Content-Type: application/json
+Cookie: session=NjA1ZDUyN2ItNTI0Mi00NzBiLWI0MDItMmZjMDk0ODAwMjU3;
+
+{
+  "courseName": "88cc"
+}

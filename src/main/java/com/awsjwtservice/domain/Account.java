@@ -65,7 +65,7 @@ public class Account implements Serializable {
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     @Column(nullable = true)
-    private List<Round> rounds;
+    private List<Rounds> rounds;
 
 
 
