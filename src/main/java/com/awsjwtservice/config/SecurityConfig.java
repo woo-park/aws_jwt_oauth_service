@@ -164,6 +164,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/edit").permitAll()
                 .antMatchers("/member/edit").permitAll()
 
+                .antMatchers("/score").permitAll()
+                .antMatchers("/score/edit").permitAll()
 
 //                .antMatchers("/**").permitAll()
 

@@ -62,6 +62,14 @@ public class Account implements Serializable {
     @Column(nullable = true)
     private List<Orders> orders;
 
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    @Column(nullable = true)
+    private List<Round> rounds;
+
+
+
+
     @Builder
     public Account(String username, String email, String picture, String role, String password, LoginProvider loginProvider) { //using the private field variables
         this.username = username;
