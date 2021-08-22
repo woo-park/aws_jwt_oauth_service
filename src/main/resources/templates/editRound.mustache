@@ -1,0 +1,308 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>On a Round</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+        *, *:before, *:after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #105469;
+            font-family: 'Open Sans', sans-serif;
+            /*background: -webkit-linear-gradient(left, #25c481, #25b7c4);*/
+            /*background: linear-gradient(to right, #25c481, #25b7c4);*/
+        }
+        table {
+            background: #012B39;
+            border-radius: 0.25em;
+            border-collapse: collapse;
+            margin: 1em;
+        }
+        th {
+            border-bottom: 1px solid #364043;
+            color: #E2B842;
+            font-size: 0.85em;
+            font-weight: 600;
+            padding: 0.5em 1em;
+            text-align: left;
+        }
+
+        tr td {
+            border-right: 1px solid #364043;
+        }
+
+        tr td:first-child{
+            color: #E2B842;
+        }
+
+        tr td:last-child{
+            color: #E2B842;
+        }
+
+        td {
+            color: #fff;
+            font-weight: 400;
+            padding: 0.65em 1em;
+        }
+
+        td:not(:first-child) {
+            text-align: center;
+        }
+
+
+        .disabled td {
+            color: #4F5F64;
+        }
+        tbody tr {
+            transition: background 0.25s ease;
+        }
+        tbody tr:hover {
+            background: #014055;
+        }
+
+
+        h1{
+            font-size: 30px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        body{
+
+        }
+
+        .tbl-content{
+            overflow-x:auto;
+            margin-top: 0px;
+            border: 1px solid rgba(255,255,255,0.3);
+
+        }
+
+        table{
+            margin: 50px;
+        }
+    </style>
+    <!--    <link rel="stylesheet" href="/css/style.css" />-->
+</head>
+<body>
+
+
+<article>
+    <h1>{{#courseName}}{{.}}{{/courseName}}</h1>
+    <h2>{{#round}}{{#roundDate}}{{.}}{{/roundDate}}{{/round}}</h2>
+    <h1>{{#round}}{{.}}{{/round}}</h1>
+    {{#holes}}{{.}}{{/holes}}
+
+
+    <div class="tbl-content">
+        <table>
+            <thead>
+            <tr>
+                <th>Holes
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/1">1</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/2">2</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/3">3</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/4">4</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/5">5</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/6">6</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/7">7</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/8">8</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/9">9</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/10">10</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/11">11</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/12">12</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/13">13</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/14">14</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/15">15</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/16">16</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/17">17</a>
+                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/18">18</a>
+                <th>Average
+            </thead>
+            <tbody>
+            <tr contenteditable="true">
+                <td contenteditable="false">Par
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+            <tr contenteditable="true">
+                <td contenteditable="false">Fairway
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td> /14
+            <tr contenteditable="true" class="disabled">
+                <td contenteditable="false">OB/HZ
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+            <tr contenteditable="true">
+                <td contenteditable="false">On
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td> /18
+            <tr contenteditable="true">
+                <td contenteditable="false">Up/Dw
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td> /18
+            <tr contenteditable="true" class="disabled">
+                <td contenteditable="false">Bunker
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+            <tr contenteditable="true">
+                <td contenteditable="false">Putts
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+            <tr contenteditable="true">
+                <td contenteditable="false">Score
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+                <td>
+            </tbody>
+        </table>
+    </div>
+
+</article>
+
+{{>layout/footer}}

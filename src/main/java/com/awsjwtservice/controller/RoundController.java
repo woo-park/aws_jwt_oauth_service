@@ -2,6 +2,7 @@ package com.awsjwtservice.controller;
 
 
 import com.awsjwtservice.domain.Account;
+import com.awsjwtservice.domain.Holes;
 import com.awsjwtservice.domain.Rounds;
 import com.awsjwtservice.dto.RoundsDto;
 import com.awsjwtservice.dto.SessionUserDto;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class RoundController {
@@ -91,12 +93,47 @@ public class RoundController {
             return "redirect:/oauth_login";
         }
 
-
     }
 
     /* get Score Card */
     @RequestMapping(value = "/rounds/{roundId}", method = RequestMethod.GET)
     public String getRound(@PathVariable("roundId") long roundId, Model model) {
+
+//        SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+//
+//        if (user != null) {
+//            Account account = accountService.findUser(user.getEmail());
+
+            try {
+//                model.addAttribute("user", account);
+
+                Rounds round = roundService.findRound(roundId);
+                List<Holes> holes = round.getHoles();
+                String courseName = round.getCourseName();
+                System.out.println(holes);
+                model.addAttribute("courseName", courseName);
+                model.addAttribute("round", round);
+                model.addAttribute("holes", holes);
+
+            } catch (Exception e) {
+                logger.info("error occured during finding rounds & holes");
+            }
+
+
+            // a portal that has access to holes 1 ~ 18
+
+            return "editRound";
+//        } else {
+//            return "redirect:/oauth_login";
+//        }
+
+
+    }
+
+
+    /* get Score Card */
+    @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.GET)
+    public String editRound(@PathVariable("roundId") long roundId,@PathVariable("holeNumber") int holeNumber, Model model) {
 
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
@@ -104,20 +141,32 @@ public class RoundController {
             Account account = accountService.findUser(user.getEmail());
 
             try {
-                model.addAttribute("user", account);
+    //                model.addAttribute("user", account);
 
                 Rounds round = roundService.findRound(roundId);
 
-                model.addAttribute("round", round);
+                if(round.getAccount().getId() != account.getId()) {
+
+                    logger.info("not the owner of this round.");
+                    String redirectString = "redirect:/rounds/" + roundId + "?msg=no_access";
+                    return redirectString;
+                }
+
+//                List<Holes> holes = round.getHoles();
+//                String courseName = round.getCourseName();
+//                System.out.println(holes);
+//                model.addAttribute("courseName", courseName);
+//                model.addAttribute("round", round);
+//                model.addAttribute("holes", holes);
 
             } catch (Exception e) {
-                logger.info("can't find user");
+                logger.info("error occured during finding rounds & holes");
             }
 
 
             // a portal that has access to holes 1 ~ 18
 
-            return "round";
+            return "editRound";
         } else {
             return "redirect:/oauth_login";
         }

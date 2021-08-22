@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>On a Round</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+        *, *:before, *:after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #105469;
+            font-family: 'Open Sans', sans-serif;
+            /*background: -webkit-linear-gradient(left, #25c481, #25b7c4);*/
+            /*background: linear-gradient(to right, #25c481, #25b7c4);*/
+        }
+        table {
+            background: #012B39;
+            border-radius: 0.25em;
+            border-collapse: collapse;
+            margin: 1em;
+        }
+        th {
+            border-bottom: 1px solid #364043;
+            color: #E2B842;
+            font-size: 0.85em;
+            font-weight: 600;
+            padding: 0.5em 1em;
+            text-align: left;
+        }
+
+        tr td {
+            border-right: 1px solid #364043;
+        }
+
+        tr td:first-child{
+            color: #E2B842;
+        }
+
+        tr td:last-child{
+            color: #E2B842;
+        }
+
+        td {
+            color: #fff;
+            font-weight: 400;
+            padding: 0.65em 1em;
+        }
+
+        td:not(:first-child) {
+            text-align: center;
+        }
+
+
+        .disabled td {
+            color: #4F5F64;
+        }
+        tbody tr {
+            transition: background 0.25s ease;
+        }
+        tbody tr:hover {
+            background: #014055;
+        }
+
+
+        h1{
+            font-size: 30px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        body{
+
+        }
+
+        .tbl-content{
+            overflow-x:auto;
+            margin-top: 0px;
+            border: 1px solid rgba(255,255,255,0.3);
+
+        }
+
+        table{
+            margin: 50px;
+        }
+    </style>
+    <!--    <link rel="stylesheet" href="/css/style.css" />-->
+</head>
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Holes</th>
+                <th>{{#holeNumber}}{{.}}{{/holeNumber}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr contenteditable="true">
+            <td contenteditable="false">Par
+            </td>{{#par}}{{.}}{{/par}}<td>
+        </td></tr><tr contenteditable="true">
+            <td contenteditable="false">Fairway</td>
+            <td></td>
+        </tr><tr contenteditable="true" class="disabled">
+            <td contenteditable="false">OB/HZ
+            </td><td>
+        </td></tr><tr contenteditable="true">
+            <td contenteditable="false">On
+            </td><td>
+        </td></tr><tr contenteditable="true">
+            <td contenteditable="false">Up/Dw
+            </td><td>
+        </td></tr><tr contenteditable="true" class="disabled">
+            <td contenteditable="false">Bunker
+            </td><td>
+        </td></tr><tr contenteditable="true">
+            <td contenteditable="false">Putts
+            </td><td>
+        </td></tr><tr contenteditable="true">
+            <td contenteditable="false">Score
+            </td><td>
+        </td></tr></tbody>
+    </table>
+    <form action="rounds/{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}" method="post">
+        <input type="hidden" name="par" value="">
+        <input type="hidden" name="fairway" value="">
+
+
+    </form>
+
+
+    {{>layout/footer}}
