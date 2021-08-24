@@ -56,6 +56,10 @@ public class Rounds implements Serializable {
         return round;
     }
 
+    public void updateHoles(Holes hole) {
+        this.addHoles(hole);
+    }
+
     //==비즈니스 로직==//
     /** 주문 취소 */
 //    public void cancel() {
@@ -92,14 +96,15 @@ public class Rounds implements Serializable {
     }
 
 
-    @Override
-    public String toString() {
-        return "Round{" +
-                "id=" + id +
-                ", roundDate=" + roundDate +
-                ", holes=" + holes +
-                ", account=" + account +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Round{"
+//                +
+//                "id=" + id +
+//                ", roundDate=" + roundDate +
+//                ", holes=" + holes +
+//                ", account=" + account +
+//                '}';
+//    }
 
 }

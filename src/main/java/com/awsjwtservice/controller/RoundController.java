@@ -1,11 +1,11 @@
 package com.awsjwtservice.controller;
 
 
-import com.awsjwtservice.domain.Account;
-import com.awsjwtservice.domain.Holes;
-import com.awsjwtservice.domain.Rounds;
+import com.awsjwtservice.domain.*;
 import com.awsjwtservice.dto.RoundsDto;
 import com.awsjwtservice.dto.SessionUserDto;
+import com.awsjwtservice.repository.HoleRepository;
+import com.awsjwtservice.repository.RoundRepository;
 import com.awsjwtservice.service.AccountService;
 import com.awsjwtservice.service.RoundService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,12 @@ public class RoundController {
 
     @Autowired
     RoundService roundService;
+
+    @Autowired
+    RoundRepository roundRepository;
+
+    @Autowired
+    HoleRepository holeRepository;
 
     // get a logger
     private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
@@ -132,8 +138,74 @@ public class RoundController {
 
 
     /* get Score Card */
+    @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.POST)
+    public String updateRound(@PathVariable("roundId") long roundId, @PathVariable("holeNumber") int holeNumber, Model model) {
+        SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+
+        if (user != null) {
+            Account account = accountService.findUser(user.getEmail());
+
+            try {
+                //                model.addAttribute("user", account);
+
+                Rounds round = roundService.findRound(roundId);
+
+                if(round.getAccount().getId() != account.getId()) {
+
+                    logger.info("not the owner of this round.");
+                    String redirectString = "redirect:/rounds/" + roundId + "?msg=no_access";
+                    return redirectString;
+                } else {
+
+                    // update holes
+
+                    Holes hole = Holes.createHoleInformation(round, 3,3,3,3,3,3, 2);
+//                    Holes hole = Holes.builder().round(round).bunker(1).fairway(1).onGreen(2).par(3).putt(4).score(5).build();
+                    //주문상품 생성
+//                    OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
+//
+//                    createHoleInformation
+
+                    roundService.saveHole(hole);
+                    //주문 생성
+                    round.updateHoles(hole);
+
+//                    holeRepository.save(hole);
+
+
+                    roundService.updateRound(round);
+
+
+
+
+//                    Orders order = Orders.createOrder(member, delivery, orderItem);
+
+
+//                    List<Holes> holes = round.getHoles();
+                    model.addAttribute("roundId", roundId);
+                    model.addAttribute("holeNumber", holeNumber);
+
+                    model.addAttribute("hole", hole);
+
+                    return "hole";
+                }
+
+            } catch (Exception e) {
+                logger.info("error occured during finding rounds & holes");
+            }
+
+
+            // a portal that has access to holes 1 ~ 18
+
+            return "editRound";
+        } else {
+            return "redirect:/oauth_login";
+        }
+    }
+
+        /* get Score Card */
     @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.GET)
-    public String editRound(@PathVariable("roundId") long roundId,@PathVariable("holeNumber") int holeNumber, Model model) {
+    public String getRound(@PathVariable("roundId") long roundId,@PathVariable("holeNumber") int holeNumber, Model model) {
 
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
@@ -150,6 +222,17 @@ public class RoundController {
                     logger.info("not the owner of this round.");
                     String redirectString = "redirect:/rounds/" + roundId + "?msg=no_access";
                     return redirectString;
+                } else {
+
+                    List<Holes> holes = round.getHoles();
+                    model.addAttribute("roundId", roundId);
+                    model.addAttribute("holeNumber", holeNumber);
+
+                    model.addAttribute("round", holes.get(0));
+
+                    model.addAttribute("holes", holes);
+
+                    return "hole";
                 }
 
 //                List<Holes> holes = round.getHoles();

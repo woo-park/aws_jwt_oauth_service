@@ -102,41 +102,111 @@
             <tr>
                 <th>Holes</th>
                 <th>{{#holeNumber}}{{.}}{{/holeNumber}}</th>
+                {{#hole}}{{.}}{{/hole}}
+                {{#round}}{{.}} {{#par}}{{.}}{{/par}}{{/round}}
             </tr>
         </thead>
         <tbody>
-        <tr contenteditable="true">
-            <td contenteditable="false">Par
-            </td>{{#par}}{{.}}{{/par}}<td>
-        </td></tr><tr contenteditable="true">
-            <td contenteditable="false">Fairway</td>
-            <td></td>
-        </tr><tr contenteditable="true" class="disabled">
-            <td contenteditable="false">OB/HZ
-            </td><td>
-        </td></tr><tr contenteditable="true">
-            <td contenteditable="false">On
-            </td><td>
-        </td></tr><tr contenteditable="true">
-            <td contenteditable="false">Up/Dw
-            </td><td>
-        </td></tr><tr contenteditable="true" class="disabled">
-            <td contenteditable="false">Bunker
-            </td><td>
-        </td></tr><tr contenteditable="true">
-            <td contenteditable="false">Putts
-            </td><td>
-        </td></tr><tr contenteditable="true">
-            <td contenteditable="false">Score
-            </td><td>
-        </td></tr></tbody>
+            <tr contenteditable="true">
+                <td contenteditable="false">Par</td>
+                <td id="par">3</td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">Fairway</td>
+                <td></td>
+            </tr>
+            <tr contenteditable="true" class="disabled">
+                <td contenteditable="false">OB/HZ</td>
+                <td></td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">On</td>
+                <td></td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">Up/Dw</td>
+                <td></td>
+            </tr>
+            <tr contenteditable="true" class="disabled">
+                <td contenteditable="false">Bunker</td>
+                <td></td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">Putts</td>
+                <td></td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">Score</td>
+                <td></td>
+            </tr>
+        </tbody>
     </table>
-    <form action="rounds/{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}" method="post">
-        <input type="hidden" name="par" value="">
-        <input type="hidden" name="fairway" value="">
+
+        <button id="submitBtn" type="submit">Update</button>
 
 
-    </form>
+    <section class="footer-section">
+        <article>
+
+            <div> BAY version 1.5 </div>
+
+        </article>
+    </section>
+
+    <!--부트스트랩 js, jquery 추가-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!--index.js 추가-->
+<!--    <script src="/js/app/index.js"></script>-->
+    <script>
+        console.log($('#par').val(),":check the value");
+
+        var holes = {
+            init : function () {
+                var _this = this;
+                $('#submitBtn').on('click', function () {
+                    _this.save();
+
+                });
+
+            },
+            save : function () {
+
+                console.log("rounds/" + {{#roundId}}{{.}}{{/roundId}} + "/" + {{#holeNumber}}{{.}}{{/holeNumber}} );
 
 
-    {{>layout/footer}}
+                var data = {
+                    "par": $('#par').text(),
+                    "fairway": $('#fairway').text(),
+                    "upDown": $('#upDown').text(),
+                    "bunker": $('#bunker').text(),
+                    "onGreen": $('#onGreen').text(),
+                    "putt": $('#putt').text(),
+                    "score": $('#score').text(),
+                };
+
+                $.ajax({
+                    type : 'POST',
+                    // dataType:'JSON',
+                    url: '/rounds/1/1',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function(res) {
+                        alert('score 수정되었습니다');
+                        window.location.href = '/holes/1/1';
+                    },
+                    error: function(err) {
+
+                        console.log(err);
+                        alert(JSON.stringify(error));
+                    }
+                });
+            },
+        }
+        holes.init();
+
+    </script>
+</body>
+</html>

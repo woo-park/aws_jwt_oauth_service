@@ -3,6 +3,7 @@ package com.awsjwtservice.service;
 
 import com.awsjwtservice.domain.*;
 import com.awsjwtservice.domain.item.Item;
+import com.awsjwtservice.repository.HoleRepository;
 import com.awsjwtservice.repository.RoundRepository;
 import com.awsjwtservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,9 @@ public class RoundService {
     @Autowired
     RoundRepository roundRepository;
 
+
     @Autowired
-    RoundService roundService;
+    HoleRepository holeRepository;
 
 
     public Rounds findRound(long roundId) {
@@ -47,4 +49,12 @@ public class RoundService {
         return round.getId();
     }
 
+
+    public void saveHole(Holes hole) {
+        holeRepository.save(hole);
+    }
+
+    public void updateRound(Rounds round) {
+        roundRepository.save(round);
+    }
 }
