@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -86,6 +87,24 @@ public class RoundController {
 
             try {
                 model.addAttribute("user", account);
+
+                List<Rounds> rounds = roundService.findAllRounds(account.getId());
+
+                List<RoundsDto> roundsDtos = new ArrayList<>();
+
+                int counter = 0;
+                for (Rounds round : rounds) {
+                    roundsDtos.add(
+                            RoundsDto.builder()
+                                    .courseName(round.getCourseName())
+                                    .roundDate(round.getRoundDate())
+                                    .index(counter + 1)
+                                    .build()
+                    );
+                }
+
+
+                model.addAttribute("rounds", rounds);
 
             } catch (Exception e) {
                 logger.info("can't find user");

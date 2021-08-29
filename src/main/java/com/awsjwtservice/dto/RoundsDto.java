@@ -15,12 +15,19 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
+@Builder
 public class RoundsDto {
 
 //    private long id;
 
     private String courseName;
+
+    private Date roundDate;
+
+    private int score;
+
+    private int index;
+
 
 //    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 //

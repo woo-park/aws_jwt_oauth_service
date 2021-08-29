@@ -15,4 +15,9 @@
         <input type="text" name="courseName" placeholder="88cc" />
         <button type="submit"> Save</button>
     </form>
+
+    {{#rounds}}
+        <div>{{#index}}{{.}}{{/index}} courseName:{{#courseName}}{{.}}{{/courseName}}
+        </div>
+    {{/rounds}}
 {{>layout/footer}}

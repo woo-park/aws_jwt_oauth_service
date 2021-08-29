@@ -28,6 +28,10 @@ public class RoundService {
     @Autowired
     HoleRepository holeRepository;
 
+    public List<Rounds> findAllRounds(long accountId) {
+
+        return (List<Rounds>) roundRepository.findAll(accountId);
+    }
 
     public Rounds findRound(long roundId) {
         return roundRepository.findOne(roundId);
