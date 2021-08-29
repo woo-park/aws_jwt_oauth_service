@@ -100,45 +100,47 @@
     <table>
         <thead>
             <tr>
-                <th>Holes</th>
-                <th>{{#holeNumber}}{{.}}{{/holeNumber}}</th>
-                {{#hole}}{{.}}{{/hole}}
-                {{#round}}{{.}} {{#par}}{{.}}{{/par}}{{/round}}
+                {{#holesDto}}
+                    <th>Holes</th>
+                    <th>{{#holeNumber}}{{.}}{{/holeNumber}}</th>
+                {{/holesDto}}
             </tr>
         </thead>
         <tbody>
+        {{#holesDto}}
             <tr contenteditable="true">
                 <td contenteditable="false">Par</td>
-                <td id="par">3</td>
+                <td id="par">{{#par}}{{.}}{{/par}}</td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Fairway</td>
-                <td></td>
+                <td id="fairway">{{#fairway}}{{.}}{{/fairway}}</td>
             </tr>
-            <tr contenteditable="true" class="disabled">
-                <td contenteditable="false">OB/HZ</td>
-                <td></td>
-            </tr>
+<!--            <tr contenteditable="true" class="disabled">-->
+<!--                <td contenteditable="false">OB/HZ</td>-->
+<!--                <td></td>-->
+<!--            </tr>-->
             <tr contenteditable="true">
                 <td contenteditable="false">On</td>
-                <td></td>
+                <td id="onGreen">{{#onGreen}}{{.}}{{/onGreen}}</td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Up/Dw</td>
-                <td></td>
+                <td id="upDown">{{#upDown}}{{.}}{{/upDown}}</td>
             </tr>
             <tr contenteditable="true" class="disabled">
                 <td contenteditable="false">Bunker</td>
-                <td></td>
+                <td id="bunker">{{#bunker}}{{.}}{{/bunker}}</td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Putts</td>
-                <td></td>
+                <td id="putt">{{#putt}}{{.}}{{/putt}}</td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Score</td>
-                <td></td>
+                <td id="score">{{#score}}{{.}}{{/score}}</td>
             </tr>
+        {{/holesDto}}
         </tbody>
     </table>
 
@@ -161,6 +163,7 @@
 <!--    <script src="/js/app/index.js"></script>-->
     <script>
         console.log($('#par').val(),":check the value");
+        console.log('/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}');
 
         var holes = {
             init : function () {
@@ -173,7 +176,7 @@
             },
             save : function () {
 
-                console.log("rounds/" + {{#roundId}}{{.}}{{/roundId}} + "/" + {{#holeNumber}}{{.}}{{/holeNumber}} );
+
 
 
                 var data = {
@@ -195,7 +198,7 @@
                     data: JSON.stringify(data),
                     success: function(res) {
                         alert('score 수정되었습니다');
-                        window.location.href = '/holes/1/1';
+                        window.location.href = '/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}';
                     },
                     error: function(err) {
 

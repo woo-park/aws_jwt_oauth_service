@@ -17,7 +17,10 @@
     </form>
 
     {{#rounds}}
-        <div>{{#index}}{{.}}{{/index}} courseName:{{#courseName}}{{.}}{{/courseName}}
+
+
+        <div>
+            {{#index}}{{.}}{{/index}} <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}"> courseName:{{#courseName}}{{.}}{{/courseName}}   </a>
         </div>
     {{/rounds}}
 {{>layout/footer}}

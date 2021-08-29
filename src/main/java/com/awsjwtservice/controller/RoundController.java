@@ -2,6 +2,7 @@ package com.awsjwtservice.controller;
 
 
 import com.awsjwtservice.domain.*;
+import com.awsjwtservice.dto.HolesDto;
 import com.awsjwtservice.dto.RoundsDto;
 import com.awsjwtservice.dto.SessionUserDto;
 import com.awsjwtservice.repository.HoleRepository;
@@ -98,13 +99,14 @@ public class RoundController {
                             RoundsDto.builder()
                                     .courseName(round.getCourseName())
                                     .roundDate(round.getRoundDate())
-                                    .index(counter + 1)
+                                    .index(counter += 1)
+                                    .roundId(round.getId())
                                     .build()
                     );
                 }
 
 
-                model.addAttribute("rounds", rounds);
+                model.addAttribute("rounds", roundsDtos);
 
             } catch (Exception e) {
                 logger.info("can't find user");
@@ -134,11 +136,31 @@ public class RoundController {
 
                 Rounds round = roundService.findRound(roundId);
                 List<Holes> holes = round.getHoles();
-                String courseName = round.getCourseName();
-                System.out.println(holes);
-                model.addAttribute("courseName", courseName);
-                model.addAttribute("round", round);
-                model.addAttribute("holes", holes);
+
+                RoundsDto roundsDto = RoundsDto.builder()
+                                        .courseName(round.getCourseName())
+                                        .roundDate(round.getRoundDate())
+                                        .roundId(round.getId())
+                                        .build();
+
+                List<HolesDto> holesDto = new ArrayList<>();
+
+                for(Holes hole : holes) {
+                    holesDto.add(HolesDto.builder()
+                            .par(hole.getPar())
+//                                    .updatedDate()
+                            .roundId(roundId)
+                            .putt(hole.getPutt())
+                            .bunker(hole.getBunker() == 1 ? "O" : "X")
+                            .upDown(hole.getUpDown() == 1 ? "O" : "X")
+                            .fairway(hole.getFairway() == 1 ? "O" : "X")
+                            .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
+                            .build());
+                }
+
+
+                model.addAttribute("roundsDto", roundsDto);
+                model.addAttribute("holesDto", holesDto);
 
             } catch (Exception e) {
                 logger.info("error occured during finding rounds & holes");
@@ -158,7 +180,7 @@ public class RoundController {
 
     /* get Score Card */
     @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.POST)
-    public String updateRound(@PathVariable("roundId") long roundId, @PathVariable("holeNumber") int holeNumber, Model model) {
+    public String updateRound(@PathVariable("roundId") long roundId, @PathVariable("holeNumber") int holeNumber, HolesDto holesDto, Model model) {
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
         if (user != null) {
@@ -175,6 +197,7 @@ public class RoundController {
                     String redirectString = "redirect:/rounds/" + roundId + "?msg=no_access";
                     return redirectString;
                 } else {
+
 
                     // update holes
 
@@ -244,12 +267,35 @@ public class RoundController {
                 } else {
 
                     List<Holes> holes = round.getHoles();
-                    model.addAttribute("roundId", roundId);
-                    model.addAttribute("holeNumber", holeNumber);
 
-                    model.addAttribute("round", holes.get(0));
+                    for(Holes hole : holes) {
+                        if(hole.getHoleNumber() == holeNumber) {
 
-                    model.addAttribute("holes", holes);
+                            HolesDto holesDto = HolesDto.builder()
+                                    .par(hole.getPar())
+//                                    .updatedDate()
+                                    .roundId(roundId)
+                                    .putt(hole.getPutt())
+                                    .bunker(hole.getBunker() == 1 ? "O" : "X")
+                                    .fairway(hole.getFairway() == 1 ? "O" : "X")
+                                    .upDown(hole.getUpDown() == 1 ? "O" : "X")
+                                    .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
+                                    .holeNumber(hole.getHoleNumber())
+                                    .build();
+
+                            model.addAttribute("holesDto", holesDto);
+                            break;
+                        }
+                    }
+//                    model.addAttribute("roundId", roundId);
+//                    model.addAttribute("holeNumber", holeNumber);
+//
+//                    model.addAttribute("round", holes.get(0));
+//
+//                    model.addAttribute("holes", holes);
+
+
+
 
                     return "hole";
                 }

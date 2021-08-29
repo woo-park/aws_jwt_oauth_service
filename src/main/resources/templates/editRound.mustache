@@ -99,206 +99,228 @@
 
 
 <article>
-    <h1>{{#courseName}}{{.}}{{/courseName}}</h1>
-    <h2>{{#round}}{{#roundDate}}{{.}}{{/roundDate}}{{/round}}</h2>
-    <h1>{{#round}}{{.}}{{/round}}</h1>
-    {{#holes}}{{.}}{{/holes}}
-
+    {{#roundsDto}}
+        <h1>{{#courseName}}{{.}}{{/courseName}}</h1>
+        <h2>{{#roundDate}}{{.}}{{/roundDate}}</h2>
+    {{/roundsDto}}
 
     <div class="tbl-content">
         <table>
             <thead>
             <tr>
                 <th>Holes
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/1">1</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/2">2</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/3">3</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/4">4</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/5">5</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/6">6</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/7">7</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/8">8</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/9">9</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/10">10</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/11">11</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/12">12</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/13">13</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/14">14</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/15">15</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/16">16</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/17">17</a>
-                <th><a href="/rounds/{{#round}}{{#id}}{{.}}{{/id}}{{/round}}/18">18</a>
+                {{#roundsDto}}
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/1">1</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/2">2</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/3">3</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/4">4</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/5">5</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/6">6</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/7">7</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/8">8</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/9">9</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/10">10</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/11">11</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/12">12</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/13">13</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/14">14</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/15">15</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/16">16</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/17">17</a>
+                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/18">18</a>
                 <th>Average
+                {{/roundsDto}}
             </thead>
             <tbody>
             <tr contenteditable="true">
                 <td contenteditable="false">Par
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
+                {{#holesDto}}
+                    <td>{{#par}}{{.}}{{/par}}
+                {{/holesDto}}
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
             <tr contenteditable="true">
                 <td contenteditable="false">Fairway
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td> /14
-            <tr contenteditable="true" class="disabled">
-                <td contenteditable="false">OB/HZ
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
+                {{#holesDto}}
+                <td>{{#fairway}}{{.}}{{/fairway}}
+                {{/holesDto}}
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td> /14-->
+<!--            <tr contenteditable="true" class="disabled">-->
+<!--                <td contenteditable="false">OB/HZ-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
             <tr contenteditable="true">
                 <td contenteditable="false">On
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td> /18
+
+                {{#holesDto}}
+                <td>{{#onGreen}}{{.}}{{/onGreen}}
+                {{/holesDto}}
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td> /18-->
             <tr contenteditable="true">
                 <td contenteditable="false">Up/Dw
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td> /18
+                {{#holesDto}}
+                <td>{{#upDown}}{{.}}{{/upDown}}
+                {{/holesDto}}
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td> /18-->
             <tr contenteditable="true" class="disabled">
                 <td contenteditable="false">Bunker
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
+                {{#holesDto}}
+                <td>{{#bunker}}{{.}}{{/bunker}}
+                {{/holesDto}}
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
             <tr contenteditable="true">
                 <td contenteditable="false">Putts
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
+                {{#holesDto}}
+                <td>{{#putt}}{{.}}{{/putt}}
+                {{/holesDto}}
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
             <tr contenteditable="true">
                 <td contenteditable="false">Score
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
-                <td>
+                {{#holesDto}}
+                <td>{{#score}}{{.}}{{/score}}
+                {{/holesDto}}
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
+<!--                <td>-->
             </tbody>
         </table>
     </div>

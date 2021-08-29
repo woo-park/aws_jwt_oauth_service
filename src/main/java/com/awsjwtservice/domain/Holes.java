@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Table(name = "holes")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Holes implements Serializable {
 
     @Id
@@ -29,6 +30,7 @@ public class Holes implements Serializable {
     private int bunker;
     private int putt;
     private int score;
+    private int holeNumber;
 
 
 //    //==생성 메서드==//

@@ -24,9 +24,11 @@ public class RoundsDto {
 
     private Date roundDate;
 
-    private int score;
+    private Integer score;
 
-    private int index;
+    private Integer index;
+
+    private Long roundId;
 
 
 //    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
