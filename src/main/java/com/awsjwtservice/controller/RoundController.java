@@ -178,9 +178,9 @@ public class RoundController {
     }
 
 
-    /* get Score Card */
+    /* HolesDto holesDto,  로 받는 작업 해야함 */
     @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.POST)
-    public String updateRound(@PathVariable("roundId") long roundId, @PathVariable("holeNumber") int holeNumber, HolesDto holesDto, Model model) {
+    public String updateRound(@PathVariable("roundId") long roundId, @PathVariable("holeNumber") int holeNumber, Model model) {
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
         if (user != null) {
