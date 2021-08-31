@@ -2,6 +2,7 @@ package com.awsjwtservice.controller;
 
 
 import com.awsjwtservice.domain.*;
+import com.awsjwtservice.domain.item.Book;
 import com.awsjwtservice.dto.HolesDto;
 import com.awsjwtservice.dto.RoundsDto;
 import com.awsjwtservice.dto.SessionUserDto;
@@ -12,10 +13,7 @@ import com.awsjwtservice.service.RoundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -180,7 +178,7 @@ public class RoundController {
 
     /* HolesDto holesDto,  로 받는 작업 해야함 */
     @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.POST)
-    public String updateRound(@PathVariable("roundId") long roundId, @PathVariable("holeNumber") int holeNumber, Model model) {
+    public String updateRound(@PathVariable("roundId") long roundId, @PathVariable("holeNumber") int holeNumber, @RequestBody HolesDto holesDto, Model model) {
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
         if (user != null) {

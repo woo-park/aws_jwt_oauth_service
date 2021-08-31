@@ -179,7 +179,7 @@
 
 
 
-                var data = {
+                var roundsDto = {
                     "par": $('#par').text(),
                     "fairway": $('#fairway').text(),
                     "upDown": $('#upDown').text(),
@@ -189,13 +189,16 @@
                     "score": $('#score').text(),
                 };
 
+                console.log('roundsDto');
+                console.log(roundsDto);
+
                 $.ajax({
                     type : 'POST',
                     // dataType:'JSON',
                     url: '/rounds/1/1',
                     dataType: "json",
                     contentType: "application/json",
-                    data: JSON.stringify(data),
+                    data: JSON.stringify(roundsDto),
                     success: function(res) {
                         alert('score 수정되었습니다');
                         window.location.href = '/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}';
