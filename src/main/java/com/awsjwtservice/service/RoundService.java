@@ -3,6 +3,7 @@ package com.awsjwtservice.service;
 
 import com.awsjwtservice.domain.*;
 import com.awsjwtservice.domain.item.Item;
+import com.awsjwtservice.dto.HolesDto;
 import com.awsjwtservice.repository.HoleRepository;
 import com.awsjwtservice.repository.RoundRepository;
 import com.awsjwtservice.repository.UserRepository;
@@ -28,9 +29,52 @@ public class RoundService {
     @Autowired
     HoleRepository holeRepository;
 
+    @Autowired
+    HoleService holeService;
+
     public List<Rounds> findAllRounds(long accountId) {
 
         return (List<Rounds>) roundRepository.findAll(accountId);
+    }
+
+    public Holes checkHoleExistsAndCreate(Rounds round, HolesDto holesDto) {
+        List<Holes> holes = round.getHoles();
+
+
+        // create new hole
+        int bunker = holesDto.getBunker().equals("O") ? 1 : 0;
+        int upDown = holesDto.getUpDown().contentEquals("O") ? 1 : 0;
+        int fairway = holesDto.getFairway().equalsIgnoreCase("O") ? 1 : 0;
+        int onGreen = holesDto.getOnGreen().equals("O") ? 1 : 0;
+
+        for(Holes hole : holes) {
+            if(hole.getHoleNumber() == holesDto.getHoleNumber()) {
+
+                hole.setBunker(bunker);
+                hole.setUpDown(upDown);
+                hole.setFairway(fairway);
+                hole.setOnGreen(onGreen);
+                hole.setScore(holesDto.getScore());
+                hole.setPar(holesDto.getPar());
+                hole.setPutt(holesDto.getPutt());
+
+                System.out.println(hole.getHoleNumber());
+                System.out.println("hole already existed -> hence we mutated and now saving");
+                // update hole
+                holeService.saveHole(hole);
+                return hole;
+            }
+        }
+
+
+        Holes newHole = Holes.createHoleInformation(round, holesDto.getScore(),holesDto.getPar(),bunker,holesDto.getPutt(),upDown,fairway, onGreen, holesDto.getHoleNumber());
+
+        System.out.println(newHole.getHoleNumber());
+        System.out.println("hole didn't exist -> hence we build & now saving");
+        holeService.saveHole(newHole);
+
+        return newHole;
+
     }
 
     public Rounds findRound(long roundId) {
@@ -53,10 +97,6 @@ public class RoundService {
         return round.getId();
     }
 
-
-    public void saveHole(Holes hole) {
-        holeRepository.save(hole);
-    }
 
     public void updateRound(Rounds round) {
         roundRepository.save(round);

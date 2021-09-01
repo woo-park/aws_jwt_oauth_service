@@ -141,6 +141,37 @@
                 <td id="score">{{#score}}{{.}}{{/score}}</td>
             </tr>
         {{/holesDto}}
+
+        {{^holesDto}}
+            <tr contenteditable="true">
+                <td contenteditable="false">Par</td>
+                <td id="par"></td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">Fairway</td>
+                <td id="fairway"></td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">On</td>
+                <td id="onGreen"></td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">Up/Dw</td>
+                <td id="upDown"></td>
+            </tr>
+            <tr contenteditable="true" class="disabled">
+                <td contenteditable="false">Bunker</td>
+                <td id="bunker"></td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">Putts</td>
+                <td id="putt"></td>
+            </tr>
+            <tr contenteditable="true">
+                <td contenteditable="false">Score</td>
+                <td id="score"></td>
+            </tr>
+        {{/holesDto}}
         </tbody>
     </table>
 
@@ -166,35 +197,94 @@
         console.log('/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}');
 
         var holes = {
+            error : false,          //using this as a semi-global variable, to trigger return false;
             init : function () {
                 var _this = this;
                 $('#submitBtn').on('click', function () {
                     _this.save();
 
                 });
+            },
+            breakOut : function (err) {
+                switch (err) {
+                    case 'fairway':
+                        alert("fairway field input error: not Char X || O");
+                        this.error = true;
+                        break;
+                    case 'upDown':
+                        alert("upDown field input error: not Char X || O");
+                        this.error = true;
+                        break;
+                    case 'bunker':
+                        alert("bunker field input error: not Char X || O");
+                        this.error = true;
+                        break;
+                    case 'onGreen':
+                        alert("onGreen field input error: not Char X || O");
+                        this.error = true;
+                        break;
+                    case 'putt':
+                        alert("putt field input error: not integer");
+                        this.error = true;
+                        break;
+                    case 'score':
+                        alert("onGreen field input error: not integer");
+                        this.error = true;
+                        break;
+                    case 'holeNumber':
+                        alert("onGreen field input error: not integer");
+                        this.error = true;
+                        break;
+                    case 'roundId':
+                        alert("onGreen field input error: not integer");
+                        this.error = true;
+                        break;
 
+                    default:
+                        this.error = true;
+                        alert("Invalid Input");
+                }
+                return false;
+            },
+            isInt : function (value) {
+                return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
             },
             save : function () {
 
+                let par = $('#par').text();
+                let fairway = $('#fairway').text().toUpperCase();
+                let upDown = $('#upDown').text().toUpperCase();
+                let bunker = $('#bunker').text().toUpperCase();
+                let onGreen = $('#onGreen').text().toUpperCase();
+                let putt = $('#putt').text();
+                let score = $('#score').text();
+                let holeNumber = {{#holeNumber}}{{.}}{{/holeNumber}};
+                let roundId = {{#roundId}}{{.}}{{/roundId}};
 
 
 
                 var roundsDto = {
-                    "par": $('#par').text(),
-                    "fairway": $('#fairway').text(),
-                    "upDown": $('#upDown').text(),
-                    "bunker": $('#bunker').text(),
-                    "onGreen": $('#onGreen').text(),
-                    "putt": $('#putt').text(),
-                    "score": $('#score').text(),
+                    "par": par,
+                    "fairway": (fairway == "O" || fairway == "X") ? fairway : this.breakOut(fairway),
+                    "upDown": (upDown == "O" || upDown == "X") ? upDown : this.breakOut(upDown),
+                    "bunker": (bunker == "O" || bunker == "X") ? bunker : this.breakOut(bunker),
+                    "onGreen": (onGreen == "O" || onGreen == "X") ? onGreen : this.breakOut(onGreen),
+                    "putt": this.isInt(putt) == true ? putt : this.breakOut(putt),
+                    "score": this.isInt(score) ? score : this.breakOut(score),
+                    "holeNumber" : this.isInt(holeNumber) == true ? holeNumber : this.breakOut(holeNumber),
+                    "roundId" : this.isInt(roundId) == true ? roundId : this.breakOut(roundId),
                 };
+
+                if(this.error) {
+                    console.log("finishing early due to error == true");
+                    return false;
+                }
 
                 console.log('roundsDto');
                 console.log(roundsDto);
 
                 $.ajax({
                     type : 'POST',
-                    // dataType:'JSON',
                     url: '/rounds/1/1',
                     dataType: "json",
                     contentType: "application/json",
@@ -204,13 +294,13 @@
                         window.location.href = '/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}';
                     },
                     error: function(err) {
-
                         console.log(err);
                         alert(JSON.stringify(error));
                     }
                 });
             },
         }
+
         holes.init();
 
     </script>

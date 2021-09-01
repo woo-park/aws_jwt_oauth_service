@@ -34,7 +34,7 @@ public class Holes implements Serializable {
 
 
 //    //==생성 메서드==//
-    public static Holes createHoleInformation(Rounds round, int score, int par, int bunker, int putt, int upDown, int fairway, int onGreen) {
+    public static Holes createHoleInformation(Rounds round, int score, int par, int bunker, int putt, int upDown, int fairway, int onGreen, int holeNumber) {
         Holes hole = new Holes();
         hole.setScore(score);
         hole.setRound(round);
@@ -44,25 +44,28 @@ public class Holes implements Serializable {
         hole.setUpDown(upDown);
         hole.setFairway(fairway);
         hole.setOnGreen(onGreen);
+        hole.setHoleNumber(holeNumber);
 
         return hole;
     }
 
-    private void setOnGreen(int onGreen) {
+    public void setHoleNumber(int holeNumber) { this.holeNumber = holeNumber;}
+
+    public void setOnGreen(int onGreen) {
         this.onGreen = onGreen;
     }
 
-    private void setPar(int par) { this.par = par; }
+    public void setPar(int par) { this.par = par; }
 
-    private void setBunker(int bunker) { this.bunker = bunker;}
+    public void setBunker(int bunker) { this.bunker = bunker;}
 
-    private void setPutt(int putt) { this.putt = putt; }
+    public void setPutt(int putt) { this.putt = putt; }
 
-    private void setUpDown(int upDown) { this.upDown = upDown; }
+    public void setUpDown(int upDown) { this.upDown = upDown; }
 
-    private void setFairway(int fairway) { this.fairway = fairway; }
+    public void setFairway(int fairway) { this.fairway = fairway; }
 
-    private void setScore(int score) { this.score = score; }
+    public void setScore(int score) { this.score = score; }
 
     public void setRound(Rounds round) { this.round = round; }
 

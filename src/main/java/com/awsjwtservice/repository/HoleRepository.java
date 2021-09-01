@@ -26,6 +26,7 @@ import javax.persistence.PersistenceContext;
 @Repository
 public interface HoleRepository extends JpaRepository<Holes, Long> {
 
+    Holes findByHoleNumber(int holeNumber);
 //    Site findByUserSeq(long userSeq);
 //    Site findById(long siteSeq);
 //    Site findBySiteUrl(String siteUrl);

@@ -182,7 +182,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/objects/**").permitAll()
                 .antMatchers("/objects/paperplane/**").permitAll()
+                /*
+                    pause this service if needed
+                 */
                 .anyRequest().access("@authorizationChecker.check(request, authentication)");
+
 //                .authenticated();
 
         http    .formLogin()

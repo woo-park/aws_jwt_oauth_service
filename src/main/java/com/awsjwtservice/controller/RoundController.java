@@ -9,6 +9,7 @@ import com.awsjwtservice.dto.SessionUserDto;
 import com.awsjwtservice.repository.HoleRepository;
 import com.awsjwtservice.repository.RoundRepository;
 import com.awsjwtservice.service.AccountService;
+import com.awsjwtservice.service.HoleService;
 import com.awsjwtservice.service.RoundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class RoundController {
 
     @Autowired
     RoundService roundService;
+
+    @Autowired
+    HoleService holeService;
 
     @Autowired
     RoundRepository roundRepository;
@@ -143,19 +147,35 @@ public class RoundController {
 
                 List<HolesDto> holesDto = new ArrayList<>();
 
-                for(Holes hole : holes) {
+                for(int i = 1; i <= 18; i++) {
                     holesDto.add(HolesDto.builder()
+                            .par(0)
+                            .roundId(roundId)
+                            .putt(0)
+                            .bunker("")
+                            .upDown("")
+                            .fairway("")
+                            .onGreen("")
+                            .score(0)
+                            .holeNumber(i)
+                            .build());
+                }
+
+                for(Holes hole : holes) {
+                    int j = hole.getHoleNumber();
+                    holesDto.set(j - 1, HolesDto.builder()
                             .par(hole.getPar())
-//                                    .updatedDate()
                             .roundId(roundId)
                             .putt(hole.getPutt())
                             .bunker(hole.getBunker() == 1 ? "O" : "X")
                             .upDown(hole.getUpDown() == 1 ? "O" : "X")
                             .fairway(hole.getFairway() == 1 ? "O" : "X")
                             .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
+                            .score(hole.getScore())
+                            .holeNumber(hole.getHoleNumber())
                             .build());
-                }
 
+                }
 
                 model.addAttribute("roundsDto", roundsDto);
                 model.addAttribute("holesDto", holesDto);
@@ -195,33 +215,17 @@ public class RoundController {
                     String redirectString = "redirect:/rounds/" + roundId + "?msg=no_access";
                     return redirectString;
                 } else {
+                    Holes hole = roundService.checkHoleExistsAndCreate(round, holesDto);
 
-
-                    // update holes
-
-                    Holes hole = Holes.createHoleInformation(round, 3,3,3,3,3,3, 2);
-//                    Holes hole = Holes.builder().round(round).bunker(1).fairway(1).onGreen(2).par(3).putt(4).score(5).build();
-                    //주문상품 생성
-//                    OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
-//
-//                    createHoleInformation
-
-                    roundService.saveHole(hole);
-                    //주문 생성
+                    // check round hole list and append if it doesn't exists
                     round.updateHoles(hole);
 
-//                    holeRepository.save(hole);
 
+                    // instead of saving it here, we moved inside function checkHoleExistsAndCreate
+                    // holeRepository.save(hole);
 
                     roundService.updateRound(round);
 
-
-
-
-//                    Orders order = Orders.createOrder(member, delivery, orderItem);
-
-
-//                    List<Holes> holes = round.getHoles();
                     model.addAttribute("roundId", roundId);
                     model.addAttribute("holeNumber", holeNumber);
 
@@ -264,6 +268,32 @@ public class RoundController {
                     return redirectString;
                 } else {
 
+
+                    Holes hole = holeRepository.findByHoleNumber(holeNumber);
+
+                    if( hole != null) {
+                        HolesDto holesDto = HolesDto.builder()
+                                .par(hole.getPar())
+//                                    .updatedDate()
+                                .roundId(roundId)
+                                .putt(hole.getPutt())
+                                .bunker(hole.getBunker() == 1 ? "O" : "X")
+                                .fairway(hole.getFairway() == 1 ? "O" : "X")
+                                .upDown(hole.getUpDown() == 1 ? "O" : "X")
+                                .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
+                                .score(hole.getScore())
+                                .holeNumber(hole.getHoleNumber())
+                                .build();
+
+                        model.addAttribute("holesDto", holesDto);
+                    } else {
+
+                    }
+                    // figure out when it doesn't exists <-- !important
+
+
+
+                    /*
                     List<Holes> holes = round.getHoles();
 
                     for(Holes hole : holes) {
@@ -285,6 +315,8 @@ public class RoundController {
                             break;
                         }
                     }
+                    */
+
 //                    model.addAttribute("roundId", roundId);
 //                    model.addAttribute("holeNumber", holeNumber);
 //
