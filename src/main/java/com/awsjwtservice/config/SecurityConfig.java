@@ -121,10 +121,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SiteRepository siteRepository;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
-
-//        matchUrlAndAuthority(http);
+        
+        //matchUrlAndAuthority(http);
 
         http.csrf().disable()
                 .headers().frameOptions().disable();
@@ -172,7 +170,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/rounds/**/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/rounds").permitAll()
 
-//                .antMatchers("/**").permitAll()
+                //.antMatchers("/**").permitAll()
 
                 .antMatchers(HttpMethod.POST, "/login_proc").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
@@ -191,7 +189,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http    .formLogin()
                 .loginPage("/oauth_login")
                 .loginProcessingUrl("/login_proc")
-//                .authenticationDetailsSource(formAuthenticationDetailsSource)
+                //.authenticationDetailsSource(formAuthenticationDetailsSource)
                 .successHandler(new FormSuccessHandler())
                 .failureHandler(formAuthenticationFailureHandler)
                 .usernameParameter("username")
@@ -199,7 +197,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .exceptionHandling()
-//                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login2"));
+                //.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login2"));
                 .accessDeniedPage("/denied")
                 .accessDeniedHandler(accessDeniedHandler());
 
@@ -224,7 +222,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                //.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .sessionFixation().changeSessionId()    // servlet 3.1 이상은 기본으로 changeSessionId invoked되지만, custom할수있다 ( none, migrateSession <- 3.1이하 , newSession 으로  // 세션 고정 공격을 막기위해 cookie session id값을 바꿔줘야한다
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false) //default는 false    // true는 login을 아예 못하게 만드는 전략   // false는 이전session에서 더이상 활동못하게 막는 전략
@@ -237,20 +235,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http
                     .authorizeRequests()
                     .antMatchers("/" + matcher.getSiteUrl()).permitAll();//.hasAuthority(matcher.getAuthority()
-
-
-
         }
     }
 
-
-
-//    @Bean
     public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
         return new HttpSessionOAuth2AuthorizationRequestRepository();
     }
 
-//    @Bean
+
     public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient() {
         DefaultAuthorizationCodeTokenResponseClient accessTokenResponseClient = new DefaultAuthorizationCodeTokenResponseClient();
         accessTokenResponseClient.setRequestEntityConverter(new CustomRequestEntityConverter());

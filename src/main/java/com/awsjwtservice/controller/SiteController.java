@@ -32,7 +32,6 @@ public class SiteController {
             model.addAttribute("email", user.getEmail());
         }
 
-
         return "createSite";
     }
 

@@ -40,8 +40,7 @@ public class AuthenticationController {
 	public String signin(HttpServletResponse response, @RequestBody AccountCredentials credentials, Model model) {
 
 		try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
 
 			List<String> list = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package com.awsjwtservice.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -70,7 +73,7 @@ public class LoginController {
     }
 
     @GetMapping("/loginSuccess")                    //authentication =- OAuth2AuthenticationToken
-    public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication, HttpServletResponse servletResponse) {
+    public void getLoginInfo(Model model, OAuth2AuthenticationToken authentication, HttpServletResponse servletResponse, HttpServletRequest request) throws IOException, ServletException {
 
 
         // 문제가 authentication.getName() 이 이름이 아닌 고유번호를 return 한다.
@@ -125,7 +128,23 @@ public class LoginController {
             model.addAttribute("name", userAttributes.get("name"));
         }
 
-        return "redirect:mypage";
+        HttpSession session = request.getSession();
+        if (session != null) {
+            String redirectUrl = (String) session.getAttribute("prevPage");
+            if (redirectUrl != null) {
+                session.removeAttribute("prevPage");
+
+                servletResponse.sendRedirect(redirectUrl);
+
+            } else {
+                servletResponse.sendRedirect("/");
+
+            }
+        } else {
+            servletResponse.sendRedirect("/");
+        }
+
+
     }
 
     @GetMapping("/denied")

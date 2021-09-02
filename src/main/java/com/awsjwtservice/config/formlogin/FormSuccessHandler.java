@@ -34,6 +34,7 @@ public class FormSuccessHandler implements AuthenticationSuccessHandler {
             String redirectUrl = (String) session.getAttribute("prevPage");
             if (redirectUrl != null) {
                 session.removeAttribute("prevPage");
+
                 response.sendRedirect(redirectUrl);
             } else {
                 response.sendRedirect("/");
@@ -41,7 +42,7 @@ public class FormSuccessHandler implements AuthenticationSuccessHandler {
             }
         }
         // end?
-        response.sendRedirect("/mypage");
+//        response.sendRedirect("/mypage");
 
     }
 }
