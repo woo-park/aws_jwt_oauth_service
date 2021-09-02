@@ -124,7 +124,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-        matchUrlAndAuthority(http);
+//        matchUrlAndAuthority(http);
 
         http.csrf().disable()
                 .headers().frameOptions().disable();
@@ -167,8 +167,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/score").permitAll()
                 .antMatchers("/score/edit").permitAll()
                 .antMatchers("/rounds").permitAll()
-                .antMatchers("/rounds/**").permitAll()
-                .antMatchers("/rounds/**/**").permitAll()
+                .antMatchers("/rounds/**").access("hasRole('ADMIN') or hasRole('USER') or hasRole('MANAGER')")
+                .antMatchers("/rounds/**/**").access("hasRole('ADMIN') or hasRole('USER') or hasRole('MANAGER')")
                 .antMatchers(HttpMethod.POST,"/rounds/**/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/rounds").permitAll()
 
@@ -184,10 +184,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/objects/paperplane/**").permitAll()
                 /*
                     pause this service if needed
+                    .anyRequest().access("@authorizationChecker.check(request, authentication)");
                  */
-                .anyRequest().access("@authorizationChecker.check(request, authentication)");
-
-//                .authenticated();
+                .anyRequest().authenticated();
 
         http    .formLogin()
                 .loginPage("/oauth_login")

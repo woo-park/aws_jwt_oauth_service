@@ -248,8 +248,9 @@ public class RoundController {
     }
 
         /* get Score Card */
-    @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.GET)
-    public String getRound(@PathVariable("roundId") long roundId,@PathVariable("holeNumber") int holeNumber, Model model) {
+//    @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.GET)
+    @GetMapping("/rounds/{roundId}/{holeNumber}")
+    public String getRound(@PathVariable("roundId") long roundId,@PathVariable("holeNumber") int holeNumber, Model model) throws Exception {
 
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
@@ -346,7 +347,8 @@ public class RoundController {
 
             return "editRound";
         } else {
-            return "redirect:/oauth_login";
+            return "editRound";
+//            return "redirect:/oauth_login";
         }
 
 
