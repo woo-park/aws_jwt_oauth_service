@@ -41,7 +41,8 @@ public class FormSuccessHandler implements AuthenticationSuccessHandler {
 
             }
         }
-        // end?
+
+        response.sendRedirect("/");
 //        response.sendRedirect("/mypage");
 
     }
