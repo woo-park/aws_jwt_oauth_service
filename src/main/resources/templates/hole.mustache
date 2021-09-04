@@ -110,11 +110,11 @@
         {{#holesDto}}
             <tr contenteditable="true">
                 <td contenteditable="false">Par</td>
-                <td id="par">{{#par}}{{.}}{{/par}}</td>
+                <td id="par" class="test">{{#par}}{{.}}{{/par}}</td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Fairway</td>
-                <td id="fairway">{{#fairway}}{{.}}{{/fairway}}</td>
+                <td id="fairway" class="test">{{#fairway}}{{.}}{{/fairway}}</td>
             </tr>
 <!--            <tr contenteditable="true" class="disabled">-->
 <!--                <td contenteditable="false">OB/HZ</td>-->
@@ -122,54 +122,54 @@
 <!--            </tr>-->
             <tr contenteditable="true">
                 <td contenteditable="false">On</td>
-                <td id="onGreen">{{#onGreen}}{{.}}{{/onGreen}}</td>
+                <td id="onGreen" class="test">{{#onGreen}}{{.}}{{/onGreen}}</td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Up/Dw</td>
-                <td id="upDown">{{#upDown}}{{.}}{{/upDown}}</td>
+                <td id="upDown" class="test">{{#upDown}}{{.}}{{/upDown}}</td>
             </tr>
             <tr contenteditable="true" class="disabled">
                 <td contenteditable="false">Bunker</td>
-                <td id="bunker">{{#bunker}}{{.}}{{/bunker}}</td>
+                <td id="bunker" class="test">{{#bunker}}{{.}}{{/bunker}}</td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Putts</td>
-                <td id="putt">{{#putt}}{{.}}{{/putt}}</td>
+                <td id="putt" class="test">{{#putt}}{{.}}{{/putt}}</td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Score</td>
-                <td id="score">{{#score}}{{.}}{{/score}}</td>
+                <td id="score" class="test">{{#score}}{{.}}{{/score}}</td>
             </tr>
         {{/holesDto}}
 
         {{^holesDto}}
             <tr contenteditable="true">
                 <td contenteditable="false">Par</td>
-                <td id="par"></td>
+                <td id="par" class="test"></td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Fairway</td>
-                <td id="fairway"></td>
+                <td id="fairway" class="test"></td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">On</td>
-                <td id="onGreen"></td>
+                <td id="onGreen" class="test"></td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Up/Dw</td>
-                <td id="upDown"></td>
+                <td id="upDown" class="test"></td>
             </tr>
             <tr contenteditable="true" class="disabled">
                 <td contenteditable="false">Bunker</td>
-                <td id="bunker"></td>
+                <td id="bunker" class="test"></td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Putts</td>
-                <td id="putt"></td>
+                <td id="putt" class="test"></td>
             </tr>
             <tr contenteditable="true">
                 <td contenteditable="false">Score</td>
-                <td id="score"></td>
+                <td id="score" class="test"></td>
             </tr>
         {{/holesDto}}
         </tbody>
@@ -188,7 +188,7 @@
 
     <!--부트스트랩 js, jquery 추가-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
 
     <!--index.js 추가-->
 <!--    <script src="/js/app/index.js"></script>-->
@@ -204,6 +204,52 @@
                     _this.save();
 
                 });
+
+                // this.focus();
+            },
+            focus : function () {
+                // $('.inputField').each(ea => {
+                //    ea.on('keypress','.inputField', function (e) {
+                //        //     console.log(e)
+                //        //     if (e.keyCode === 13) {
+                //        //         console.log("test");
+                //        //         console.log($(e.currentTarget).next());
+                //        //         $(e.currentTarget).blur(); //this works
+                //        //         $(e.currentTarget).next("td.inputField").focus();
+                //        //         return false;
+                //        //     }
+                //        // })
+                // });
+                // $('.inputField')
+
+                        // .unbind().on('keypress', function(e) {
+                        //         if (e.which == 13) {
+                        //             alert('hello');
+                        //         }
+                        //     });
+
+                // $('').unbind().keyup(function (e) {
+                //     alert(e.keyCode);
+                //     if (e.keyCode == 13) {
+                //         alert('Enter key was pressed.');
+                //     }
+                // });
+
+
+//                 var content_id = '.inputField';
+//
+//                 let max = 1;
+// //binding keyup/down events on the contenteditable div
+//                 $(content_id).keyup(function(e){ check_charcount(this, max, e); });
+//                 $(content_id).keydown(function(e){ check_charcount(this, max, e); });
+//
+//                 function check_charcount(elem, max, e){
+//                     console.log(e);
+//                     if(e.which != 8 && $(elem).text().length >= max){
+//                         e.preventDefault();
+//                     }
+//                 }
+
             },
             breakOut : function (err) {
                 switch (err) {
@@ -301,7 +347,22 @@
             },
         }
 
-        holes.init();
+
+        $(document).ready(function() {
+
+            holes.init();
+
+
+
+
+        });
+
+        $('.test').unbind().on('keypress', function(e) {
+            if (e.which == 13) {
+                alert('hello');
+            }
+        });
+
 
     </script>
 </body>
