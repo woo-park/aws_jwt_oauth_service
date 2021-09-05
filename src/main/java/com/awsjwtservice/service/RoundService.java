@@ -101,4 +101,8 @@ public class RoundService {
     public void updateRound(Rounds round) {
         roundRepository.save(round);
     }
+
+    public Rounds findLatestRound(long accountId) {
+        return roundRepository.findLatestRound(accountId);
+    }
 }

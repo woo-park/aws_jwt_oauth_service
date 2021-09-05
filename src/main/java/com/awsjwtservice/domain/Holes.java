@@ -2,9 +2,12 @@ package com.awsjwtservice.domain;
 
 import com.awsjwtservice.domain.item.Item;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "holes")
@@ -17,7 +20,6 @@ public class Holes implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hole_id")
     private Long id;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "round_id")
@@ -32,6 +34,12 @@ public class Holes implements Serializable {
     private int score;
     private int holeNumber;
 
+    //@NotNull
+    @CreationTimestamp
+    private LocalDateTime regdate;
+
+    @UpdateTimestamp
+    private LocalDateTime uptdate;
 
 //    //==생성 메서드==//
     public static Holes createHoleInformation(Rounds round, int score, int par, int bunker, int putt, int upDown, int fairway, int onGreen, int holeNumber) {

@@ -132,7 +132,7 @@
                 {{/roundsDto}}
             </thead>
             <tbody>
-            <tr contenteditable="true">
+            <tr>
                 <td contenteditable="false">Par
                 {{#holesDto}}
                     <td>{{#par}}{{.}}{{/par}}
@@ -155,7 +155,7 @@
 <!--                <td>-->
 <!--                <td>-->
 <!--                <td>-->
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Fairway
                 {{#holesDto}}
                 <td>{{#fairway}}{{.}}{{/fairway}}
@@ -200,7 +200,7 @@
 <!--                <td>-->
 <!--                <td>-->
 <!--                <td>-->
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">On
 
                 {{#holesDto}}
@@ -225,7 +225,7 @@
 <!--                <td>-->
 <!--                <td>-->
 <!--                <td> /18-->
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Up/Dw
                 {{#holesDto}}
                 <td>{{#upDown}}{{.}}{{/upDown}}
@@ -249,11 +249,13 @@
 <!--                <td>-->
 <!--                <td>-->
 <!--                <td> /18-->
-            <tr contenteditable="true" class="disabled">
+            <tr class="disabled">
                 <td contenteditable="false">Bunker
                 {{#holesDto}}
                 <td>{{#bunker}}{{.}}{{/bunker}}
+                    {{^bunker}}N/A{{/bunker}}
                 {{/holesDto}}
+
 <!--                <td>-->
 <!--                <td>-->
 <!--                <td>-->
@@ -273,7 +275,7 @@
 <!--                <td>-->
 <!--                <td>-->
 <!--                <td>-->
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Putts
                 {{#holesDto}}
                 <td>{{#putt}}{{.}}{{/putt}}
@@ -297,7 +299,7 @@
 <!--                <td>-->
 <!--                <td>-->
 <!--                <td>-->
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Score
                 {{#holesDto}}
                 <td>{{#score}}{{.}}{{/score}}

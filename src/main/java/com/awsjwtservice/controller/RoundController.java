@@ -270,7 +270,7 @@ public class RoundController {
                 } else {
 
 
-                    Holes hole = holeRepository.findByHoleNumber(holeNumber);
+                    Holes hole = holeRepository.findByHoleNumberAndRound(holeNumber, round);
 
                     if( hole != null) {
                         HolesDto holesDto = HolesDto.builder()
@@ -345,7 +345,7 @@ public class RoundController {
 
             // a portal that has access to holes 1 ~ 18
 
-            return "editRound";
+            return "hole";
         } else {
             return "editRound";
 //            return "redirect:/oauth_login";
@@ -353,4 +353,87 @@ public class RoundController {
 
 
     }
+
+
+    /*
+    * latest round
+    * */
+
+    @RequestMapping(value = "/rounds/latest", method = RequestMethod.GET)
+    public String getLatestRound(Model model) {
+
+        SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+
+        if (user != null) {
+            Account account = accountService.findUser(user.getEmail());
+
+            try {
+
+                Rounds round = roundService.findLatestRound(account.getId());
+
+                if(round != null) {
+
+
+                    RoundsDto roundsDto = RoundsDto.builder()
+                            .courseName(round.getCourseName())
+                            .roundDate(round.getRoundDate())
+                            .roundId(round.getId())
+                            .build();
+
+
+                    List<Holes> holes = round.getHoles();
+
+
+                    List<HolesDto> holesDto = new ArrayList<>();
+
+                    for(int i = 1; i <= 18; i++) {
+                        holesDto.add(HolesDto.builder()
+                                .par(0)
+                                .roundId(roundsDto.getRoundId())
+                                .putt(0)
+                                .bunker("")
+                                .upDown("")
+                                .fairway("")
+                                .onGreen("")
+                                .score(0)
+                                .holeNumber(i)
+                                .build());
+                    }
+
+                    if(holes.size() != 0) {
+                        for(Holes hole : holes) {
+                            int j = hole.getHoleNumber();
+                            holesDto.set(j - 1, HolesDto.builder()
+                                    .par(hole.getPar())
+                                    .roundId(roundsDto.getRoundId())
+                                    .putt(hole.getPutt())
+                                    .bunker(hole.getBunker() == 1 ? "O" : "X")
+                                    .upDown(hole.getUpDown() == 1 ? "O" : "X")
+                                    .fairway(hole.getFairway() == 1 ? "O" : "X")
+                                    .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
+                                    .score(hole.getScore())
+                                    .holeNumber(hole.getHoleNumber())
+                                    .build());
+
+                        }
+                    } else {
+
+                    }
+
+
+                    model.addAttribute("roundsDto", roundsDto);
+                    model.addAttribute("holesDto", holesDto);
+                }
+
+
+            } catch (Exception e) {
+                logger.info("error occured during finding rounds & holes");
+            }
+
+            return "editRound";
+        } else {
+            return "redirect:/oauth_login";
+        }
+    }
+
 }

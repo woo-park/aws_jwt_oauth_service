@@ -329,9 +329,10 @@
                 console.log('roundsDto');
                 console.log(roundsDto);
 
+                let url = "/rounds/"+roundId+"/"+holeNumber
                 $.ajax({
                     type : 'POST',
-                    url: '/rounds/1/1',
+                    url: url,
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(roundsDto),

@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
 public class RoundsDto {
 
 //    private long id;

@@ -37,6 +37,18 @@ public class RoundRepository {
         return rounds;
     }
 
+    public Rounds findLatestRound(long accountId) {
+
+        TypedQuery<Rounds> query = em.createQuery("select i from Rounds i where i.account.id = :accountId order by i.regdate desc", Rounds.class);
+
+        List<Rounds> rounds = query
+                .setParameter("accountId", accountId)
+                .setMaxResults(5)
+                .getResultList();
+
+        return rounds.get(0);
+    }
+
 //    public List<Rounds> findAll(Long accountId) {
 //
 //        TypedQuery<Rounds> query = em.createQuery(

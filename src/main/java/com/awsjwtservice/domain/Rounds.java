@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,12 +30,19 @@ public class Rounds implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
-    //
+
     @OneToMany(mappedBy = "round", cascade = CascadeType.ALL)
     private List<Holes> holes = new ArrayList<Holes>();
 
     @Column
     private Date roundDate;     //주문시간
+
+
+    @CreationTimestamp
+    private LocalDateTime regdate;
+
+    @UpdateTimestamp
+    private LocalDateTime uptdate;
 
     @Column
     private String courseName;
