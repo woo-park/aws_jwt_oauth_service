@@ -108,74 +108,74 @@
         </thead>
         <tbody>
         {{#holesDto}}
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Par</td>
-                <td id="par" class="test">{{#par}}{{.}}{{/par}}</td>
+                <td contenteditable="true" tabindex="0" id="par" class="test">{{#par}}{{.}}{{/par}}</td>
             </tr>
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Fairway</td>
-                <td id="fairway" class="test">{{#fairway}}{{.}}{{/fairway}}</td>
+                <td contenteditable="true" tabindex="0" id="fairway" class="test">{{#fairway}}{{.}}{{/fairway}}</td>
             </tr>
 <!--            <tr contenteditable="true" class="disabled">-->
 <!--                <td contenteditable="false">OB/HZ</td>-->
 <!--                <td></td>-->
 <!--            </tr>-->
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">On</td>
-                <td id="onGreen" class="test">{{#onGreen}}{{.}}{{/onGreen}}</td>
+                <td contenteditable="true" id="onGreen" class="test">{{#onGreen}}{{.}}{{/onGreen}}</td>
             </tr>
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Up/Dw</td>
-                <td id="upDown" class="test">{{#upDown}}{{.}}{{/upDown}}</td>
+                <td contenteditable="true" id="upDown" class="test">{{#upDown}}{{.}}{{/upDown}}</td>
             </tr>
-            <tr contenteditable="true" class="disabled">
+            <tr  class="disabled">
                 <td contenteditable="false">Bunker</td>
-                <td id="bunker" class="test">{{#bunker}}{{.}}{{/bunker}}</td>
+                <td contenteditable="true" id="bunker" class="test">{{#bunker}}{{.}}{{/bunker}}</td>
             </tr>
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Putts</td>
-                <td id="putt" class="test">{{#putt}}{{.}}{{/putt}}</td>
+                <td contenteditable="true" id="putt" class="test">{{#putt}}{{.}}{{/putt}}</td>
             </tr>
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Score</td>
-                <td id="score" class="test">{{#score}}{{.}}{{/score}}</td>
+                <td contenteditable="true" id="score" class="test">{{#score}}{{.}}{{/score}}</td>
             </tr>
         {{/holesDto}}
 
         {{^holesDto}}
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Par</td>
-                <td id="par" class="test"></td>
+                <td contenteditable="true" id="par" class="test"></td>
             </tr>
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Fairway</td>
-                <td id="fairway" class="test"></td>
+                <td contenteditable="true" id="fairway" class="test"></td>
             </tr>
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">On</td>
-                <td id="onGreen" class="test"></td>
+                <td contenteditable="true" id="onGreen" class="test"></td>
             </tr>
-            <tr contenteditable="true">
+            <tr>
                 <td contenteditable="false">Up/Dw</td>
-                <td id="upDown" class="test"></td>
+                <td contenteditable="true" id="upDown" class="test"></td>
             </tr>
-            <tr contenteditable="true" class="disabled">
+            <tr  class="disabled">
                 <td contenteditable="false">Bunker</td>
-                <td id="bunker" class="test"></td>
+                <td contenteditable="true" id="bunker" class="test"></td>
             </tr>
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Putts</td>
-                <td id="putt" class="test"></td>
+                <td contenteditable="true" id="putt" class="test"></td>
             </tr>
-            <tr contenteditable="true">
+            <tr >
                 <td contenteditable="false">Score</td>
-                <td id="score" class="test"></td>
+                <td contenteditable="true" id="score" class="test"></td>
             </tr>
         {{/holesDto}}
         </tbody>
     </table>
 
-        <button id="submitBtn" type="submit">Update</button>
+        <button id="submitBtn" tabindex="0" type="submit">Update</button>
 
 
     <section class="footer-section">
@@ -205,35 +205,28 @@
 
                 });
 
-                // this.focus();
+                this.focus();
             },
             focus : function () {
-                // $('.inputField').each(ea => {
-                //    ea.on('keypress','.inputField', function (e) {
-                //        //     console.log(e)
-                //        //     if (e.keyCode === 13) {
-                //        //         console.log("test");
-                //        //         console.log($(e.currentTarget).next());
-                //        //         $(e.currentTarget).blur(); //this works
-                //        //         $(e.currentTarget).next("td.inputField").focus();
-                //        //         return false;
-                //        //     }
-                //        // })
-                // });
-                // $('.inputField')
 
-                        // .unbind().on('keypress', function(e) {
-                        //         if (e.which == 13) {
-                        //             alert('hello');
-                        //         }
-                        //     });
 
-                // $('').unbind().keyup(function (e) {
-                //     alert(e.keyCode);
-                //     if (e.keyCode == 13) {
-                //         alert('Enter key was pressed.');
-                //     }
-                // });
+                $('.test').on('keypress', function (e) {
+                       //     console.log(e)
+                           if (e.keyCode === 13) {
+
+                               let index = $(e.currentTarget).index('.test');
+
+                               $(e.currentTarget).blur(); //this works
+
+                               if(index !== $(".test").length) {
+                                   $(".test").eq(index + 1).focus();
+                               } else {
+
+                               }
+
+                               return false;
+                           }
+                });
 
 
 //                 var content_id = '.inputField';
@@ -326,8 +319,7 @@
                     return false;
                 }
 
-                console.log('roundsDto');
-                console.log(roundsDto);
+                console.log(roundsDto, '<- roundsDto');
 
                 let url = "/rounds/"+roundId+"/"+holeNumber
                 $.ajax({
@@ -353,16 +345,9 @@
 
             holes.init();
 
-
-
-
         });
 
-        $('.test').unbind().on('keypress', function(e) {
-            if (e.which == 13) {
-                alert('hello');
-            }
-        });
+
 
         // https://jsfiddle.net/qfLac3yj/
 
