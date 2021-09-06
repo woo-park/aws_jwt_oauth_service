@@ -35,7 +35,7 @@ public class Rounds implements Serializable {
     private List<Holes> holes = new ArrayList<Holes>();
 
     @Column
-    private Date roundDate;     //주문시간
+    private LocalDateTime roundDate;     //주문시간
 
 
     @CreationTimestamp
@@ -62,7 +62,7 @@ public class Rounds implements Serializable {
             round.addHoles(hole);
         }
 //        order.setStatus(OrderStatus.ORDER);
-        round.setRoundDate(new Date());
+        round.setRoundDate(LocalDateTime.now());
         return round;
     }
 

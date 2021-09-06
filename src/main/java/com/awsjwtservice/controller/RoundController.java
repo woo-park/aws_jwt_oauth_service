@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +86,10 @@ public class RoundController {
 
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+
         if (user != null) {
             Account account = accountService.findUser(user.getEmail());
 
@@ -101,6 +106,7 @@ public class RoundController {
                             RoundsDto.builder()
                                     .courseName(round.getCourseName())
                                     .roundDate(round.getRoundDate())
+                                    .formattedDateTime(round.getRoundDate() != null ? round.getRoundDate().format(formatter) : "")
                                     .index(counter += 1)
                                     .roundId(round.getId())
                                     .build()
@@ -135,12 +141,17 @@ public class RoundController {
 
             try {
 //                model.addAttribute("user", account);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
                 Rounds round = roundService.findRound(roundId);
                 List<Holes> holes = round.getHoles();
 
                 RoundsDto roundsDto = RoundsDto.builder()
                                         .courseName(round.getCourseName())
+                                        .formattedDate(round.getRoundDate() != null ? round.getRoundDate().toLocalDate().format(dateFormatter) : "")
+                                        .formattedTime(round.getRoundDate() != null ? round.getRoundDate().toLocalTime().format(timeFormatter) : "")
                                         .roundDate(round.getRoundDate())
                                         .roundId(round.getId())
                                         .build();
@@ -258,7 +269,6 @@ public class RoundController {
             Account account = accountService.findUser(user.getEmail());
 
             try {
-    //                model.addAttribute("user", account);
 
                 Rounds round = roundService.findRound(roundId);
 
@@ -290,53 +300,10 @@ public class RoundController {
                     } else {
 
                     }
-                    // figure out when it doesn't exists <-- !important
-
-
-
-                    /*
-                    List<Holes> holes = round.getHoles();
-
-                    for(Holes hole : holes) {
-                        if(hole.getHoleNumber() == holeNumber) {
-
-                            HolesDto holesDto = HolesDto.builder()
-                                    .par(hole.getPar())
-//                                    .updatedDate()
-                                    .roundId(roundId)
-                                    .putt(hole.getPutt())
-                                    .bunker(hole.getBunker() == 1 ? "O" : "X")
-                                    .fairway(hole.getFairway() == 1 ? "O" : "X")
-                                    .upDown(hole.getUpDown() == 1 ? "O" : "X")
-                                    .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
-                                    .holeNumber(hole.getHoleNumber())
-                                    .build();
-
-                            model.addAttribute("holesDto", holesDto);
-                            break;
-                        }
-                    }
-                    */
-
-//                    model.addAttribute("roundId", roundId);
-//                    model.addAttribute("holeNumber", holeNumber);
-//
-//                    model.addAttribute("round", holes.get(0));
-//
-//                    model.addAttribute("holes", holes);
-
-
-
 
                     return "hole";
                 }
 
-//                List<Holes> holes = round.getHoles();
-//                String courseName = round.getCourseName();
-//                System.out.println(holes);
-//                model.addAttribute("courseName", courseName);
-//                model.addAttribute("round", round);
-//                model.addAttribute("holes", holes);
 
             } catch (Exception e) {
                 logger.info("error occured during finding rounds & holes");
@@ -347,7 +314,7 @@ public class RoundController {
 
             return "hole";
         } else {
-            return "editRound";
+            return "hole";
 //            return "redirect:/oauth_login";
         }
 

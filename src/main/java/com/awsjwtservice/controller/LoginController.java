@@ -49,23 +49,17 @@ public class LoginController {
     @GetMapping("/oauth_login")
     public String getLoginPage(Principal principal, Model model, HttpServletRequest request) {
 
-        Enumeration headers = request.getHeaderNames();
-
-
-
-        while(headers.hasMoreElements()) {
-
-            String headerName = (String)headers.nextElement();
-
-            String value = request.getHeader(headerName);
-
-            System.out.println("headerName:"+headerName+","+value);
-
-        }
-
+        /*
+            // header check
+            Enumeration headers = request.getHeaderNames();
+            while(headers.hasMoreElements()) {
+                String headerName = (String)headers.nextElement();
+                String value = request.getHeader(headerName);
+                System.out.println("headerName:"+headerName+","+value);
+            }
+         */
 
         String referrer = request.getHeader("Referer");
-        System.out.println(referrer);
         request.getSession().setAttribute("prevPage", referrer);
 
 //        System.out.println("Authorization Header Value ::" + request.getHeader("Authorization") + request.getHeader("JwtAuthorization"));

@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,12 @@ public class RoundsDto {
 
     private String courseName;
 
-    private Date roundDate;
+    private LocalDateTime roundDate;
+
+    private String formattedDateTime;
+
+    private String formattedDate;
+    private String formattedTime;
 
     private Integer score;
 

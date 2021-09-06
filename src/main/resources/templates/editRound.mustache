@@ -101,7 +101,11 @@
 <article>
     {{#roundsDto}}
         <h1>{{#courseName}}{{.}}{{/courseName}}</h1>
-        <h2>{{#roundDate}}{{.}}{{/roundDate}}</h2>
+        <h2>{{#formattedDateTime}}{{.}}{{/formattedDateTime}}</h2>
+        <h2>{{#formattedDate}}{{.}}{{/formattedDate}}</h2>
+        <h2>{{#formattedTime}}{{.}}{{/formattedTime}}</h2>
+        <h2>{{#score}}{{.}}{{/score}}</h2>
+        <h2>{{#status}}{{.}}{{/status}}</h2>
     {{/roundsDto}}
 
     <div class="tbl-content">
