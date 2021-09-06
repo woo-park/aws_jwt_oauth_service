@@ -30,11 +30,11 @@ public class AuthorizationChecker {
 
         String authority = null;
         String siteUrl = "";
-        System.out.println("AuthorizationChecker check();");
+//        System.out.println("AuthorizationChecker check();");
         for (Site matcher : siteRepository.findAll()) {
             String url = matcher.getSiteUrl();
 
-            System.out.println("request.getRequestURI: " + request.getRequestURI());
+//            System.out.println("request.getRequestURI: " + request.getRequestURI());
 
             if (new AntPathMatcher().match("/" + url, request.getRequestURI())) {
 //                authority = matcher.getAuthority();

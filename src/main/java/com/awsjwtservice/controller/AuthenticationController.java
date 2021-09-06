@@ -44,7 +44,7 @@ public class AuthenticationController {
 
 			List<String> list = new ArrayList<>();
 
-			System.out.println(credentials + ": credentials");
+//			System.out.println(credentials + ": credentials");
 
 			list.add(this.userRepository.findByUsername(credentials.getUsername()).getRole());
 

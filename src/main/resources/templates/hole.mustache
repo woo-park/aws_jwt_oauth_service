@@ -98,6 +98,8 @@
 <body>
 
     <table>
+
+        <caption><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}">My round</a></caption>
         <thead>
             <tr>
                 {{#holesDto}}
@@ -209,19 +211,33 @@
             },
             focus : function () {
 
-
+                let test_boolean = false;
                 $('.test').on('keypress', function (e) {
                        //     console.log(e)
+
                            if (e.keyCode === 13) {
+
+
+                               // validate the input
+                               if(typeof $(e.currentTarget).text() === "string") {
+                                   $(e.currentTarget).text($(e.currentTarget).text().toUpperCase());
+                                   test_boolean = check_charcount( $(e.currentTarget), 1, e);
+                               }
+
+                               if(!test_boolean) {
+                                   $(e.currentTarget).text("");
+                                   // $(e.currentTarget).focus();
+                                   return false;
+                               }
 
                                let index = $(e.currentTarget).index('.test');
 
                                $(e.currentTarget).blur(); //this works
 
-                               if(index !== $(".test").length) {
+                               if(index !== $(".test").length - 1) {
                                    $(".test").eq(index + 1).focus();
-                               } else {
-
+                               } else if (index === $(".test").length - 1) {
+                                    $("#submitBtn").focus();
                                }
 
                                return false;
@@ -236,12 +252,15 @@
 //                 $(content_id).keyup(function(e){ check_charcount(this, max, e); });
 //                 $(content_id).keydown(function(e){ check_charcount(this, max, e); });
 //
-//                 function check_charcount(elem, max, e){
-//                     console.log(e);
-//                     if(e.which != 8 && $(elem).text().length >= max){
-//                         e.preventDefault();
-//                     }
-//                 }
+                function check_charcount(elem, max, e){
+                    console.log(e);
+                    if(e.which != 8 && $(elem).text().length > max){
+                        console.log('greater than max');
+                        e.preventDefault();
+                        return false;
+                    }
+                    return true;
+                }
 
             },
             breakOut : function (err) {
@@ -249,26 +268,51 @@
                     case 'fairway':
                         alert("fairway field input error: not Char X || O");
                         this.error = true;
+
+                        $("#fairway").text("");
+                        $("#fairway").focus();
                         break;
                     case 'upDown':
                         alert("upDown field input error: not Char X || O");
                         this.error = true;
+
+                        $("#upDown").text("");
+                        $("#upDown").focus();
                         break;
                     case 'bunker':
                         alert("bunker field input error: not Char X || O");
                         this.error = true;
+
+                        $("#bunker").text("");
+                        $("#bunker").focus();
                         break;
                     case 'onGreen':
                         alert("onGreen field input error: not Char X || O");
                         this.error = true;
+
+                        $("#onGreen").text("");
+                        $("#onGreen").focus();
                         break;
                     case 'putt':
                         alert("putt field input error: not integer");
                         this.error = true;
+                        $("#putt").text("");
+                        $("#putt").focus();
                         break;
                     case 'score':
                         alert("onGreen field input error: not integer");
                         this.error = true;
+
+                        $("#score").text("");
+                        $("#score").focus();
+                        break;
+
+                    case 'par':
+                        alert("par field input error: not integer");
+                        this.error = true;
+
+                        $("#par").text("");
+                        $("#par").focus();
                         break;
                     case 'holeNumber':
                         alert("onGreen field input error: not integer");
@@ -289,6 +333,8 @@
                 return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
             },
             save : function () {
+                this.error = false;     // initialize again
+
 
                 let par = $('#par').text();
                 let fairway = $('#fairway').text().toUpperCase();
@@ -303,15 +349,15 @@
 
 
                 var roundsDto = {
-                    "par": par,
-                    "fairway": (fairway == "O" || fairway == "X") ? fairway : this.breakOut(fairway),
-                    "upDown": (upDown == "O" || upDown == "X") ? upDown : this.breakOut(upDown),
-                    "bunker": (bunker == "O" || bunker == "X") ? bunker : this.breakOut(bunker),
-                    "onGreen": (onGreen == "O" || onGreen == "X") ? onGreen : this.breakOut(onGreen),
-                    "putt": this.isInt(putt) == true ? putt : this.breakOut(putt),
-                    "score": this.isInt(score) ? score : this.breakOut(score),
-                    "holeNumber" : this.isInt(holeNumber) == true ? holeNumber : this.breakOut(holeNumber),
-                    "roundId" : this.isInt(roundId) == true ? roundId : this.breakOut(roundId),
+                    "par": this.isInt(par) == true ? par : this.breakOut("par"),
+                    "fairway": (fairway == "O" || fairway == "X") ? fairway : this.breakOut("fairway"),
+                    "upDown": (upDown == "O" || upDown == "X") ? upDown : this.breakOut("upDown"),
+                    "bunker": (bunker == "O" || bunker == "X") ? bunker : this.breakOut("bunker"),
+                    "onGreen": (onGreen == "O" || onGreen == "X") ? onGreen : this.breakOut("onGreen"),
+                    "putt": this.isInt(putt) == true ? putt : this.breakOut("putt"),
+                    "score": this.isInt(score) ? score : this.breakOut("score"),
+                    "holeNumber" : this.isInt(holeNumber) == true ? holeNumber : this.breakOut("holeNumber"),
+                    "roundId" : this.isInt(roundId) == true ? roundId : this.breakOut("roundId"),
                 };
 
                 if(this.error) {

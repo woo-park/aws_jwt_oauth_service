@@ -72,7 +72,7 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
             RestTemplate restTemplate = new RestTemplate();
             assert request != null;
             response = restTemplate.exchange(request, PARAMETERIZED_RESPONSE_TYPE);
-            System.out.println(response);
+//            System.out.println(response);
         } catch (OAuth2AuthorizationException ex) {
 
         }

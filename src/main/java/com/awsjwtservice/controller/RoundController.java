@@ -297,6 +297,7 @@ public class RoundController {
                                 .build();
 
                         model.addAttribute("holesDto", holesDto);
+                        model.addAttribute("roundId", roundId);
                     } else {
 
                     }

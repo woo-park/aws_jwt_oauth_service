@@ -58,8 +58,8 @@ public class RoundService {
                 hole.setPar(holesDto.getPar());
                 hole.setPutt(holesDto.getPutt());
 
-                System.out.println(hole.getHoleNumber());
-                System.out.println("hole already existed -> hence we mutated and now saving");
+//                System.out.println(hole.getHoleNumber());
+//                System.out.println("hole already existed -> hence we mutated and now saving");
                 // update hole
                 holeService.saveHole(hole);
                 return hole;
@@ -69,8 +69,8 @@ public class RoundService {
 
         Holes newHole = Holes.createHoleInformation(round, holesDto.getScore(),holesDto.getPar(),bunker,holesDto.getPutt(),upDown,fairway, onGreen, holesDto.getHoleNumber());
 
-        System.out.println(newHole.getHoleNumber());
-        System.out.println("hole didn't exist -> hence we build & now saving");
+//        System.out.println(newHole.getHoleNumber());
+//        System.out.println("hole didn't exist -> hence we build & now saving");
         holeService.saveHole(newHole);
 
         return newHole;
