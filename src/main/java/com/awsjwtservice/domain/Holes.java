@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,14 +26,14 @@ public class Holes implements Serializable {
     @JoinColumn(name = "round_id")
     private Rounds round;    //주문
 
-    private int fairway;
-    private int par;
-    private int onGreen;
-    private int upDown;
-    private int bunker;
-    private int putt;
-    private int score;
-    private int holeNumber;
+    private Integer fairway;
+    private Integer par;
+    private Integer onGreen;
+    private Integer upDown;
+    private Integer bunker;
+    private Integer putt;
+    private Integer score;
+    private Integer holeNumber;
 
     //@NotNull
     @CreationTimestamp
@@ -42,7 +43,7 @@ public class Holes implements Serializable {
     private LocalDateTime uptdate;
 
 //    //==생성 메서드==//
-    public static Holes createHoleInformation(Rounds round, int score, int par, int bunker, int putt, int upDown, int fairway, int onGreen, int holeNumber) {
+    public static Holes createHoleInformation(Rounds round, Integer score, Integer par, Integer bunker, Integer putt, Integer upDown, Integer fairway, Integer onGreen, Integer holeNumber) {
         Holes hole = new Holes();
         hole.setScore(score);
         hole.setRound(round);
@@ -57,23 +58,23 @@ public class Holes implements Serializable {
         return hole;
     }
 
-    public void setHoleNumber(int holeNumber) { this.holeNumber = holeNumber;}
+    public void setHoleNumber(Integer holeNumber) { this.holeNumber = holeNumber;}
 
-    public void setOnGreen(int onGreen) {
+    public void setOnGreen(Integer onGreen) {
         this.onGreen = onGreen;
     }
 
-    public void setPar(int par) { this.par = par; }
+    public void setPar(Integer par) { this.par = par; }
 
-    public void setBunker(int bunker) { this.bunker = bunker;}
+    public void setBunker(Integer bunker) { this.bunker = bunker;}
 
-    public void setPutt(int putt) { this.putt = putt; }
+    public void setPutt(Integer putt) { this.putt = putt; }
 
-    public void setUpDown(int upDown) { this.upDown = upDown; }
+    public void setUpDown(Integer upDown) { this.upDown = upDown; }
 
-    public void setFairway(int fairway) { this.fairway = fairway; }
+    public void setFairway(Integer fairway) { this.fairway = fairway; }
 
-    public void setScore(int score) { this.score = score; }
+    public void setScore(Integer score) { this.score = score; }
 
     public void setRound(Rounds round) { this.round = round; }
 

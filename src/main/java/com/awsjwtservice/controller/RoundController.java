@@ -273,15 +273,52 @@ public class RoundController {
                     Holes hole = holeRepository.findByHoleNumberAndRound(holeNumber, round);
 
                     if( hole != null) {
+
+                        String bunker;
+                        if(hole.getBunker() == 1) {
+                            bunker = "O";
+                        } else if(hole.getBunker() == null) {
+                            bunker = "";
+                        } else {
+                            bunker = "X";
+                        }
+
+                        String fairway;
+                        if(hole.getFairway() == 1) {
+                            fairway = "O";
+                        } else if(hole.getFairway() == null) {
+                            fairway = "";
+                        } else {
+                            fairway = "X";
+                        }
+
+                        String upDown;
+                        if(hole.getUpDown() == 1) {
+                            upDown = "O";
+                        } else if(hole.getUpDown() == null) {
+                            upDown = "";
+                        } else {
+                            upDown = "X";
+                        }
+
+                        String onGreen;
+                        if(hole.getOnGreen() == 1) {
+                            onGreen = "O";
+                        } else if(hole.getOnGreen() == null) {
+                            onGreen = "";
+                        } else {
+                            onGreen = "X";
+                        }
+
                         HolesDto holesDto = HolesDto.builder()
                                 .par(hole.getPar())
 //                                    .updatedDate()
                                 .roundId(roundId)
                                 .putt(hole.getPutt())
-                                .bunker(hole.getBunker() == 1 ? "O" : "X")
-                                .fairway(hole.getFairway() == 1 ? "O" : "X")
-                                .upDown(hole.getUpDown() == 1 ? "O" : "X")
-                                .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
+                                .bunker(bunker)
+                                .fairway(fairway)
+                                .upDown(upDown)
+                                .onGreen(onGreen)
                                 .score(hole.getScore())
                                 .holeNumber(hole.getHoleNumber())
                                 .build();

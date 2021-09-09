@@ -307,29 +307,41 @@
                 let holeNumber = {{#holeNumber}}{{.}}{{/holeNumber}};
                 let roundId = {{#roundId}}{{.}}{{/roundId}};
 
+                par = this.isInt(par) == true ? par : this.breakOut("par");
+                if(this.error) { return false; }
+                fairway = (fairway == "O" || fairway == "X" || fairway == "") ? fairway : this.breakOut("fairway");
+                if(this.error) { return false; }
+                upDown = (upDown == "O" || upDown == "X" || upDown == "") ? upDown : this.breakOut("upDown");
+                if(this.error) { return false; }
+                bunker = (bunker == "O" || bunker == "X" || bunker == "") ? bunker : this.breakOut("bunker");
+                if(this.error) { return false; }
+                onGreen = (onGreen == "O" || onGreen == "X" || onGreen == "") ? onGreen : this.breakOut("onGreen");
+                if(this.error) { return false; }
+                putt = this.isInt(putt) == true || putt == "" ? putt : this.breakOut("putt");
+                if(this.error) { return false; }
+                score = this.isInt(score) || score == "" ? score : this.breakOut("score");
+                if(this.error) { return false; }
+                holeNumber = this.isInt(holeNumber) == true ? holeNumber : this.breakOut("holeNumber");
+                if(this.error) { return false; }
+                roundId = this.isInt(roundId) == true ? roundId : this.breakOut("roundId");
+                if(this.error) { return false; }
 
 
                 var roundsDto = {
                     "par": par,
-                    "fairway": (fairway == "O" || fairway == "X") ? fairway : this.breakOut(fairway),
-                    "upDown": (upDown == "O" || upDown == "X") ? upDown : this.breakOut(upDown),
-                    "bunker": (bunker == "O" || bunker == "X") ? bunker : this.breakOut(bunker),
-                    "onGreen": (onGreen == "O" || onGreen == "X") ? onGreen : this.breakOut(onGreen),
-                    "putt": this.isInt(putt) == true ? putt : this.breakOut(putt),
-                    "score": this.isInt(score) ? score : this.breakOut(score),
-                    "holeNumber" : this.isInt(holeNumber) == true ? holeNumber : this.breakOut(holeNumber),
-                    "roundId" : this.isInt(roundId) == true ? roundId : this.breakOut(roundId),
+                    "fairway": fairway,
+                    "upDown": upDown,
+                    "bunker": bunker,
+                    "onGreen": onGreen,
+                    "putt": putt,
+                    "score": score,
+                    "holeNumber" : holeNumber,
+                    "roundId" : roundId,
                 };
 
-                if(this.error) {
-                    console.log("finishing early due to error == true");
-                    return false;
-                }
+                console.log(roundsDto, '<- roundsDto');
 
-                console.log('roundsDto');
-                console.log(roundsDto);
-
-                let url = "/rounds/"+roundId+"/"+holeNumber
+                let url = "/rounds/"+roundId+"/"+holeNumber;
                 $.ajax({
                     type : 'POST',
                     url: url,

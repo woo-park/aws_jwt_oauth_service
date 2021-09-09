@@ -16,18 +16,18 @@ public class HolesDto {
 
     private Date updatedDate;
 
-    private int index;
+    private Integer index;
 
     private Long roundId;
 
     private String fairway;
-    private int par;
+    private Integer par;
     private String onGreen;
     private String upDown;
     private String bunker;
-    private int putt;
-    private int score;
-    private int holeNumber;
+    private Integer putt;
+    private Integer score;
+    private Integer holeNumber;
 
 
 //    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
