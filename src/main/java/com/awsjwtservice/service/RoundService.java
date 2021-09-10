@@ -42,10 +42,41 @@ public class RoundService {
 
 
         // create new hole
-        int bunker = holesDto.getBunker().equals("O") ? 1 : 0;
-        int upDown = holesDto.getUpDown().contentEquals("O") ? 1 : 0;
-        int fairway = holesDto.getFairway().equalsIgnoreCase("O") ? 1 : 0;
-        int onGreen = holesDto.getOnGreen().equals("O") ? 1 : 0;
+        Integer bunker;
+        if(holesDto.getBunker().equals("")) {
+            bunker = null;
+        } else if (holesDto.getBunker().equals("O")) {
+            bunker = 1;
+        } else {
+            bunker = 0;
+        }
+
+        Integer upDown;
+        if(holesDto.getUpDown().equals("")) {
+            upDown = null;
+        } else if (holesDto.getUpDown().equals("O")) {
+            upDown = 1;
+        } else {
+            upDown = 0;
+        }
+
+        Integer fairway;
+        if(holesDto.getFairway().equals("")) {
+            fairway = null;
+        } else if (holesDto.getFairway().equals("O")) {
+            fairway = 1;
+        } else {
+            fairway = 0;
+        }
+
+        Integer onGreen;
+        if(holesDto.getOnGreen().equals("")) {
+            onGreen = null;
+        } else if (holesDto.getOnGreen().equals("O")) {
+            onGreen = 1;
+        } else {
+            onGreen = 0;
+        }
 
         for(Holes hole : holes) {
             if(hole.getHoleNumber() == holesDto.getHoleNumber()) {
@@ -58,8 +89,8 @@ public class RoundService {
                 hole.setPar(holesDto.getPar());
                 hole.setPutt(holesDto.getPutt());
 
-//                System.out.println(hole.getHoleNumber());
-//                System.out.println("hole already existed -> hence we mutated and now saving");
+                System.out.println(hole.getHoleNumber());
+                System.out.println("hole already existed -> hence we mutated and now saving");
                 // update hole
                 holeService.saveHole(hole);
                 return hole;
@@ -69,8 +100,8 @@ public class RoundService {
 
         Holes newHole = Holes.createHoleInformation(round, holesDto.getScore(),holesDto.getPar(),bunker,holesDto.getPutt(),upDown,fairway, onGreen, holesDto.getHoleNumber());
 
-//        System.out.println(newHole.getHoleNumber());
-//        System.out.println("hole didn't exist -> hence we build & now saving");
+        System.out.println(newHole.getHoleNumber());
+        System.out.println("hole didn't exist -> hence we build & now saving");
         holeService.saveHole(newHole);
 
         return newHole;

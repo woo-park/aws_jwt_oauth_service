@@ -97,152 +97,152 @@
 </head>
 <body>
 
-    <table>
+<table>
 
-        <caption><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}">My round</a></caption>
-        <thead>
-            <tr>
-                {{#holesDto}}
-                    <th>Holes</th>
-                    <th>{{#holeNumber}}{{.}}{{/holeNumber}}</th>
-                {{/holesDto}}
-            </tr>
-        </thead>
-        <tbody>
+    <caption><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}">My round</a></caption>
+    <thead>
+    <tr>
         {{#holesDto}}
-            <tr >
-                <td contenteditable="false">Par</td>
-                <td contenteditable="true" tabindex="0" id="par" class="test">{{#par}}{{.}}{{/par}}</td>
-            </tr>
-            <tr >
-                <td contenteditable="false">Fairway</td>
-                <td contenteditable="true" tabindex="0" id="fairway" class="test">{{#fairway}}{{.}}{{/fairway}}</td>
-            </tr>
-<!--            <tr contenteditable="true" class="disabled">-->
-<!--                <td contenteditable="false">OB/HZ</td>-->
-<!--                <td></td>-->
-<!--            </tr>-->
-            <tr >
-                <td contenteditable="false">On</td>
-                <td contenteditable="true" id="onGreen" class="test">{{#onGreen}}{{.}}{{/onGreen}}</td>
-            </tr>
-            <tr >
-                <td contenteditable="false">Up/Dw</td>
-                <td contenteditable="true" id="upDown" class="test">{{#upDown}}{{.}}{{/upDown}}</td>
-            </tr>
-            <tr  class="disabled">
-                <td contenteditable="false">Bunker</td>
-                <td contenteditable="true" id="bunker" class="test">{{#bunker}}{{.}}{{/bunker}}</td>
-            </tr>
-            <tr >
-                <td contenteditable="false">Putts</td>
-                <td contenteditable="true" id="putt" class="test">{{#putt}}{{.}}{{/putt}}</td>
-            </tr>
-            <tr >
-                <td contenteditable="false">Score</td>
-                <td contenteditable="true" id="score" class="test">{{#score}}{{.}}{{/score}}</td>
-            </tr>
+            <th>Holes</th>
+            <th>{{#holeNumber}}{{.}}{{/holeNumber}}</th>
         {{/holesDto}}
+    </tr>
+    </thead>
+    <tbody>
+    {{#holesDto}}
+        <tr >
+            <td contenteditable="false">Par</td>
+            <td contenteditable="true" tabindex="0" id="par" class="test">{{#par}}{{.}}{{/par}}</td>
+        </tr>
+        <tr >
+            <td contenteditable="false">Fairway</td>
+            <td contenteditable="true" tabindex="0" id="fairway" class="test">{{#fairway}}{{.}}{{/fairway}}</td>
+        </tr>
+        <!--            <tr contenteditable="true" class="disabled">-->
+        <!--                <td contenteditable="false">OB/HZ</td>-->
+        <!--                <td></td>-->
+        <!--            </tr>-->
+        <tr >
+            <td contenteditable="false">On</td>
+            <td contenteditable="true" id="onGreen" class="test">{{#onGreen}}{{.}}{{/onGreen}}</td>
+        </tr>
+        <tr >
+            <td contenteditable="false">Up/Dw</td>
+            <td contenteditable="true" id="upDown" class="test">{{#upDown}}{{.}}{{/upDown}}</td>
+        </tr>
+        <tr  class="disabled">
+            <td contenteditable="false">Bunker</td>
+            <td contenteditable="true" id="bunker" class="test">{{#bunker}}{{.}}{{/bunker}}</td>
+        </tr>
+        <tr >
+            <td contenteditable="false">Putts</td>
+            <td contenteditable="true" id="putt" class="test">{{#putt}}{{.}}{{/putt}}</td>
+        </tr>
+        <tr >
+            <td contenteditable="false">Score</td>
+            <td contenteditable="true" id="score" class="test">{{#score}}{{.}}{{/score}}</td>
+        </tr>
+    {{/holesDto}}
 
-        {{^holesDto}}
-            <tr >
-                <td contenteditable="false">Par</td>
-                <td contenteditable="true" id="par" class="test"></td>
-            </tr>
-            <tr >
-                <td contenteditable="false">Fairway</td>
-                <td contenteditable="true" id="fairway" class="test"></td>
-            </tr>
-            <tr >
-                <td contenteditable="false">On</td>
-                <td contenteditable="true" id="onGreen" class="test"></td>
-            </tr>
-            <tr>
-                <td contenteditable="false">Up/Dw</td>
-                <td contenteditable="true" id="upDown" class="test"></td>
-            </tr>
-            <tr  class="disabled">
-                <td contenteditable="false">Bunker</td>
-                <td contenteditable="true" id="bunker" class="test"></td>
-            </tr>
-            <tr >
-                <td contenteditable="false">Putts</td>
-                <td contenteditable="true" id="putt" class="test"></td>
-            </tr>
-            <tr >
-                <td contenteditable="false">Score</td>
-                <td contenteditable="true" id="score" class="test"></td>
-            </tr>
-        {{/holesDto}}
-        </tbody>
-    </table>
+    {{^holesDto}}
+        <tr >
+            <td contenteditable="false">Par</td>
+            <td contenteditable="true" id="par" class="test"></td>
+        </tr>
+        <tr >
+            <td contenteditable="false">Fairway</td>
+            <td contenteditable="true" id="fairway" class="test"></td>
+        </tr>
+        <tr >
+            <td contenteditable="false">On</td>
+            <td contenteditable="true" id="onGreen" class="test"></td>
+        </tr>
+        <tr>
+            <td contenteditable="false">Up/Dw</td>
+            <td contenteditable="true" id="upDown" class="test"></td>
+        </tr>
+        <tr  class="disabled">
+            <td contenteditable="false">Bunker</td>
+            <td contenteditable="true" id="bunker" class="test"></td>
+        </tr>
+        <tr >
+            <td contenteditable="false">Putts</td>
+            <td contenteditable="true" id="putt" class="test"></td>
+        </tr>
+        <tr >
+            <td contenteditable="false">Score</td>
+            <td contenteditable="true" id="score" class="test"></td>
+        </tr>
+    {{/holesDto}}
+    </tbody>
+</table>
 
-        <button id="submitBtn" tabindex="0" type="submit">Update</button>
+<button id="submitBtn" tabindex="0" type="submit">Update</button>
 
 
-    <section class="footer-section">
-        <article>
+<section class="footer-section">
+    <article>
 
-            <div> BAY version 1.5 </div>
+        <div> BAY version 1.5 </div>
 
-        </article>
-    </section>
+    </article>
+</section>
 
-    <!--부트스트랩 js, jquery 추가-->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!--부트스트랩 js, jquery 추가-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
 
-    <!--index.js 추가-->
+<!--index.js 추가-->
 <!--    <script src="/js/app/index.js"></script>-->
-    <script>
-        console.log($('#par').val(),":check the value");
-        console.log('/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}');
+<script>
+    console.log($('#par').val(),":check the value");
+    console.log('/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}');
 
-        var holes = {
-            error : false,          //using this as a semi-global variable, to trigger return false;
-            init : function () {
-                var _this = this;
-                $('#submitBtn').on('click', function () {
-                    _this.save();
+    var holes = {
+        error : false,          //using this as a semi-global variable, to trigger return false;
+        init : function () {
+            var _this = this;
+            $('#submitBtn').on('click', function () {
+                _this.save();
 
-                });
+            });
 
-                this.focus();
-            },
-            focus : function () {
+            this.focus();
+        },
+        focus : function () {
 
-                let test_boolean = false;
-                $('.test').on('keypress', function (e) {
-                       //     console.log(e)
+            let test_boolean = false;
+            $('.test').on('keypress', function (e) {
+                //     console.log(e)
 
-                           if (e.keyCode === 13) {
+                if (e.keyCode === 13) {
 
 
-                               // validate the input
-                               if(typeof $(e.currentTarget).text() === "string") {
-                                   $(e.currentTarget).text($(e.currentTarget).text().toUpperCase());
-                                   test_boolean = check_charcount( $(e.currentTarget), 1, e);
-                               }
+                    // validate the input
+                    if(typeof $(e.currentTarget).text() === "string") {
+                        $(e.currentTarget).text($(e.currentTarget).text().toUpperCase());
+                        test_boolean = check_charcount( $(e.currentTarget), 1, e);
+                    }
 
-                               if(!test_boolean) {
-                                   $(e.currentTarget).text("");
-                                   // $(e.currentTarget).focus();
-                                   return false;
-                               }
+                    if(!test_boolean) {
+                        $(e.currentTarget).text("");
+                        // $(e.currentTarget).focus();
+                        return false;
+                    }
 
-                               let index = $(e.currentTarget).index('.test');
+                    let index = $(e.currentTarget).index('.test');
 
-                               $(e.currentTarget).blur(); //this works
+                    $(e.currentTarget).blur(); //this works
 
-                               if(index !== $(".test").length - 1) {
-                                   $(".test").eq(index + 1).focus();
-                               } else if (index === $(".test").length - 1) {
-                                    $("#submitBtn").focus();
-                               }
+                    if(index !== $(".test").length - 1) {
+                        $(".test").eq(index + 1).focus();
+                    } else if (index === $(".test").length - 1) {
+                        $("#submitBtn").focus();
+                    }
 
-                               return false;
-                           }
-                });
+                    return false;
+                }
+            });
 
 
 //                 var content_id = '.inputField';
@@ -252,152 +252,139 @@
 //                 $(content_id).keyup(function(e){ check_charcount(this, max, e); });
 //                 $(content_id).keydown(function(e){ check_charcount(this, max, e); });
 //
-                function check_charcount(elem, max, e){
-                    console.log(e);
-                    if(e.which != 8 && $(elem).text().length > max){
-                        console.log('greater than max');
-                        e.preventDefault();
-                        return false;
-                    }
-                    return true;
-                }
-
-            },
-            breakOut : function (err) {
-                switch (err) {
-                    case 'fairway':
-                        alert("fairway field input error: not Char X || O");
-                        this.error = true;
-
-                        $("#fairway").text("");
-                        $("#fairway").focus();
-                        break;
-                    case 'upDown':
-                        alert("upDown field input error: not Char X || O");
-                        this.error = true;
-
-                        $("#upDown").text("");
-                        $("#upDown").focus();
-                        break;
-                    case 'bunker':
-                        alert("bunker field input error: not Char X || O");
-                        this.error = true;
-
-                        $("#bunker").text("");
-                        $("#bunker").focus();
-                        break;
-                    case 'onGreen':
-                        alert("onGreen field input error: not Char X || O");
-                        this.error = true;
-
-                        $("#onGreen").text("");
-                        $("#onGreen").focus();
-                        break;
-                    case 'putt':
-                        alert("putt field input error: not integer");
-                        this.error = true;
-                        $("#putt").text("");
-                        $("#putt").focus();
-                        break;
-                    case 'score':
-                        alert("onGreen field input error: not integer");
-                        this.error = true;
-
-                        $("#score").text("");
-                        $("#score").focus();
-                        break;
-
-                    case 'par':
-                        alert("par field input error: not integer");
-                        this.error = true;
-
-                        $("#par").text("");
-                        $("#par").focus();
-                        break;
-                    case 'holeNumber':
-                        alert("onGreen field input error: not integer");
-                        this.error = true;
-                        break;
-                    case 'roundId':
-                        alert("onGreen field input error: not integer");
-                        this.error = true;
-                        break;
-
-                    default:
-                        this.error = true;
-                        alert("Invalid Input");
-                }
-                return false;
-            },
-            isInt : function (value) {
-                return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
-            },
-            save : function () {
-                this.error = false;     // initialize again
-
-
-                let par = $('#par').text();
-                let fairway = $('#fairway').text().toUpperCase();
-                let upDown = $('#upDown').text().toUpperCase();
-                let bunker = $('#bunker').text().toUpperCase();
-                let onGreen = $('#onGreen').text().toUpperCase();
-                let putt = $('#putt').text();
-                let score = $('#score').text();
-                let holeNumber = {{#holeNumber}}{{.}}{{/holeNumber}};
-                let roundId = {{#roundId}}{{.}}{{/roundId}};
-
-
-
-                var roundsDto = {
-                    "par": this.isInt(par) == true ? par : this.breakOut("par"),
-                    "fairway": (fairway == "O" || fairway == "X") ? fairway : this.breakOut("fairway"),
-                    "upDown": (upDown == "O" || upDown == "X") ? upDown : this.breakOut("upDown"),
-                    "bunker": (bunker == "O" || bunker == "X") ? bunker : this.breakOut("bunker"),
-                    "onGreen": (onGreen == "O" || onGreen == "X") ? onGreen : this.breakOut("onGreen"),
-                    "putt": this.isInt(putt) == true ? putt : this.breakOut("putt"),
-                    "score": this.isInt(score) ? score : this.breakOut("score"),
-                    "holeNumber" : this.isInt(holeNumber) == true ? holeNumber : this.breakOut("holeNumber"),
-                    "roundId" : this.isInt(roundId) == true ? roundId : this.breakOut("roundId"),
-                };
-
-                if(this.error) {
-                    console.log("finishing early due to error == true");
+            function check_charcount(elem, max, e){
+                console.log(e);
+                if(e.which != 8 && $(elem).text().length > max){
+                    console.log('greater than max');
+                    e.preventDefault();
                     return false;
                 }
+                return true;
+            }
 
-                console.log(roundsDto, '<- roundsDto');
+        },
+        breakOut : function (err) {
+            switch (err) {
+                case 'fairway':
+                    alert("fairway field input error: not Char X || O");
+                    this.error = true;
+                    break;
+                case 'upDown':
+                    alert("upDown field input error: not Char X || O");
+                    this.error = true;
+                    break;
+                case 'bunker':
+                    alert("bunker field input error: not Char X || O");
+                    this.error = true;
+                    break;
+                case 'onGreen':
+                    alert("onGreen field input error: not Char X || O");
+                    this.error = true;
+                    break;
+                case 'putt':
+                    alert("putt field input error: not integer");
+                    this.error = true;
+                    break;
+                case 'score':
+                    alert("onGreen field input error: not integer");
+                    this.error = true;
+                    break;
+                case 'holeNumber':
+                    alert("onGreen field input error: not integer");
+                    this.error = true;
+                    break;
+                case 'roundId':
+                    alert("onGreen field input error: not integer");
+                    this.error = true;
+                    break;
 
-                let url = "/rounds/"+roundId+"/"+holeNumber
-                $.ajax({
-                    type : 'POST',
-                    url: url,
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify(roundsDto),
-                    success: function(res) {
-                        alert('score 수정되었습니다');
-                        window.location.href = '/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}';
-                    },
-                    error: function(err) {
-                        console.log(err);
-                        alert(JSON.stringify(error));
-                    }
-                });
-            },
-        }
+                default:
+                    this.error = true;
+                    alert("Invalid Input");
+            }
+            return false;
+        },
+        isInt : function (value) {
+            return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
+        },
+        save : function () {
+
+            let par = $('#par').text();
+            let fairway = $('#fairway').text().toUpperCase();
+            let upDown = $('#upDown').text().toUpperCase();
+            let bunker = $('#bunker').text().toUpperCase();
+            let onGreen = $('#onGreen').text().toUpperCase();
+            let putt = $('#putt').text();
+            let score = $('#score').text();
+            let holeNumber = {{#holeNumber}}{{.}}{{/holeNumber}};
+            let roundId = {{#roundId}}{{.}}{{/roundId}};
+
+            par = this.isInt(par) == true ? par : this.breakOut("par");
+            if(this.error) { return false; }
+            fairway = (fairway == "O" || fairway == "X" || fairway == "") ? fairway : this.breakOut("fairway");
+            if(this.error) { return false; }
+            upDown = (upDown == "O" || upDown == "X" || upDown == "") ? upDown : this.breakOut("upDown");
+            if(this.error) { return false; }
+            bunker = (bunker == "O" || bunker == "X" || bunker == "") ? bunker : this.breakOut("bunker");
+            if(this.error) { return false; }
+            onGreen = (onGreen == "O" || onGreen == "X" || onGreen == "") ? onGreen : this.breakOut("onGreen");
+            if(this.error) { return false; }
+            putt = this.isInt(putt) == true || putt == "" ? putt : this.breakOut("putt");
+            if(this.error) { return false; }
+            score = this.isInt(score) || score == "" ? score : this.breakOut("score");
+            if(this.error) { return false; }
+            holeNumber = this.isInt(holeNumber) == true ? holeNumber : this.breakOut("holeNumber");
+            if(this.error) { return false; }
+            roundId = this.isInt(roundId) == true ? roundId : this.breakOut("roundId");
+            if(this.error) { return false; }
 
 
-        $(document).ready(function() {
+            var roundsDto = {
+                "par": par,
+                "fairway": fairway,
+                "upDown": upDown,
+                "bunker": bunker,
+                "onGreen": onGreen,
+                "putt": putt,
+                "score": score,
+                "holeNumber" : holeNumber,
+                "roundId" : roundId,
+            };
 
-            holes.init();
+            console.log(roundsDto, '<- roundsDto');
 
-        });
+            let url = "/rounds/"+roundId+"/"+holeNumber
+            $.ajax({
+                type : 'POST',
+                url: url,
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(roundsDto),
+                success: function(res) {
+                    alert('score 수정되었습니다');
+                    window.location.href = '/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}';
+                },
+                error: function(err) {
+                    console.log(err);
+                    alert(JSON.stringify(error));
+                }
+            });
+        },
+    }
+
+
+    $(document).ready(function() {
+
+        holes.init();
+
+    });
 
 
 
-        // https://jsfiddle.net/qfLac3yj/
+    // https://jsfiddle.net/qfLac3yj/
 
-        //https://stackoverflow.com/questions/17142355/jquery-keyup-event-not-working-when-using-classes
-    </script>
+    //https://stackoverflow.com/questions/17142355/jquery-keyup-event-not-working-when-using-classes
+</script>
 </body>
 </html>
+

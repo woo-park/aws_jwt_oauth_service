@@ -47,6 +47,20 @@ public class RoundController {
 
     private final HttpSession httpSession;
 
+    public String convertToString(Integer arg) {
+        String formatted = "";
+
+        if(arg == null) {
+            formatted = "";
+        } else if (arg == 1) {
+            formatted = "O";
+        } else if (arg == 0) {
+            formatted = "X";
+        }
+        return formatted;
+    }
+
+
     public RoundController(HttpSession httpSession) {
         this.httpSession = httpSession;
     }
@@ -178,10 +192,10 @@ public class RoundController {
                             .par(hole.getPar())
                             .roundId(roundId)
                             .putt(hole.getPutt())
-                            .bunker(hole.getBunker() == 1 ? "O" : "X")
-                            .upDown(hole.getUpDown() == 1 ? "O" : "X")
-                            .fairway(hole.getFairway() == 1 ? "O" : "X")
-                            .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
+                            .bunker(convertToString(hole.getBunker()))
+                            .upDown(convertToString(hole.getUpDown()))
+                            .fairway(convertToString(hole.getFairway()))
+                            .onGreen(convertToString(hole.getOnGreen()))
                             .score(hole.getScore())
                             .holeNumber(hole.getHoleNumber())
                             .build());
@@ -288,10 +302,10 @@ public class RoundController {
 //                                    .updatedDate()
                                 .roundId(roundId)
                                 .putt(hole.getPutt())
-                                .bunker(hole.getBunker() == 1 ? "O" : "X")
-                                .fairway(hole.getFairway() == 1 ? "O" : "X")
-                                .upDown(hole.getUpDown() == 1 ? "O" : "X")
-                                .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
+                                .bunker(convertToString(hole.getBunker()))
+                                .upDown(convertToString(hole.getUpDown()))
+                                .fairway(convertToString(hole.getFairway()))
+                                .onGreen(convertToString(hole.getOnGreen()))
                                 .score(hole.getScore())
                                 .holeNumber(hole.getHoleNumber())
                                 .build();
@@ -375,10 +389,10 @@ public class RoundController {
                                     .par(hole.getPar())
                                     .roundId(roundsDto.getRoundId())
                                     .putt(hole.getPutt())
-                                    .bunker(hole.getBunker() == 1 ? "O" : "X")
-                                    .upDown(hole.getUpDown() == 1 ? "O" : "X")
-                                    .fairway(hole.getFairway() == 1 ? "O" : "X")
-                                    .onGreen(hole.getOnGreen() == 1 ? "O" : "X")
+                                    .bunker(convertToString(hole.getBunker()))
+                                    .upDown(convertToString(hole.getUpDown()))
+                                    .fairway(convertToString(hole.getFairway()))
+                                    .onGreen(convertToString(hole.getOnGreen()))
                                     .score(hole.getScore())
                                     .holeNumber(hole.getHoleNumber())
                                     .build());
