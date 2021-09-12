@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Score Hole</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/css/swiper.min.css">
+    <style>
+        /* Quick reset and demo styles */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            background: #ededed;
+        }
+
+
+        /* Swipe select */
+
+        .swipelect {
+            position: relative;
+            width: 100%;
+            max-width: 540px;
+            height: 75px;
+
+            border-bottom: solid 1px #aaa;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        /* Label */
+
+        .swipelect__label {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        /* Container */
+
+        .swipelect__container {
+            height: 100%;
+        }
+
+        /* Overlay */
+
+        .swipelect__overlay::before,
+        .swipelect__overlay::after {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            width: 0;
+            bottom: 25px;
+            pointer-events: none;
+        }
+
+        .swipelect__overlay::before {
+            left: 0;
+            background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+            background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+        }
+
+        .swipelect__overlay::after {
+            right: 0;
+            background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+        }
+
+        .swipelect--per-view-5 .swipelect__overlay::before,
+        .swipelect--per-view-5 .swipelect__overlay::after {
+            width: 45%;
+        }
+
+        .swipelect--per-view-4 .swipelect__overlay::before,
+        .swipelect--per-view-4 .swipelect__overlay::after {
+            width: 40%;
+        }
+
+        .swipelect--per-view-3 .swipelect__overlay::before,
+        .swipelect--per-view-3 .swipelect__overlay::after {
+            width: 33%;
+        }
+
+        .swipelect--per-view-2 .swipelect__overlay::before,
+        .swipelect--per-view-2 .swipelect__overlay::after {
+            width: 25%;
+        }
+
+        /* Slide */
+
+        .swipelect__slide {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        /* small tick */
+        /* .swipelect__slide::before {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 5px;
+            bottom: 1px;
+            left: 0;
+            transform: translateX(-50%);
+            background: #ccc;
+        } */
+
+        .swipelect__slide:first-child::before {
+            display: none;
+        }
+
+        .swipelect__slide::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 8px;
+            bottom: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #aaa;
+        }
+
+        .left_column {
+            width: 20%;
+            background-color: #fff;
+            border-bottom: solid 1px #aaa;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right_column {
+            width: 80%;
+        }
+        .table_row {
+            display: flex;
+        }
+    </style>
+</head>
+
+
+
+
+<body>
+    <!-- https://codepen.io/henripeetsmann/pen/rdNxbE -->
+
+
+
+
+    <table>
+
+        <caption><a href="/rounds/1">My round</a></caption>
+        <thead>
+            <tr>
+                <th>Holes</th>
+                <th>2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="false">Par</td>
+                <td contenteditable="true" tabindex="0" id="par" class="test">4</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Fairway</td>
+                <td contenteditable="true" tabindex="0" id="fairway" class="test">X</td>
+            </tr>
+            <!--            <tr contenteditable="true" class="disabled">-->
+            <!--                <td contenteditable="false">OB/HZ</td>-->
+            <!--                <td></td>-->
+            <!--            </tr>-->
+            <tr>
+                <td contenteditable="false">On</td>
+                <td contenteditable="true" id="onGreen" class="test">X</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Up/Dw</td>
+                <td contenteditable="true" id="upDown" class="test">O</td>
+            </tr>
+            <tr class="disabled">
+                <td contenteditable="false">Bunker</td>
+                <td contenteditable="true" id="bunker" class="test">X</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Putts</td>
+                <td contenteditable="true" id="putt" class="test">7</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Score</td>
+                <td contenteditable="true" id="score" class="test">2</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <button id="submitBtn" tabindex="0" type="submit">Update</button>
+
+
+    <!-- When changin --per-view modifier, also update JS -->
+    <div class="swipelect swipelect--per-view-4">
+        <div class="swipelect__label">eur</div>
+        <div class="swipelect__container swiper-container">
+            <div class="swipelect__overlay"></div>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">100</div>
+                <div class="swiper-slide">150</div>
+                <div class="swiper-slide">200</div>
+                <div class="swiper-slide">250</div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table_row">
+        <div class="left_column">par</div>
+        <div class="right_column">
+            <div class="swipelect swipelect--per-view-4">
+                <div class="swipelect__label">par</div>
+                <div class="swipelect__container swiper-container">
+                    <div class="swipelect__overlay"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swipelect__slide swiper-slide">3</div>
+                        <div class="swipelect__slide swiper-slide">4</div>
+                        <div class="swipelect__slide swiper-slide">5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/js/swiper.min.js"></script>
+
+
+
+    <script>
+        var swiper = new Swiper(".swiper-container", {
+            slidesPerView: 3,
+            centeredSlides: true,
+            spaceBetween: 0,
+            grabCursor: true,
+            preventClicks: true,
+            freeMode: true,
+            freeModeSticky: true,
+            slideToClickedSlide: true,
+            speed: 200,
+            freeModeMomentumRatio: 0.3,
+            freeModeMomentumVelocityRatio: 1,
+        });
+
+    // When changin the slidesPerView, also update HTML class modifier
+
+    </script>
+<!-- https://codesandbox.io/s/ns46o?file=/index.html -->
+
+    <!--부트스트랩 js, jquery 추가-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+
+    <!--index.js 추가-->
+    <!--    <script src="/js/app/index.js"></script>-->
+    <script>
+        console.log($('#par').val(), ":check the value");
+        console.log('/rounds/1/2');
+
+        var holes = {
+            error: false,          //using this as a semi-global variable, to trigger return false;
+            init: function () {
+                var _this = this;
+                $('#submitBtn').on('click', function () {
+                    _this.save();
+
+                });
+
+                this.focus();
+            },
+            focus: function () {
+
+                let test_boolean = false;
+                $('.test').on('keypress', function (e) {
+                    //     console.log(e)
+
+                    if (e.keyCode === 13) {
+
+
+                        // validate the input
+                        if (typeof $(e.currentTarget).text() === "string") {
+                            $(e.currentTarget).text($(e.currentTarget).text().toUpperCase());
+                            test_boolean = check_charcount($(e.currentTarget), 1, e);
+                        }
+
+                        if (!test_boolean) {
+                            $(e.currentTarget).text("");
+                            // $(e.currentTarget).focus();
+                            return false;
+                        }
+
+                        let index = $(e.currentTarget).index('.test');
+
+                        $(e.currentTarget).blur(); //this works
+
+                        if (index !== $(".test").length - 1) {
+                            $(".test").eq(index + 1).focus();
+                        } else if (index === $(".test").length - 1) {
+                            $("#submitBtn").focus();
+                        }
+
+                        return false;
+                    }
+                });
+
+
+                //                 var content_id = '.inputField';
+                //
+                //                 let max = 1;
+                // //binding keyup/down events on the contenteditable div
+                //                 $(content_id).keyup(function(e){ check_charcount(this, max, e); });
+                //                 $(content_id).keydown(function(e){ check_charcount(this, max, e); });
+                //
+                function check_charcount(elem, max, e) {
+                    console.log(e);
+                    if (e.which != 8 && $(elem).text().length > max) {
+                        console.log('greater than max');
+                        e.preventDefault();
+                        return false;
+                    }
+                    return true;
+                }
+
+            },
+            breakOut: function (err) {
+                switch (err) {
+                    case 'fairway':
+                        alert("fairway field input error: not Char X || O");
+                        this.error = true;
+                        break;
+                    case 'upDown':
+                        alert("upDown field input error: not Char X || O");
+                        this.error = true;
+                        break;
+                    case 'bunker':
+                        alert("bunker field input error: not Char X || O");
+                        this.error = true;
+                        break;
+                    case 'onGreen':
+                        alert("onGreen field input error: not Char X || O");
+                        this.error = true;
+                        break;
+                    case 'putt':
+                        alert("putt field input error: not integer");
+                        this.error = true;
+                        break;
+                    case 'score':
+                        alert("onGreen field input error: not integer");
+                        this.error = true;
+                        break;
+                    case 'holeNumber':
+                        alert("onGreen field input error: not integer");
+                        this.error = true;
+                        break;
+                    case 'roundId':
+                        alert("onGreen field input error: not integer");
+                        this.error = true;
+                        break;
+
+                    default:
+                        this.error = true;
+                        alert("Invalid Input");
+                }
+                return false;
+            },
+            isInt: function (value) {
+                return !isNaN(value) && (function (x) { return (x | 0) === x; })(parseFloat(value))
+            },
+            save: function () {
+
+                let par = $('#par').text();
+                let fairway = $('#fairway').text().toUpperCase();
+                let upDown = $('#upDown').text().toUpperCase();
+                let bunker = $('#bunker').text().toUpperCase();
+                let onGreen = $('#onGreen').text().toUpperCase();
+                let putt = $('#putt').text();
+                let score = $('#score').text();
+                let holeNumber = 2;
+                let roundId = 1;
+
+                par = this.isInt(par) == true ? par : this.breakOut("par");
+                if (this.error) { return false; }
+                fairway = (fairway == "O" || fairway == "X" || fairway == "") ? fairway : this.breakOut("fairway");
+                if (this.error) { return false; }
+                upDown = (upDown == "O" || upDown == "X" || upDown == "") ? upDown : this.breakOut("upDown");
+                if (this.error) { return false; }
+                bunker = (bunker == "O" || bunker == "X" || bunker == "") ? bunker : this.breakOut("bunker");
+                if (this.error) { return false; }
+                onGreen = (onGreen == "O" || onGreen == "X" || onGreen == "") ? onGreen : this.breakOut("onGreen");
+                if (this.error) { return false; }
+                putt = this.isInt(putt) == true || putt == "" ? putt : this.breakOut("putt");
+                if (this.error) { return false; }
+                score = this.isInt(score) || score == "" ? score : this.breakOut("score");
+                if (this.error) { return false; }
+                holeNumber = this.isInt(holeNumber) == true ? holeNumber : this.breakOut("holeNumber");
+                if (this.error) { return false; }
+                roundId = this.isInt(roundId) == true ? roundId : this.breakOut("roundId");
+                if (this.error) { return false; }
+
+
+                var roundsDto = {
+                    "par": par,
+                    "fairway": fairway,
+                    "upDown": upDown,
+                    "bunker": bunker,
+                    "onGreen": onGreen,
+                    "putt": putt,
+                    "score": score,
+                    "holeNumber": holeNumber,
+                    "roundId": roundId,
+                };
+
+                console.log(roundsDto, '<- roundsDto');
+
+                let url = "/rounds/" + roundId + "/" + holeNumber
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(roundsDto),
+                    success: function (res) {
+                        alert('score 수정되었습니다');
+                        window.location.href = '/rounds/1/2';
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        alert(JSON.stringify(error));
+                    }
+                });
+            },
+        }
+
+
+        $(document).ready(function () {
+
+            holes.init();
+
+        });
+    </script>
+</body>
+
+</html>
