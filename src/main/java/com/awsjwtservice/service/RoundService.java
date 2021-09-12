@@ -37,57 +37,45 @@ public class RoundService {
         return (List<Rounds>) roundRepository.findAll(accountId);
     }
 
+    public Integer convertStringToInt(String str) {
+        Integer integerFormatted = null;
+
+        if(str.equals("")) {
+            integerFormatted = null;
+        } else if(str.equals("O")) {
+            integerFormatted = 1;
+        } else if(str.equals("X")) {
+            integerFormatted = 0;
+        }
+
+        return integerFormatted;
+    }
+
+    public Integer validateIntegerInput(Integer arg) {
+        Integer integerFormatted = null;
+
+        if(arg == null) {
+//            integerFormatted = null;
+        } else {
+            integerFormatted = arg;
+        }
+
+        return integerFormatted;
+    }
+
     public Holes checkHoleExistsAndCreate(Rounds round, HolesDto holesDto) {
         List<Holes> holes = round.getHoles();
-
-
-        // create new hole
-        Integer bunker;
-        if(holesDto.getBunker().equals("")) {
-            bunker = null;
-        } else if (holesDto.getBunker().equals("O")) {
-            bunker = 1;
-        } else {
-            bunker = 0;
-        }
-
-        Integer upDown;
-        if(holesDto.getUpDown().equals("")) {
-            upDown = null;
-        } else if (holesDto.getUpDown().equals("O")) {
-            upDown = 1;
-        } else {
-            upDown = 0;
-        }
-
-        Integer fairway;
-        if(holesDto.getFairway().equals("")) {
-            fairway = null;
-        } else if (holesDto.getFairway().equals("O")) {
-            fairway = 1;
-        } else {
-            fairway = 0;
-        }
-
-        Integer onGreen;
-        if(holesDto.getOnGreen().equals("")) {
-            onGreen = null;
-        } else if (holesDto.getOnGreen().equals("O")) {
-            onGreen = 1;
-        } else {
-            onGreen = 0;
-        }
 
         for(Holes hole : holes) {
             if(hole.getHoleNumber() == holesDto.getHoleNumber()) {
 
-                hole.setBunker(bunker);
-                hole.setUpDown(upDown);
-                hole.setFairway(fairway);
-                hole.setOnGreen(onGreen);
-                hole.setScore(holesDto.getScore());
-                hole.setPar(holesDto.getPar());
-                hole.setPutt(holesDto.getPutt());
+                hole.setBunker(convertStringToInt(holesDto.getBunker()));
+                hole.setUpDown(convertStringToInt(holesDto.getUpDown()));
+                hole.setFairway(convertStringToInt(holesDto.getFairway()));
+                hole.setOnGreen(convertStringToInt(holesDto.getOnGreen()));
+                hole.setScore(validateIntegerInput(holesDto.getScore()));
+                hole.setPar(validateIntegerInput(holesDto.getPar()));
+                hole.setPutt(validateIntegerInput(holesDto.getPutt()));
 
                 System.out.println(hole.getHoleNumber());
                 System.out.println("hole already existed -> hence we mutated and now saving");
@@ -97,11 +85,19 @@ public class RoundService {
             }
         }
 
-
-        Holes newHole = Holes.createHoleInformation(round, holesDto.getScore(),holesDto.getPar(),bunker,holesDto.getPutt(),upDown,fairway, onGreen, holesDto.getHoleNumber());
+        Holes newHole = Holes.createHoleInformation(round,
+                                                validateIntegerInput(holesDto.getScore()),
+                                                validateIntegerInput(holesDto.getPar()),
+                                                convertStringToInt(holesDto.getBunker()),
+                                                validateIntegerInput(holesDto.getPutt()),
+                                                convertStringToInt(holesDto.getUpDown()),
+                                                convertStringToInt(holesDto.getFairway()),
+                                                convertStringToInt(holesDto.getOnGreen()),
+                                                holesDto.getHoleNumber());
 
         System.out.println(newHole.getHoleNumber());
         System.out.println("hole didn't exist -> hence we build & now saving");
+
         holeService.saveHole(newHole);
 
         return newHole;
