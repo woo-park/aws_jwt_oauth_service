@@ -161,6 +161,7 @@
         .right_column {
             width: 80%;
         }
+
         .table_row {
             display: flex;
         }
@@ -188,7 +189,7 @@
         <tbody>
             <tr>
                 <td contenteditable="false">Par</td>
-                <td contenteditable="true" tabindex="0" id="par" class="test">4</td>
+                <!-- <td contenteditable="true" tabindex="0" id="par" class="test">4</td> -->
             </tr>
             <tr>
                 <td contenteditable="false">Fairway</td>
@@ -240,8 +241,8 @@
         </div>
     </div>
 
-    <div class="table_row">
-        <div class="left_column">par</div>
+    <div class="table_row" id="par">
+        <div class="left_column">Par</div>
         <div class="right_column">
             <div class="swipelect swipelect--per-view-4">
                 <div class="swipelect__label">par</div>
@@ -255,14 +256,148 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <div class="table_row">
+        <div class="left_column">Fairway</div>
+        <div class="right_column">
+            <div class="swipelect swipelect--per-view-4">
+                <div class="swipelect__label">fairway</div>
+                <div class="swipelect__container swiper-container">
+                    <div class="swipelect__overlay"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swipelect__slide swiper-slide"></div>
+                        <div class="swipelect__slide swiper-slide">O</div>
+                        <div class="swipelect__slide swiper-slide">X</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table_row">
+        <div class="left_column">On Green</div>
+        <div class="right_column">
+            <div class="swipelect swipelect--per-view-4">
+                <div class="swipelect__label">On</div>
+                <div class="swipelect__container swiper-container">
+                    <div class="swipelect__overlay"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swipelect__slide swiper-slide"></div>
+                        <div class="swipelect__slide swiper-slide">O</div>
+                        <div class="swipelect__slide swiper-slide">X</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table_row">
+        <div class="left_column">Bunker</div>
+        <div class="right_column">
+            <div class="swipelect swipelect--per-view-4">
+                <div class="swipelect__label">bunker</div>
+                <div class="swipelect__container swiper-container">
+                    <div class="swipelect__overlay"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swipelect__slide swiper-slide"></div>
+                        <div class="swipelect__slide swiper-slide">O</div>
+                        <div class="swipelect__slide swiper-slide">X</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="table_row">
+        <div class="left_column">Approach</div>
+        <div class="right_column">
+            <div class="swipelect swipelect--per-view-4">
+                <div class="swipelect__label">approach</div>
+                <div class="swipelect__container swiper-container">
+                    <div class="swipelect__overlay"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swipelect__slide swiper-slide"></div>
+                        <div class="swipelect__slide swiper-slide">O</div>
+                        <div class="swipelect__slide swiper-slide">X</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table_row">
+        <div class="left_column">Up & Down</div>
+        <div class="right_column">
+            <div class="swipelect swipelect--per-view-4">
+                <div class="swipelect__label">up & down</div>
+                <div class="swipelect__container swiper-container">
+                    <div class="swipelect__overlay"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swipelect__slide swiper-slide"></div>
+                        <div class="swipelect__slide swiper-slide">Up</div>
+                        <div class="swipelect__slide swiper-slide">Down</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table_row">
+        <div class="left_column">Putts</div>
+        <div class="right_column">
+            <div class="swipelect swipelect--per-view-4">
+                <div class="swipelect__label">putts</div>
+                <div class="swipelect__container swiper-container">
+                    <div class="swipelect__overlay"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swipelect__slide swiper-slide"></div>
+                        <div class="swipelect__slide swiper-slide">0</div>
+                        <div class="swipelect__slide swiper-slide">1</div>
+                        <div class="swipelect__slide swiper-slide">2</div>
+                        <div class="swipelect__slide swiper-slide">3</div>
+                        <div class="swipelect__slide swiper-slide">4</div>
+                        <div class="swipelect__slide swiper-slide">5</div>
+                        <div class="swipelect__slide swiper-slide">6</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="table_row">
+        <div class="left_column">Score</div>
+        <div class="right_column">
+            <div class="swipelect swipelect--per-view-4">
+                <div class="swipelect__label">score</div>
+                <div class="swipelect__container swiper-container">
+                    <div class="swipelect__overlay"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swipelect__slide swiper-slide"></div>
+                        <div class="swipelect__slide swiper-slide">-2</div>
+                        <div class="swipelect__slide swiper-slide">-1</div>
+                        <div class="swipelect__slide swiper-slide">0</div>
+                        <div class="swipelect__slide swiper-slide">1</div>
+                        <div class="swipelect__slide swiper-slide">2</div>
+                        <div class="swipelect__slide swiper-slide">3</div>
+                        <div class="swipelect__slide swiper-slide">4</div>
+                        <div class="swipelect__slide swiper-slide">5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/js/swiper.min.js"></script>
 
-
+    <!-- swiper-slide-active -->
 
     <script>
         var swiper = new Swiper(".swiper-container", {
@@ -277,12 +412,18 @@
             speed: 200,
             freeModeMomentumRatio: 0.3,
             freeModeMomentumVelocityRatio: 1,
+            
+            on: {
+                slideChange: function () {
+                alert('슬라이드 변경');
+                }
+            }
         });
 
     // When changin the slidesPerView, also update HTML class modifier
 
     </script>
-<!-- https://codesandbox.io/s/ns46o?file=/index.html -->
+    <!-- https://codesandbox.io/s/ns46o?file=/index.html -->
 
     <!--부트스트랩 js, jquery 추가-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
