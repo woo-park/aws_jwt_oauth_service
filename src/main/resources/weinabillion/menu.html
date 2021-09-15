@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+
+
+        :root {
+            --menu-top-height: 55px;
+        }
+
+        @import url(https://fonts.googleapis.com/css?family=Nobile);
+
+        /* Just container/placeholder rulesets - remove once in production */
+        body {
+            font-family: "Nobile";
+            margin: 0 auto;
+            line-height: 1.5;
+            background: #e0e0e0;
+        }
+
+        /* desktop view start*/
+        .container {
+            background: #f0f0f0;
+            /*position: relative;*/
+            overflow: hidden;
+            width: 375px;
+            height: 600px;
+            margin: 50px auto 0;
+            box-shadow: 0 0 50px 10px #aaa;
+        }
+
+        /* .container .header {
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+        } */
+
+        /* desktop view end */
+
+            /* content start */
+        .content {
+            padding: 40px 5% 20px;
+            text-align: justify;
+            max-height: 100%;
+            color: #333;
+            overflow-y: scroll;
+        }
+
+        .content img {
+            width: 100%;
+            position: relative;
+            display: block;
+            margin: 40px auto 30px;
+        }
+        /* content end */
+
+
+        /* mobile view */
+        @media (max-width: 480px) {
+            .container {
+                margin: 0 auto;
+                width: 100%;
+                height: 100%;
+                box-shadow: none;
+            }
+
+            .container .header {
+                /* position: fixed; */
+                display: -webkit-flex;
+                display: flex;
+                -webkit-justify-content: space-between;
+                justify-content: space-between;
+                z-index: 1;
+            }
+
+            .content {
+                overflow-y: hidden;
+            }
+        }
+
+        /* End container/placeholder */
+
+        /* Menu Header */
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            height: var(--menu-top-height);
+            width: 100%;
+            z-index: 1;
+            
+            /*transition: all 0.4s ease-out, background-color 1s ease-out;*/
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+
+            
+        }
+
+        .header .logo {
+            padding: 12px 0 12px 0px;
+        }
+
+        .header .logo a img {
+            width: 100px;
+            height: 49px;
+        }
+
+        /*.header.menu-open {*/
+        /*    background: #111;*/
+        /*    transition: all 0.45s ease-out, background 0.8s ease-out;*/
+        /*}*/
+
+
+        /* Menu List items start */
+        .mobile-menu {
+            /*clear: both;*/
+
+            position: absolute;
+            width: 100%;
+            z-index: 0;
+            top: var(--menu-top-height);
+            left: 0;
+            height: 0px;
+            background: #111;
+            transition: all 0.45s ease-out, background 5s ease-out;
+        }
+
+        .mobile-menu.menu-open {
+            /*clear: both;*/
+
+            height: 100%;
+            z-index: 3;
+            background: inherit;
+            transition: all 0.45s ease-out, background 2s ease-out;
+        }
+
+        .header ul.menu {
+            position: relative;
+            display: block;
+            padding: 0px 40px 0;
+            list-style: none;
+        }
+
+
+
+        .header ul.menu li.menu-item a {
+            display: block;
+            position: relative;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 2.8;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .header ul.menu li.menu-item {
+            border-bottom: 1px solid #333;
+            margin-top: 5px;
+            opacity: 0;
+            /*transition: opacity 0.6s cubic-bezier(0.4, 0.01, 0.165, 0.99), -webkit-transform 0.5s cubic-bezier(0.4, 0.01, 0.165, 0.99);*/
+            /*transition: transform 0.5s cubic-bezier(0.4, 0.01, 0.165, 0.99), opacity 0.6s cubic-bezier(0.4, 0.01, 0.165, 0.99);*/
+            /*transition: transform 0.5s cubic-bezier(0.4, 0.01, 0.165, 0.99), opacity 0.6s cubic-bezier(0.4, 0.01, 0.165, 0.99), -webkit-transform 0.5s cubic-bezier(0.4, 0.01, 0.165, 0.99);*/
+        }
+
+        .header ul.menu li.menu-item:nth-child(1) {
+            transition-delay: 0.35s;
+        }
+
+        .header ul.menu li.menu-item:nth-child(2) {
+            transition-delay: 0.3s;
+        }
+
+        .header ul.menu li.menu-item:nth-child(3) {
+            transition-delay: 0.25s;
+        }
+
+        .header ul.menu li.menu-item:nth-child(4) {
+            transition-delay: 0.2s;
+        }
+
+        .header ul.menu li.menu-item:nth-child(5) {
+            transition-delay: 0.15s;
+        }
+
+        .header ul.menu li.menu-item:nth-child(6) {
+            transition-delay: 0.1s;
+        }
+
+        .header ul.menu li.menu-item:nth-child(7) {
+            transition-delay: 0.05s;
+        }
+
+        .header.menu-open ul.menu li.menu-item {
+            opacity: 1;
+        }
+
+        .header.menu-open ul.menu li.menu-item:nth-child(1) {
+            transition-delay: 0.05s;
+        }
+
+        .header.menu-open ul.menu li.menu-item:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .header.menu-open ul.menu li.menu-item:nth-child(3) {
+            transition-delay: 0.15s;
+        }
+
+        .header.menu-open ul.menu li.menu-item:nth-child(4) {
+            transition-delay: 0.2s;
+        }
+
+        .header.menu-open ul.menu li.menu-item:nth-child(5) {
+            transition-delay: 0.25s;
+        }
+
+        .header.menu-open ul.menu li.menu-item:nth-child(6) {
+            transition-delay: 0.3s;
+        }
+
+        .header.menu-open ul.menu li.menu-item:nth-child(7) {
+            transition-delay: 0.35s;
+        }
+        /* Menu List items end */
+
+
+
+        /* Menu Icon start */
+        .icon-container {
+            position: relative;
+            display: inline-block;
+            z-index: 2;
+            float: right;
+            /* Simply change property to float left to switch icon side :) */
+            height: 55px;
+            width: 55px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            transition: all 0.3s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+        }
+
+        .icon-container #menuicon {
+            width: 20px;
+            height: 10px;
+            position: relative;
+            display: block;
+            margin: -4px auto 0;
+            top: 50%;
+        }
+
+        #menuicon .bar {
+            width: 100%;
+            height: 1px;
+            display: block;
+            position: relative;
+            background: #fff;
+            transition: all 0.3s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+        }
+
+        #menuicon .bar.bar1 {
+            -webkit-transform: translateY(0px) rotate(0deg);
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        #menuicon .bar.bar2 {
+            -webkit-transform: translateY(6px) rotate(0deg);
+            transform: translateY(6px) rotate(0deg);
+        }
+
+        .menu-open .icon-container {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .menu-open .icon-container #menuicon .bar {
+            transition: all 0.4s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+            transition-delay: 0.1s;
+        }
+
+        .menu-open .icon-container #menuicon .bar.bar1 {
+            -webkit-transform: translateY(4px) rotate(45deg);
+            transform: translateY(4px) rotate(45deg);
+        }
+
+        .menu-open .icon-container #menuicon .bar.bar2 {
+            -webkit-transform: translateY(3px) rotate(-45deg);
+            transform: translateY(3px) rotate(-45deg);
+        }
+        /* Menu Icon end */
+        
+
+
+    </style>
+
+</head>
+<body>
+
+
+    <div class="container">
+
+        <div class="header">
+            <div class="logo"><a href="">
+                <img src="https://brolik.com/images/BRO_logo.svg"></a>
+            </div>
+
+            <div class="icon-container">
+                <div id="menuicon">
+                    <div class="bar bar1"></div>
+                    <div class="bar bar2"></div>
+                </div>
+            </div>
+            <div class="mobile-menu">
+                <ul class="menu">
+                    <li class="menu-item"><a href="#">Home</a>
+                    </li>
+                    <li class="menu-item"><a href="#">Register</a>
+                    </li>
+                    <li class="menu-item"><a href="#">Start Round</a>
+                    </li>
+                    <li class="menu-item"><a href="#">My Rounds</a>
+                    </li>
+                    <li class="menu-item"><a href="#">My Latest Round</a>
+                    </li>
+                    <li class="menu-item"><a href="#">Support</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="content">
+            <img src="https://images.apple.com/v/iphone/home/y/images/overview/hero-iphone-xr_large.jpg" alt="" />
+            <p>“With so many trees in the city, you could see the spring coming each day until a night of warm wind
+                would bring it suddenly in one morning. Sometimes the heavy cold rains would beat it back so that it
+                would seem that it would never come and that you were losing a season out of your life. This was the
+                only truly sad time in Paris because it was unnatural. You expected to be sad in the fall. Part of you
+                died each year when the leaves fell from the trees and their branches were bare against the wind and the
+                cold, wintry light."</p>
+            <p><em>- Ernest Hemingway, A Moveable Feast</em></p>
+
+            <img src="https://images.apple.com/v/iphone/home/y/images/overview/film_large.jpg" alt="" />
+            <p>"On under the heavy trees of the small town that are a part of your heart if it is your town and you have
+                walked under them, but that are only too heavy, that shut out the sun and dampen the houses for a
+                stranger; out past the last house and on to the highway that rose and fell straight away ahead with
+                banks of red dirt sliced cleanly away and the second growth timber on both sides. It was not his country
+                but it was the middle of fall and all of this country was good to drive through and to see. "</p>
+            <p><em>- Ernest Hemingway, "Fathers and Sons"</em></p>
+        </div>
+    </div>
+
+<script>
+
+    (function () {
+        const header = document.querySelector('.header');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const icon = document.querySelector('.icon-container');
+        icon.onclick = function () {
+            header.classList.toggle('menu-open');
+            mobileMenu.classList.toggle('menu-open');
+        }
+    }())
+
+</script>
+
+</body>
+</html>
