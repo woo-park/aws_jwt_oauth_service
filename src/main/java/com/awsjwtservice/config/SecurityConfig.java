@@ -132,6 +132,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/base.css").permitAll()
                 .antMatchers("/css/style.css").permitAll()
                 .antMatchers("/css/login.css").permitAll()
+                .antMatchers("/css/**").permitAll()
 
                 .antMatchers("/items/**").permitAll()
                 .antMatchers("/items/**/edit").permitAll()

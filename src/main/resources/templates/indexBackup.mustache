@@ -1,47 +1,11 @@
-{{>layout/mobileHeader}}
+{{>layout/header}}
 
-{{>layout/mobileNavigation}}
+{{>layout/nav}}
 
-
-
-<div class="container">
-
-    <div class="content">
-        <h5>{{#name}}{{name}}, welcome back! {{/name}}</h5>
-        <h5> {{^name}}Welcome!{{/name}}</h5>
-
-        <img src="https://images.apple.com/v/iphone/home/y/images/overview/hero-iphone-xr_large.jpg" alt="" />
-        <p>Track your scores & stats online, benchmark your game and identify strengths & weaknesses on your quest to playing better golf</p>
-        <p><em>- Ernest Hemingway, A Moveable Feast</em></p>
-
-        <img src="https://images.apple.com/v/iphone/home/y/images/overview/film_large.jpg" alt="" />
-        <p>We provide tournament round by round results and player round by round results, player career and performance stats, tournament and career results and statistics, charts, and reports for players</p>
-        <p><em>- Ernest Hemingway, "Fathers and Sons"</em></p>
-
-        <br>
-        <h1>FIR</h1>
-        <p>
-            Fairways in regulation is a classic golf stat and is used to determine accuracy from the tee. Quite simply, if you hit a fairway, then you have a positive mark to add. However, while it can be a handy rough guide to see if you're above average in terms of not being wayward, FIR doesn't account for distance, so it's a statistic that needs to be caveated and balanced.
-        </p>
-        <p>
-            That said, having a high percentage for fairways hit can't be a bad thing. In 2019, on the PGA Tour, Chez Reavie led by the way by hitting 75.72% of fairways.
-        </p>
-
-        <!-- temporary footer -->
-        <br>
-        <br>
-        <hr>
-        <div>
-            <div> Weinabillion © 2020 - 2021. All Rights Reserved. </div>
-            <div> 721 Yeongdong-daero, Gangnam-gu, Seoul, Republic of Korea.</div>
-        </div>
-    </div>
-</div>
-
-<!--
 <section class="main-section">
     <article>
         <div>
+            <h2>{{#name}}{{name}}, welcome back! {{/name}} {{^name}}Welcome!{{/name}}</h2>
             <div>Track your scores & stats online, benchmark your game and identify strengths & weaknesses on your quest to playing better golf</div>
         </div>
     </article>
@@ -88,15 +52,4 @@
     </article>
 </section>
 
--->
-
-
-<!--부트스트랩 js, jquery 추가-->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-<!--index.js 추가-->
-<script src="/js/main/topMenuNavigation.js"></script>
-</body>
-</html>
-
+{{>layout/footer}}
