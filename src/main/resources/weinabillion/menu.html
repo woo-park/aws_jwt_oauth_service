@@ -9,6 +9,8 @@
 
         :root {
             --menu-top-height: 55px;
+            --container-width: 375px;
+            --container-height: 600px;
         }
 
         @import url(https://fonts.googleapis.com/css?family=Nobile);
@@ -26,8 +28,8 @@
             background: #f0f0f0;
             /*position: relative;*/
             overflow: hidden;
-            width: 375px;
-            height: 600px;
+            width: var(--container-width);
+            height: var(--container-height);
             margin: 50px auto 0;
             box-shadow: 0 0 50px 10px #aaa;
         }
@@ -80,9 +82,62 @@
             .content {
                 overflow-y: hidden;
             }
+
+            .mobile-menu{
+  
+                position: absolute;
+                width: 100%;
+                z-index: 0;
+                top: var(--menu-top-height);
+                left: 0;
+                height: 0;
+                background: #111;
+                transition: all 0.45s ease-out, background 5s ease-out;
+            }
+
+            .mobile-menu.menu-open {
+                /*clear: both;*/
+
+                height: 100%;
+                width: 100%;
+                z-index: 3;
+                background: inherit;
+                transition: all 0.45s ease-out, background 2s ease-out;
+            }
         }
 
         /* End container/placeholder */
+
+
+
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (min-width: 600px) {
+            .mobile-menu.menu-open{
+                /* width: var(--container-width); */
+                /* height: var(--container-height); */
+                height: var(--container-height);
+                background: inherit;
+                transition: all 0.45s ease-out, background 2s ease-out;
+            }
+
+            .mobile-menu {
+            /*clear: both;*/
+
+                position: absolute;
+                width: var(--container-width);
+                z-index: 10;
+                top: var(--menu-top-height);
+                left: 50%;
+                height: 0;
+                background: #111;
+                transition: all 0.45s ease-out, background 5s ease-out;
+                transform: translate(-50%, var(--menu-top-height));
+                margin-top:-5px;
+                
+            }
+            
+        }
+
 
         /* Menu Header */
         .header {
@@ -117,27 +172,8 @@
 
 
         /* Menu List items start */
-        .mobile-menu {
-            /*clear: both;*/
+      
 
-            position: absolute;
-            width: 100%;
-            z-index: 0;
-            top: var(--menu-top-height);
-            left: 0;
-            height: 0px;
-            background: #111;
-            transition: all 0.45s ease-out, background 5s ease-out;
-        }
-
-        .mobile-menu.menu-open {
-            /*clear: both;*/
-
-            height: 100%;
-            z-index: 3;
-            background: inherit;
-            transition: all 0.45s ease-out, background 2s ease-out;
-        }
 
         .header ul.menu {
             position: relative;
