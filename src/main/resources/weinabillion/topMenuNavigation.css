@@ -1,40 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-
-    <style>
-        :root {
-            --menu-top-height: 55px;
-            --container-width: 375px;
-            --container-height: 600px;
-        }
-
-
-        /* desktop view start*/
-        body {
-            margin: 0 auto;
-        }
-
-        /* .container {
-            background: #f0f0f0;
-            
-            overflow: hidden;
-            width: var(--container-width);
-            height: var(--container-height);
-            margin: 50px auto 0;
-         
-            box-shadow: 0px 50px 40px 0px #aaa;
-        } */
-           /* box-shadow: 0 0 50px 10px #aaa; */
-            /* box-shadow: 0px 19px 6px -6px #aaa; */
-
-        .navigationContainer {
-            width: 100%;
-            height: 100%;
-        }
 
         /* Menu Header */
         .header {
@@ -231,7 +195,7 @@
 
 
         /* mobile view */
-        @media (max-width: 600px) {
+        @media (max-width: 480px) {
             .container {
                 margin: 0 auto;
                 width: 100%;
@@ -280,8 +244,17 @@
 
         /* Medium devices (landscape tablets, 768px and up) */
         @media only screen and (min-width: 600px) {
-        
+            .mobile-menu.menu-open {
+                /* width: var(--container-width); */
+                /* height: var(--container-height); */
+                height: var(--container-height);
+                background: inherit;
+                transition: all 0.45s ease-out, background 2s ease-out;
+            }
+
             .mobile-menu {
+                /*clear: both;*/
+
                 position: absolute;
                 width: var(--container-width);
                 z-index: 10;
@@ -292,101 +265,7 @@
                 transition: all 0.45s ease-out, background 5s ease-out;
                 transform: translate(-50%, var(--menu-top-height));
                 margin-top: -5px;
-            }
-            
-            .mobile-menu.menu-open {
-                /* container size - navigation top height */
-                /* height: calc(var(--container-height) - var(--menu-top-height)); */
-                height: calc(var(--container-height));
-                
-                background: inherit;
-                transition: all 0.45s ease-out, background 2s ease-out;
-            }
 
-            .navigationContainer{
-                width: var(--container-width);
-                height: 0px;
-                margin: 50px auto 0;
             }
 
         }
-    </style>
-
-</head>
-
-<body>
-
-    <div class="navigationContainer">
-
-        <div class="header">
-            <div class="logo"><a href="">
-                    <img src="https://brolik.com/images/BRO_logo.svg"></a>
-            </div>
-
-            <div class="icon-container">
-                <div id="menuicon">
-                    <div class="bar bar1"></div>
-                    <div class="bar bar2"></div>
-                </div>
-            </div>
-            <div class="mobile-menu">
-                <ul class="menu">
-                    <li class="menu-item"><a href="#">Home</a>
-                    </li>
-                    <li class="menu-item"><a href="#">Register</a>
-                    </li>
-                    <li class="menu-item"><a href="#">Start Round</a>
-                    </li>
-                    <li class="menu-item"><a href="#">My Rounds</a>
-                    </li>
-                    <li class="menu-item"><a href="#">My Latest Round</a>
-                    </li>
-                    <li class="menu-item"><a href="#">Support</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-
-
-    <!-- <div class="container">
-
-        <div class="content">
-            <img src="https://images.apple.com/v/iphone/home/y/images/overview/hero-iphone-xr_large.jpg" alt="" />
-            <p>“With so many trees in the city, you could see the spring coming each day until a night of warm wind
-                would bring it suddenly in one morning. Sometimes the heavy cold rains would beat it back so that it
-                would seem that it would never come and that you were losing a season out of your life. This was the
-                only truly sad time in Paris because it was unnatural. You expected to be sad in the fall. Part of you
-                died each year when the leaves fell from the trees and their branches were bare against the wind and the
-                cold, wintry light."</p>
-            <p><em>- Ernest Hemingway, A Moveable Feast</em></p>
-
-            <img src="https://images.apple.com/v/iphone/home/y/images/overview/film_large.jpg" alt="" />
-            <p>"On under the heavy trees of the small town that are a part of your heart if it is your town and you have
-                walked under them, but that are only too heavy, that shut out the sun and dampen the houses for a
-                stranger; out past the last house and on to the highway that rose and fell straight away ahead with
-                banks of red dirt sliced cleanly away and the second growth timber on both sides. It was not his country
-                but it was the middle of fall and all of this country was good to drive through and to see. "</p>
-            <p><em>- Ernest Hemingway, "Fathers and Sons"</em></p>
-        </div>
-    </div> -->
-
-    <script>
-
-        (function () {
-            const header = document.querySelector('.header');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const icon = document.querySelector('.icon-container');
-            icon.onclick = function () {
-                header.classList.toggle('menu-open');
-                mobileMenu.classList.toggle('menu-open');
-            }
-        }())
-
-    </script>
-
-</body>
-
-</html>
