@@ -1,336 +1,239 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-    <title>On a Round</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
+    <head>
+        <!--  almost the same as /layout/mobileHeader  -->
+        <title>Round Table</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta
+        name="viewport" content="width=device-width, initial-scale=1"/>
 
-        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+        <!--  mobile friendly css  -->
+        <link rel="stylesheet" href="/css/mainContainer.css">
+        <link rel="stylesheet" href="/css/topMenuNavigation.css">
+        <link rel="stylesheet" href="/css/bottomMenuNavigation.css">
+        <link rel="stylesheet" href="/css/roundTable.css">
 
-        *, *:before, *:after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    </head>
+    <body>
 
-        body {
-            background: #105469;
-            font-family: 'Open Sans', sans-serif;
-            /*background: -webkit-linear-gradient(left, #25c481, #25b7c4);*/
-            /*background: linear-gradient(to right, #25c481, #25b7c4);*/
-        }
-        table {
-            background: #012B39;
-            border-radius: 0.25em;
-            border-collapse: collapse;
-            margin: 1em;
-        }
-        th {
-            border-bottom: 1px solid #364043;
-            color: #E2B842;
-            font-size: 0.85em;
-            font-weight: 600;
-            padding: 0.5em 1em;
-            text-align: left;
-        }
-
-        tr td {
-            border-right: 1px solid #364043;
-        }
-
-        tr td:first-child{
-            color: #E2B842;
-        }
-
-        tr td:last-child{
-            color: #E2B842;
-        }
-
-        td {
-            color: #fff;
-            font-weight: 400;
-            padding: 0.65em 1em;
-        }
-
-        td:not(:first-child) {
-            text-align: center;
-        }
+        {{>layout/mobileNavigation}}
 
 
-        .disabled td {
-            color: #4F5F64;
-        }
-        tbody tr {
-            transition: background 0.25s ease;
-        }
-        tbody tr:hover {
-            background: #014055;
-        }
+        <div class="container">
+
+            <div class="content">
+
+                <img src="https://images.apple.com/v/iphone/home/y/images/overview/hero-iphone-xr_large.jpg" alt=""/>
 
 
-        h1{
-            font-size: 30px;
-            color: #fff;
-            text-transform: uppercase;
-            font-weight: 300;
-            text-align: center;
-            margin-bottom: 15px;
-        }
+                <article>
+                    {{#roundsDto}}
+                        <h1>
+                            {{#courseName}}
+                                {{ . }}
+                            {{/courseName}}
+                        </h1>
+                        <h2>
+                            {{#formattedDateTime}}
+                                {{ . }}
+                            {{/formattedDateTime}}
+                        </h2>
+                        <h2>
+                            {{#formattedDate}}
+                                {{ . }}
+                            {{/formattedDate}}
+                        </h2>
+                        <h2>
+                            {{#formattedTime}}
+                                {{ . }}
+                            {{/formattedTime}}
+                        </h2>
+                        <h2>
+                            {{#score}}
+                                {{ . }}
+                            {{/score}}
+                        </h2>
+                        <h2>
+                            {{#status}}
+                                {{ . }}
+                            {{/status}}
+                        </h2>
+                    {{/roundsDto}}
 
-        body{
+                    <div class="tbl-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Holes
+                                        {{#roundsDto}}
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/1">1</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/2">2</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/3">3</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/4">4</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/5">5</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/6">6</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/7">7</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/8">8</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/9">9</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/10">10</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/11">11</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/12">12</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/13">13</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/14">14</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/15">15</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/16">16</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/17">17</a>
+                                            </th>
+                                            <th>
+                                                <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/18">18</a>
+                                            </th>
+                                            <th>Average</th>
+                                        {{/roundsDto}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td contenteditable="false">Par
+                                        {{#holesDto}}
+                                            <td>
+                                                {{#par}}
+                                                    {{ . }}
+                                                {{/par}}
+                                            </td>
+                                        {{/holesDto}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td contenteditable="false">Fairway
+                                        {{#holesDto}}
+                                            <td>
+                                                {{#fairway}}
+                                                    {{ . }}
+                                                {{/fairway}}
+                                            </td>
+                                        {{/holesDto}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td contenteditable="false">On
 
-        }
+                                        {{#holesDto}}
+                                            <td>
+                                                {{#onGreen}}
+                                                    {{ . }}
+                                                {{/onGreen}}
+                                            </td>
+                                        {{/holesDto}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td contenteditable="false">Up/Dw
+                                        {{#holesDto}}
+                                            <td>
+                                                {{#upDown}}
+                                                    {{ . }}
+                                                {{/upDown}}
+                                            </td>
+                                        {{/holesDto}}
+                                    </td>
+                                </tr>
+                                <tr class="disabled">
+                                    <td contenteditable="false">Bunker
+                                        {{#holesDto}}
+                                            <td>
+                                                {{#bunker}}
+                                                    {{ . }}
+                                                {{/bunker}}
+                                                {{^bunker}}N/A{{/bunker}}
+                                            </td>
 
-        .tbl-content{
-            overflow-x:auto;
-            margin-top: 0px;
-            border: 1px solid rgba(255,255,255,0.3);
+                                        {{/holesDto}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td contenteditable="false">Putts
+                                        {{#holesDto}}
+                                            <td>
+                                                {{#putt}}
+                                                    {{ . }}
+                                                {{/putt}}
+                                            </td>
+                                        {{/holesDto}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td contenteditable="false">Score
+                                        {{#holesDto}}
+                                            <td>
+                                                {{#score}}
+                                                    {{ . }}
+                                                {{/score}}
+                                            </td>
+                                        {{/holesDto}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
 
-        }
+                <!-- temporary footer -->
+                <br>
+                <br>
+                <hr>
+                <div>
+                    <div>
+                        Weinabillion © 2020 - 2021. All Rights Reserved.
+                    </div>
+                    <div>
+                        721 Yeongdong-daero, Gangnam-gu, Seoul, Republic of Korea.
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+        </div>
 
-        table{
-            margin: 50px;
-        }
-    </style>
-    <!--    <link rel="stylesheet" href="/css/style.css" />-->
-</head>
-<body>
+        {{>layout/mobileBottomNavigation}}
 
-
-<article>
-    {{#roundsDto}}
-        <h1>{{#courseName}}{{.}}{{/courseName}}</h1>
-        <h2>{{#formattedDateTime}}{{.}}{{/formattedDateTime}}</h2>
-        <h2>{{#formattedDate}}{{.}}{{/formattedDate}}</h2>
-        <h2>{{#formattedTime}}{{.}}{{/formattedTime}}</h2>
-        <h2>{{#score}}{{.}}{{/score}}</h2>
-        <h2>{{#status}}{{.}}{{/status}}</h2>
-    {{/roundsDto}}
-
-    <div class="tbl-content">
-        <table>
-            <thead>
-            <tr>
-                <th>Holes
-                {{#roundsDto}}
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/1">1</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/2">2</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/3">3</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/4">4</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/5">5</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/6">6</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/7">7</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/8">8</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/9">9</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/10">10</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/11">11</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/12">12</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/13">13</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/14">14</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/15">15</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/16">16</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/17">17</a>
-                <th><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}/18">18</a>
-                <th>Average
-                {{/roundsDto}}
-            </thead>
-            <tbody>
-            <tr>
-                <td contenteditable="false">Par
-                {{#holesDto}}
-                    <td>{{#par}}{{.}}{{/par}}
-                {{/holesDto}}
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-            <tr >
-                <td contenteditable="false">Fairway
-                {{#holesDto}}
-                <td>{{#fairway}}{{.}}{{/fairway}}
-                {{/holesDto}}
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td> /14-->
-<!--            <tr contenteditable="true" class="disabled">-->
-<!--                <td contenteditable="false">OB/HZ-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-            <tr >
-                <td contenteditable="false">On
-
-                {{#holesDto}}
-                <td>{{#onGreen}}{{.}}{{/onGreen}}
-                {{/holesDto}}
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td> /18-->
-            <tr >
-                <td contenteditable="false">Up/Dw
-                {{#holesDto}}
-                <td>{{#upDown}}{{.}}{{/upDown}}
-                {{/holesDto}}
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td> /18-->
-            <tr class="disabled">
-                <td contenteditable="false">Bunker
-                {{#holesDto}}
-                <td>{{#bunker}}{{.}}{{/bunker}}
-                    {{^bunker}}N/A{{/bunker}}
-                {{/holesDto}}
-
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-            <tr >
-                <td contenteditable="false">Putts
-                {{#holesDto}}
-                <td>{{#putt}}{{.}}{{/putt}}
-                {{/holesDto}}
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-            <tr >
-                <td contenteditable="false">Score
-                {{#holesDto}}
-                <td>{{#score}}{{.}}{{/score}}
-                {{/holesDto}}
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-<!--                <td>-->
-            </tbody>
-        </table>
-    </div>
-
-</article>
-
-{{>layout/footer}}
+        <!--부트스트랩 js, jquery 추가-->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!--index.js 추가-->
+        <script src="/js/main/topMenuNavigation.js"></script>
+    </body>
+</html>

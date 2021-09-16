@@ -1,0 +1,108 @@
+
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+    :root {
+        --table-line-color: #364852;
+        --table-hover-color: #aab2b6;
+    }
+    
+
+    *,
+    *:before,
+    *:after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #ffffff;
+        font-family: 'Open Sans', sans-serif;
+        /*background: -webkit-linear-gradient(left, #25c481, #25b7c4);*/
+        /*background: linear-gradient(to right, #25c481, #25b7c4);*/
+    }
+
+    table {
+        border: 1px solid var(--table-line-color);
+        border-radius: 0.25em;
+        border-collapse: collapse;
+        margin: 1em;
+    }
+
+    th {
+        border-bottom: 1px solid var(--table-line-color);
+        color: #222222;
+        font-size: 0.85em;
+        font-weight: 600;
+        padding: 0.5em 1em;
+        text-align: center;
+    }
+
+
+    th:first-child{
+        text-align: left;
+    }
+    tr td {
+        border-right: 1px solid var(--table-line-color);
+    }
+
+    tr td:first-child {
+        color: var(--table-line-color);
+    }
+
+    tr td:last-child {
+        color: var(--table-line-color);
+    }
+
+    td {
+        color: var(--table-line-color);
+        font-weight: 400;
+        padding: 0.65em 1em;
+    }
+
+    td:not(:first-child) {
+        text-align: center;
+    }
+
+
+    .disabled td {
+        color: #4F5F64;
+    }
+
+    tbody tr {
+        transition: background 0.25s ease;
+    }
+
+    tbody tr:hover {
+        background: var(--table-hover-color);
+    }
+
+
+    h1 {
+        font-size: 30px;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 300;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .tbl-content {
+        overflow-x: auto;
+        margin-top: 0px;
+        /* border: 1px solid rgba(31, 29, 29, 0.3); */
+    }
+
+    table {
+        margin: 50px;
+    }
+
+    a,
+    a:visited {
+        text-decoration: none;
+        color: #2f3335;
+    }
+
+    a:hover {
+        color: var(--table-hover-color);
+    }
