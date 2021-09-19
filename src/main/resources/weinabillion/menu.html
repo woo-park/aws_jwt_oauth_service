@@ -9,10 +9,301 @@
     <link rel="stylesheet" href="./bottomMenuNavigation.css">
     <link rel="stylesheet" href="./roundTable.css">
     
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/css/swiper.min.css">
+    <style>
+        /* Quick reset and demo styles */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Nanum Gothic", "Dotum", "Baekmuk Dotum", "Undotum", "Apple Gothic", "Latin font", sans-serif;
+        }
+
+        body {
+
+            background: #ededed;
+        }
+
+
+        /* Swipe select */
+
+        .swipelect {
+            position: relative;
+            width: 100%;
+            /*max-width: 540px;*/
+
+            height: 100%; /*height: 75px;*/
+            border-bottom: solid 1px #aaa;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        /* Label */
+
+        .swipelect__label {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        /* Container */
+
+        .swipelect__container {
+            height: 100%;
+        }
+
+        /* Overlay */
+
+        .swipelect__overlay::before,
+        .swipelect__overlay::after {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            width: 0;
+            bottom: 25px;
+            pointer-events: none;
+        }
+
+        .swipelect__overlay::before {
+            left: 0;
+            background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+            background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+        }
+
+        .swipelect__overlay::after {
+            right: 0;
+            background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+        }
+
+        .swipelect--per-view-5 .swipelect__overlay::before,
+        .swipelect--per-view-5 .swipelect__overlay::after {
+            width: 45%;
+        }
+
+        .swipelect--per-view-4 .swipelect__overlay::before,
+        .swipelect--per-view-4 .swipelect__overlay::after {
+            width: 40%;
+        }
+
+        .swipelect--per-view-3 .swipelect__overlay::before,
+        .swipelect--per-view-3 .swipelect__overlay::after {
+            width: 33%;
+        }
+
+        .swipelect--per-view-2 .swipelect__overlay::before,
+        .swipelect--per-view-2 .swipelect__overlay::after {
+            width: 25%;
+        }
+
+        /* Slide */
+
+        .swipelect__slide {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        /* small tick */
+        /* .swipelect__slide::before {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 5px;
+            bottom: 1px;
+            left: 0;
+            transform: translateX(-50%);
+            background: #ccc;
+        } */
+
+        .swipelect__slide:first-child::before {
+            display: none;
+        }
+
+        .swipelect__slide::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 8px;
+            bottom: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #aaa;
+        }
+
+        .left_column {
+            width: 25%;
+            background-color: #fff;
+            border-bottom: solid 1px #aaa;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75px;
+        }
+
+        .single_row {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items:flex-start;
+            width: 100%;
+            height: 200px;
+        }
+
+        .right_column {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 75%;
+            height: 75px;
+        }
+
+        .table_row {
+            display: flex;
+        }
+
+        .update_button {
+           margin-top:35px;
+            text-transform: uppercase;
+        }
+
+
+
+
+
+        /* from selec7 */
+        .w-navigation-menu{
+            height: 54px;
+            position: fixed;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            z-index: 5;
+            display: flex;
+            background-color: #fff;
+            border-top: 1px solid #ececec;
+            box-shadow: 0 0px 10px 0 rgba(8, 15, 52, 0.1);
+            border-top-left-radius: 0.8125rem;
+            border-top-right-radius: 0.8125rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Nanum Gothic", "Dotum", "Baekmuk Dotum", "Undotum", "Apple Gothic", "Latin font", sans-serif;
+        }
+
+        .w-navigation-menu .management-btn-wrap {
+            width: 100%;
+        }
+
+        .w-navigation-menu .management-btn-wrap .main-home-btn {
+            background-size: 20px;
+
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16"> <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/> </svg>') no-repeat;
+        }
+
+        .w-navigation-menu .w-logo-calculator {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"> <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/> <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/> </svg>') no-repeat;
+        }
+
+        .w-navigation-menu .w-logo-left-arrow {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/> </svg>') no-repeat;
+        }
+
+        .w-navigation-menu .w-logo-table {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16"> <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/> </svg>') no-repeat;
+        }
+
+
+        .w-navigation-menu .management-btn-wrap .management-btn {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background-position: center 7px;
+            background-repeat: no-repeat;
+            background-size: 21px;
+        }
+
+
+        .w-navigation-menu .management-btn-wrap .management-btn .management-text {
+            font-size: 10px;
+            display: inline-block;
+            line-height: 1;
+            margin-bottom: 9px;
+            font-weight: 600;
+        }
+
+
+        a.button {
+            display: block;
+            position: relative;
+            float: left;
+            width: 120px;
+            padding: 0;
+            margin: 10px 20px 10px 0;
+            font-weight: 600;
+            text-align: center;
+            line-height: 50px;
+            color: #FFF;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .btnLightBlue.btnPush {
+            /*button shadow*/
+            box-shadow: 0px 5px 0px 0px #5e5e5e;
+            font-size: 0.8rem;
+        }
+
+        .btnLightBlue{
+            background: #e3e3e3;
+        }
+
+
+        .btnPush:hover {
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .btnLightBlue.btnPush:hover {
+            box-shadow: 0px 0px 0px 0px #5e5e5e;
+        }
+
+        a:visited {
+            text-decoration: none;
+            color: #3c3b3b;
+        }
+        a {
+            text-decoration: none;
+            color: #3c3b3b;
+        }
+    </style>
 </head>
 
 <body>
 
+    
     <div class="navigationContainer">
 
         <div class="header">
@@ -52,7 +343,217 @@
 
         <div class="content">
             <img src="https://images.apple.com/v/iphone/home/y/images/overview/hero-iphone-xr_large.jpg" alt="" />
+            <article>
 
+                
+
+    <div class="table_row">
+            <div class="left_column">Hole</div>
+            <div class="right_column">
+                <div class="swipelect swipelect--per-view-4">
+                    <div class="swipelect__label">hole</div>
+                    <div class="swipelect__container swiper-container">
+                        <div class="swipelect__overlay"></div>
+                        <div class="swiper-wrapper">
+                            <div class="swipelect__slide swiper-slide">3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <!-- When changin --per-view modifier, also update JS -->
+    
+        <div class="table_row">
+            <div class="left_column">Par</div>
+            <div class="right_column">
+                <div class="swipelect swipelect--per-view-4">
+                    <div class="swipelect__label">par</div>
+                    <div class="swipelect__container swiper-container">
+                        <div class="swipelect__overlay"></div>
+                        <div id="par_active_slide" class="swiper-wrapper">
+                            <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="table_row">
+            <div class="left_column">Fairway</div>
+            <div class="right_column">
+                <div class="swipelect swipelect--per-view-4">
+                    <div class="swipelect__label">fairway</div>
+                    <div class="swipelect__container swiper-container">
+                        <div class="swipelect__overlay"></div>
+                        <div id="fairway_active_slide" class="swiper-wrapper">
+                            <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="table_row">
+            <div class="left_column">On Green</div>
+            <div class="right_column">
+                <div class="swipelect swipelect--per-view-4">
+                    <div class="swipelect__label">On</div>
+                    <div class="swipelect__container swiper-container">
+                        <div class="swipelect__overlay"></div>
+                        <div id="onGreen_active_slide" class="swiper-wrapper">
+                            <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="table_row">
+            <div class="left_column">Bunker</div>
+            <div class="right_column">
+                <div class="swipelect swipelect--per-view-4">
+                    <div class="swipelect__label">bunker</div>
+                    <div class="swipelect__container swiper-container">
+                        <div class="swipelect__overlay"></div>
+                        <div id="bunker_active_slide" class="swiper-wrapper">
+                            <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="table_row">
+            <div class="left_column">Approach</div>
+            <div class="right_column">
+                <div class="swipelect swipelect--per-view-4">
+                    <div class="swipelect__label">approach</div>
+                    <div class="swipelect__container swiper-container">
+                        <div class="swipelect__overlay"></div>
+                        <div id="approach_active_slide" class="swiper-wrapper">
+                            <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="table_row">
+            <div class="left_column">Up & Down</div>
+            <div class="right_column">
+                <div class="swipelect swipelect--per-view-4">
+                    <div class="swipelect__label">up & down</div>
+                    <div class="swipelect__container swiper-container">
+                        <div class="swipelect__overlay"></div>
+                        <div id="upDown_active_slide" class="swiper-wrapper">
+                            <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="O">Up</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="X">Down</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="table_row">
+            <div class="left_column">Putts</div>
+            <div class="right_column">
+                <div class="swipelect swipelect--per-view-4">
+                    <div class="swipelect__label">putts</div>
+                    <div class="swipelect__container swiper-container">
+                        <div class="swipelect__overlay"></div>
+                        <div id="putts_active_slide" class="swiper-wrapper">
+                            <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="0">0</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="1">1</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="2">2</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="6">6</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="table_row">
+            <div class="left_column">Score</div>
+            <div class="right_column">
+                <div class="swipelect swipelect--per-view-4">
+                    <div class="swipelect__label">score</div>
+                    <div class="swipelect__container swiper-container">
+                        <div class="swipelect__overlay"></div>
+                        <div id="score_active_slide" class="swiper-wrapper">
+                            <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="-2">-2</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="-1">-1</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="0">0</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="1">1</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="2">2</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
+                            <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="table_row">
+            <div class="single_row">
+    
+                <div class="update_button">
+                        <a id="submitBtn" href="" title="Button push lightblue" class="button btnPush btnLightBlue">Push</a>
+                </div>
+    
+    
+            </div>
+    
+        </div>
+    
+        <div class="w-navigation-menu">
+    
+                <div class="management-btn-wrap">
+                    <a href="#" class="management-btn w-logo-left-arrow">
+                        <span class="management-text">BACK</span>
+                    </a>
+                </div>
+                <div class="management-btn-wrap">
+                    <a href="/rounds" style="" class="management-btn w-logo-table">
+                        <span class="management-text">TABLE</span>
+                    </a>
+                </div>
+                <div class="management-btn-wrap">
+                    <a href="/" class="management-btn main-home-btn">
+                        <span class="management-btn-circle selec7-logo-circle bg-img"></span>
+                        <span class="management-text">HOME</span>
+                    </a>
+                </div>
+    
+                <div class="management-btn-wrap">
+                    <a href="#" class="management-btn w-logo-calculator">
+                        <span class="management-text">STATS</span>
+                    </a>
+                </div>
+    
+        </div>
+            </article>
             <article>
                 <h1>hwang ling cc</h1>
                 <h2></h2>
@@ -632,6 +1133,100 @@
         }())
 
     </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/js/swiper.min.js"></script>
+
+<!-- swiper-slide-active -->
+
+<script>
+    var swiper = new Swiper(".swiper-container", {
+        slidesPerView: 3,
+        centeredSlides: true,
+        spaceBetween: 0,
+        grabCursor: true,
+        preventClicks: true,
+        freeMode: true,
+        freeModeSticky: true,
+        slideToClickedSlide: true,
+        speed: 200,
+        freeModeMomentumRatio: 0.3,
+        freeModeMomentumVelocityRatio: 1,
+    });
+
+// When changin the slidesPerView, also update HTML class modifier
+
+</script>
+<!-- https://codesandbox.io/s/ns46o?file=/index.html -->
+
+<!--부트스트랩 js, jquery 추가-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+    var holes = {
+        error: false,          //using this as a semi-global variable, to trigger return false;
+        init: function () {
+            var _this = this;
+            $('#submitBtn').on('click', function () {
+
+                _this.save();
+            });
+        },
+        isInt: function (value) {
+            return !isNaN(value) && (function (x) { return (x | 0) === x; })(parseFloat(value))
+        },
+        save: function () {
+
+            let par = $("#par_active_slide").find(".swiper-slide-active").data("input-value");
+            let fairway = $("#fairway_active_slide").find(".swiper-slide-active").data("input-value");
+            let upDown = $("#upDown_active_slide").find(".swiper-slide-active").data("input-value");
+            let onGreen = $("#onGreen_active_slide").find(".swiper-slide-active").data("input-value");
+            let bunker = $("#bunker_active_slide").find(".swiper-slide-active").data("input-value");
+            let approach = $("#approach_active_slide").find(".swiper-slide-active").data("input-value");
+            let putt = $("#putts_active_slide").find(".swiper-slide-active").data("input-value");
+            let score = $("#score_active_slide").find(".swiper-slide-active").data("input-value");
+
+            var roundsDto = {
+                "par": par,
+                "fairway": fairway,
+                "upDown": upDown,
+                "bunker": bunker,
+                "onGreen": onGreen,
+                "putt": putt,
+                "score": score,
+                // "holeNumber": holeNumber,
+                // "roundId": roundId,
+            };
+
+            console.log(roundsDto, '<- roundsDto');
+
+            let url = "/rounds/" + roundId + "/" + holeNumber
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(roundsDto),
+                success: function (res) {
+                    alert('score 수정되었습니다');
+                    window.location.href = '/rounds/1/2';
+                },
+                error: function (err) {
+                    console.log(err);
+                    alert(JSON.stringify(error));
+                }
+            });
+        },
+    }
+
+    $(document).ready(function () {
+        console.log($('#par').val(), ":check the value");
+        console.log('/rounds/1/2');
+
+        holes.init();
+
+    });
+</script>
 
 </body>
 

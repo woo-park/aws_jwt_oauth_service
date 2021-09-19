@@ -1,11 +1,17 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <!--  almost the same as /layout/mobileHeader  -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Score Hole</title>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!--  mobile friendly css  -->
+    <link rel="stylesheet" href="/css/mainContainer.css">
+    <link rel="stylesheet" href="/css/topMenuNavigation.css">
+    <link rel="stylesheet" href="/css/bottomMenuNavigation.css">
+    <link rel="stylesheet" href="/css/roundTable.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/css/swiper.min.css">
     <style>
@@ -188,6 +194,7 @@
         }
 
 
+
         a.button {
             display: block;
             position: relative;
@@ -233,187 +240,239 @@
         }
     </style>
 </head>
+
+
 <body>
+<!-- https://codepen.io/henripeetsmann/pen/rdNxbE -->
 
 
-<div class="table_row">
-    <div class="left_column">Hole</div>
-    <div class="right_column">
-        <div class="swipelect swipelect--per-view-4">
-            <div class="swipelect__label">hole</div>
-            <div class="swipelect__container swiper-container">
-                <div class="swipelect__overlay"></div>
-                <div class="swiper-wrapper">
-                    <div class="swipelect__slide swiper-slide">3</div>
-                </div>
+
+<div class="navigationContainer">
+
+    <div class="header">
+        <div class="logo"><a href="">
+            <img src="https://brolik.com/images/BRO_logo.svg"></a>
+        </div>
+
+        <div class="icon-container">
+            <div id="menuicon">
+                <div class="bar bar1"></div>
+                <div class="bar bar2"></div>
             </div>
         </div>
+        <div class="mobile-menu">
+            <ul class="menu">
+                <li class="menu-item"><a href="#">Home</a>
+                </li>
+                <li class="menu-item"><a href="#">Register</a>
+                </li>
+                <li class="menu-item"><a href="#">Start Round</a>
+                </li>
+                <li class="menu-item"><a href="#">My Rounds</a>
+                </li>
+                <li class="menu-item"><a href="#">My Latest Round</a>
+                </li>
+                <li class="menu-item"><a href="#">Support</a>
+                </li>
+            </ul>
+        </div>
     </div>
+
 </div>
 
+<div class="container">
 
-<!-- When changin --per-view modifier, also update JS -->
+    <div class="content">
+        <img src="https://images.apple.com/v/iphone/home/y/images/overview/hero-iphone-xr_large.jpg" alt="" />
 
-<div class="table_row">
-    <div class="left_column">Par</div>
-    <div class="right_column">
-        <div class="swipelect swipelect--per-view-4">
-            <div class="swipelect__label">par</div>
-            <div class="swipelect__container swiper-container">
-                <div class="swipelect__overlay"></div>
-                <div id="par_active_slide" class="swiper-wrapper">
-                    <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+        <article>
+            <div class="table_row">
+                <div class="left_column">Hole</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">hole</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div class="swiper-wrapper">
+                                <!-- holesDto should have previous hole number && next hole number -->
+                                <div class="swipelect__slide swiper-slide">{{#holesDto}}{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="table_row">
-    <div class="left_column">Fairway</div>
-    <div class="right_column">
-        <div class="swipelect swipelect--per-view-4">
-            <div class="swipelect__label">fairway</div>
-            <div class="swipelect__container swiper-container">
-                <div class="swipelect__overlay"></div>
-                <div id="fairway_active_slide" class="swiper-wrapper">
-                    <div class="swipelect__slide swiper-slide" data-input-value=""></div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+
+            <!-- When changin --per-view modifier, also update JS -->
+
+            <div class="table_row">
+                <div class="left_column">Par</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">par</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="par_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="table_row">
-    <div class="left_column">On Green</div>
-    <div class="right_column">
-        <div class="swipelect swipelect--per-view-4">
-            <div class="swipelect__label">On</div>
-            <div class="swipelect__container swiper-container">
-                <div class="swipelect__overlay"></div>
-                <div id="onGreen_active_slide" class="swiper-wrapper">
-                    <div class="swipelect__slide swiper-slide" data-input-value=""></div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+            <div class="table_row">
+                <div class="left_column">Fairway</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">fairway</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="fairway_active_slide" class="swiper-wrapper">
+
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="table_row">
-    <div class="left_column">Bunker</div>
-    <div class="right_column">
-        <div class="swipelect swipelect--per-view-4">
-            <div class="swipelect__label">bunker</div>
-            <div class="swipelect__container swiper-container">
-                <div class="swipelect__overlay"></div>
-                <div id="bunker_active_slide" class="swiper-wrapper">
-                    <div class="swipelect__slide swiper-slide" data-input-value=""></div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+            <div class="table_row">
+                <div class="left_column">On Green</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">On</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="onGreen_active_slide" class="swiper-wrapper">
+
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
+            <div class="table_row">
+                <div class="left_column">Bunker</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">bunker</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="bunker_active_slide" class="swiper-wrapper">
 
-<div class="table_row">
-    <div class="left_column">Approach</div>
-    <div class="right_column">
-        <div class="swipelect swipelect--per-view-4">
-            <div class="swipelect__label">approach</div>
-            <div class="swipelect__container swiper-container">
-                <div class="swipelect__overlay"></div>
-                <div id="approach_active_slide" class="swiper-wrapper">
-                    <div class="swipelect__slide swiper-slide" data-input-value=""></div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="table_row">
-    <div class="left_column">Up & Down</div>
-    <div class="right_column">
-        <div class="swipelect swipelect--per-view-4">
-            <div class="swipelect__label">up & down</div>
-            <div class="swipelect__container swiper-container">
-                <div class="swipelect__overlay"></div>
-                <div id="upDown_active_slide" class="swiper-wrapper">
-                    <div class="swipelect__slide swiper-slide" data-input-value=""></div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="O">Up</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="X">Down</div>
+
+            <div class="table_row">
+                <div class="left_column">Approach</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">approach</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="approach_active_slide" class="swiper-wrapper">
+
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="table_row">
-    <div class="left_column">Putts</div>
-    <div class="right_column">
-        <div class="swipelect swipelect--per-view-4">
-            <div class="swipelect__label">putts</div>
-            <div class="swipelect__container swiper-container">
-                <div class="swipelect__overlay"></div>
-                <div id="putts_active_slide" class="swiper-wrapper">
-                    <div class="swipelect__slide swiper-slide" data-input-value=""></div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="0">0</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="1">1</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="2">2</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="6">6</div>
+            <div class="table_row">
+                <div class="left_column">Up & Down</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">up & down</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="upDown_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">Up</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">Down</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-
-<div class="table_row">
-    <div class="left_column">Score</div>
-    <div class="right_column">
-        <div class="swipelect swipelect--per-view-4">
-            <div class="swipelect__label">score</div>
-            <div class="swipelect__container swiper-container">
-                <div class="swipelect__overlay"></div>
-                <div id="score_active_slide" class="swiper-wrapper">
-                    <div class="swipelect__slide swiper-slide" data-input-value=""></div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="-2">-2</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="-1">-1</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="0">0</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="1">1</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="2">2</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
-                    <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+            <div class="table_row">
+                <div class="left_column">Putts</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">putts</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="putts_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="0">0</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="1">1</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="2">2</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="6">6</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <div class="table_row">
+                <div class="left_column">Score</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">score</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="score_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="-2">-2</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="-1">-1</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="0">0</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="1">1</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="2">2</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="table_row">
+                <div class="single_row">
+
+                    <div class="update_button">
+                        <a id="submitBtn" href="" title="Button push lightblue" class="button btnPush btnLightBlue">Push</a>
+                    </div>
+                </div>
+
+            </div>
+        </article>
     </div>
-</div>
-
-
-<div class="table_row">
-    <div class="single_row">
-
-        <div class="update_button">
-            <a id="submitBtn" href="" title="Button push lightblue" class="button btnPush btnLightBlue">Push</a>
-        </div>
-
-
-    </div>
-
 </div>
 
 <div class="w-navigation-menu">
@@ -443,16 +502,40 @@
 
 </div>
 
+<input id="testing" value="{{#holesDto}}{{.}}{{/holesDto}}" >
+<!--updatedDate=null, index=null, roundId=10, fairway=, par=3, onGreen=, upDown=, bunker=, putt=null, score=null, holeNumber=2)\""-->
+{{#holesDto}}
+    <form>
+        <input id="par" type="hidden" value="{{#par}}{{.}}{{/par}}">
+        <input id="fairway" type="hidden" value="{{#fairway}}{{.}}{{/fairway}}">
+        <input id="onGreen" type="hidden" value="{{#onGreen}}{{.}}{{/onGreen}}">
+        <input id="bunker" type="hidden" value="{{#bunker}}{{.}}{{/bunker}}">
+        <input id="approach" type="hidden" value="{{#approach}}{{.}}{{/approach}}">
+        <input id="upDown" type="hidden" value="{{#upDown}}{{.}}{{/upDown}}">
+        <input id="putt" type="hidden" value="{{#putt}}{{.}}{{/putt}}">
+        <input id="score" type="hidden" value="{{#score}}{{.}}{{/score}}">
+    </form>
+{{/holesDto}}
 
-{{>layout/mobileBottomNavigation}}
 
-<!--부트스트랩 js, jquery 추가-->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/js/swiper.min.js"></script>
 
 <!-- swiper-slide-active -->
 
 <script>
+
+
+    (function () {
+        const header = document.querySelector('.header');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const icon = document.querySelector('.icon-container');
+        icon.onclick = function () {
+            header.classList.toggle('menu-open');
+            mobileMenu.classList.toggle('menu-open');
+        }
+    }())
+
     var swiper = new Swiper(".swiper-container", {
         slidesPerView: 3,
         centeredSlides: true,
@@ -472,11 +555,231 @@
 </script>
 <!-- https://codesandbox.io/s/ns46o?file=/index.html -->
 
+<!--부트스트랩 js, jquery 추가-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script>
+
+    // let myobj = $("#testing").val();
+    // console.log(JSON.parse(myobj));
+    // updatedDate=null, index=null, roundId=10, fairway=, par=3, onGreen=, upDown=, bunker=, putt=null, score=null, holeNumber=2)\""
+    synchronize();
+
+    function synchronize() {
+
+        let sliderMap = {
+            "par":1,
+            "fairway":2,
+            "onGreen":3,
+            "bunker":4,
+            "approach":5,
+            "upDown":6,
+            "putt":7,
+            "score":8,
+        }
+
+        /***  par swiper handler  ***/
+        let par = $("#par").val();
+        if(par !== "" && par !== null) {
+            let targetIndex;
+            Array.from(swiper[sliderMap.par].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == par) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== 'undefined') {
+                swiper[sliderMap.par].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        }
+
+
+        /*
+        function b (field, ind) {
+            let v = $("#"+ field).val();
+            if (v !== "" && v !== null && typeof v !== 'undefined') {
+                let targetIndex;
+
+            }
+        }
+        */
+
+
+        /***  fairway swiper handler  ***/
+        let fairway = $("#fairway").val();
+        if(fairway !== "" && fairway !== null && typeof fairway !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.fairway].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == fairway) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.fairway].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        }
+
+
+
+        /***  upDown swiper handler  ***/
+        let upDown = $("#upDown").val();
+        if(upDown !== "" && upDown !== null && typeof upDown !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.upDown].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == upDown) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.upDown].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        }
+
+
+        /***  onGreen swiper handler  ***/
+        let onGreen = $("#onGreen").val();
+        if(onGreen !== "" && onGreen !== null && typeof onGreen !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.onGreen].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == onGreen) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.onGreen].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        }
+
+
+        /***  bunker swiper handler  ***/
+        let bunker = $("#bunker").val();
+        if(bunker !== "" && bunker !== null && typeof bunker !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.bunker].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == bunker) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.bunker].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let targetIndex;
+            // swiper[sliderMap.bunker].find("swiper_blah") dot dataIndex = blah
+            // get the index
+            // move to the index;
+            // $("ul#wizard li").index(this);
+        }
+
+        /***  putt swiper handler  ***/
+        let putt = $("#putt").val();
+        if(putt !== "" && putt !== null && typeof putt !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.putt].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == putt) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.putt].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        }
+
+        /***  approach swiper handler  ***/
+        let approach = $("#approach").val();    // skipped
+        if(approach !== "" && approach !== null && typeof approach !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.approach].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == approach) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.approach].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        }
+
+
+
+        /***  score swiper handler  ***/
+        let score = $("#score").val();
+        if(score !== "" && score !== null && typeof score !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.score].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == score) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.score].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        }
+
+
+        let pojo = {
+            par,
+            fairway,
+            upDown,
+            onGreen,
+            bunker,
+            approach,
+            putt,
+            score
+        }
+        console.log('pojo', pojo);
+
+    }
+
+
     var holes = {
         error: false,          //using this as a semi-global variable, to trigger return false;
         init: function () {
+
+
+            // swiper.slideTo(index, speed, runCallbacks)
+
+
+
+
             var _this = this;
             $('#submitBtn').on('click', function () {
 
@@ -538,8 +841,6 @@
 
     });
 </script>
-
-<!--index.js 추가-->
-<!--<script src="/js/main/topMenuNavigation.js"></script>-->
 </body>
+
 </html>

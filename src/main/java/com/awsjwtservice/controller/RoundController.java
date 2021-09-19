@@ -316,7 +316,7 @@ public class RoundController {
 
                     }
 
-                    return "hole";
+                    return "scoreHole";//testing
                 }
 
 
@@ -327,7 +327,7 @@ public class RoundController {
 
             // a portal that has access to holes 1 ~ 18
 
-            return "hole";
+            return "scoreHole"; //testing
         } else {
             return "hole";
 //            return "redirect:/oauth_login";
