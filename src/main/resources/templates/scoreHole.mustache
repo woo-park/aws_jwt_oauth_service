@@ -262,17 +262,17 @@
         </div>
         <div class="mobile-menu">
             <ul class="menu">
-                <li class="menu-item"><a href="#">Home</a>
+                <li class="menu-item"><a href="/">Home</a>
                 </li>
-                <li class="menu-item"><a href="#">Register</a>
+                <li class="menu-item"><a href="/register">Register</a>
                 </li>
-                <li class="menu-item"><a href="#">Start Round</a>
+                <li class="menu-item"><a href="/rounds">Start Round</a>
                 </li>
-                <li class="menu-item"><a href="#">My Rounds</a>
+                <li class="menu-item"><a href="/rounds">My Rounds</a>
                 </li>
-                <li class="menu-item"><a href="#">My Latest Round</a>
+                <li class="menu-item"><a href="/rounds/latest">My Latest Round</a>
                 </li>
-                <li class="menu-item"><a href="#">Support</a>
+                <li class="menu-item"><a href="/">Support</a>
                 </li>
             </ul>
         </div>
@@ -313,6 +313,7 @@
                         <div class="swipelect__container swiper-container">
                             <div class="swipelect__overlay"></div>
                             <div id="par_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
                                 <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
                                 <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
                                 <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
@@ -407,9 +408,9 @@
                         <div class="swipelect__container swiper-container">
                             <div class="swipelect__overlay"></div>
                             <div id="upDown_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">Down</div>
                                 <div class="swipelect__slide swiper-slide" data-input-value=""></div>
                                 <div class="swipelect__slide swiper-slide" data-input-value="O">Up</div>
-                                <div class="swipelect__slide swiper-slide" data-input-value="X">Down</div>
                             </div>
                         </div>
                     </div>
@@ -478,7 +479,7 @@
 <div class="w-navigation-menu">
 
     <div class="management-btn-wrap">
-        <a href="#" class="management-btn w-logo-left-arrow">
+        <a href="/{{#roundId}}{{.}}{{/roundId}}" class="management-btn w-logo-left-arrow">
             <span class="management-text">BACK</span>
         </a>
     </div>
@@ -502,7 +503,7 @@
 
 </div>
 
-<input id="testing" value="{{#holesDto}}{{.}}{{/holesDto}}" >
+<input id="testing" type="hidden" value="{{#holesDto}}{{.}}{{/holesDto}}" >
 <!--updatedDate=null, index=null, roundId=10, fairway=, par=3, onGreen=, upDown=, bunker=, putt=null, score=null, holeNumber=2)\""-->
 {{#holesDto}}
     <form>
@@ -595,6 +596,14 @@
             } else {
                 console.log('undefined targetIndex? :', targetIndex);
             }
+        } else {
+            let emptySlide = swiper[sliderMap.par].$el.find("div[data-input-value='']");
+            if(typeof emptySlide != 'undefined') {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.par].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
         }
 
 
@@ -626,6 +635,14 @@
             } else {
                 console.log('undefined targetIndex? :', targetIndex);
             }
+        } else {
+            let emptySlide = swiper[sliderMap.fairway].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.fairway].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
         }
 
 
@@ -647,6 +664,14 @@
             } else {
                 console.log('undefined targetIndex? :', targetIndex);
             }
+        } else {
+            let emptySlide = swiper[sliderMap.upDown].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.upDown].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
         }
 
 
@@ -666,6 +691,14 @@
                 swiper[sliderMap.onGreen].slideTo(targetIndex,0,false);
             } else {
                 console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.onGreen].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.onGreen].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
             }
         }
 
@@ -688,11 +721,13 @@
                 console.log('undefined targetIndex? :', targetIndex);
             }
         } else {
-            let targetIndex;
-            // swiper[sliderMap.bunker].find("swiper_blah") dot dataIndex = blah
-            // get the index
-            // move to the index;
-            // $("ul#wizard li").index(this);
+            let emptySlide = swiper[sliderMap.bunker].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.bunker].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
         }
 
         /***  putt swiper handler  ***/
@@ -712,6 +747,14 @@
             } else {
                 console.log('undefined targetIndex? :', targetIndex);
             }
+        } else {
+            let emptySlide = swiper[sliderMap.putt].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.putt].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
         }
 
         /***  approach swiper handler  ***/
@@ -730,6 +773,14 @@
                 swiper[sliderMap.approach].slideTo(targetIndex,0,false);
             } else {
                 console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.approach].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.approach].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
             }
         }
 
@@ -751,6 +802,14 @@
                 swiper[sliderMap.score].slideTo(targetIndex,0,false);
             } else {
                 console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.score].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.score].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
             }
         }
 
@@ -799,6 +858,9 @@
             let approach = $("#approach_active_slide").find(".swiper-slide-active").data("input-value");
             let putt = $("#putts_active_slide").find(".swiper-slide-active").data("input-value");
             let score = $("#score_active_slide").find(".swiper-slide-active").data("input-value");
+            let holeNumber = {{#holeNumber}}{{.}}{{/holeNumber}};
+            let roundId = {{#roundId}}{{.}}{{/roundId}};
+
 
             var roundsDto = {
                 "par": par,
@@ -808,13 +870,14 @@
                 "onGreen": onGreen,
                 "putt": putt,
                 "score": score,
-                // "holeNumber": holeNumber,
-                // "roundId": roundId,
+                "holeNumber": holeNumber,
+                "roundId": roundId,
             };
 
             console.log(roundsDto, '<- roundsDto');
 
             let url = "/rounds/" + roundId + "/" + holeNumber
+
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -823,7 +886,7 @@
                 data: JSON.stringify(roundsDto),
                 success: function (res) {
                     alert('score 수정되었습니다');
-                    window.location.href = '/rounds/1/2';
+                    window.location.href = '/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}';
                 },
                 error: function (err) {
                     console.log(err);
@@ -834,8 +897,6 @@
     }
 
     $(document).ready(function () {
-        console.log($('#par').val(), ":check the value");
-        console.log('/rounds/1/2');
 
         holes.init();
 

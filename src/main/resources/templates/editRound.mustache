@@ -28,37 +28,21 @@
 
                 <article>
                     {{#roundsDto}}
-                        <h1>
-                            {{#courseName}}
-                                {{ . }}
-                            {{/courseName}}
-                        </h1>
-                        <h2>
-                            {{#formattedDateTime}}
-                                {{ . }}
-                            {{/formattedDateTime}}
-                        </h2>
-                        <h2>
-                            {{#formattedDate}}
-                                {{ . }}
-                            {{/formattedDate}}
-                        </h2>
-                        <h2>
-                            {{#formattedTime}}
-                                {{ . }}
-                            {{/formattedTime}}
-                        </h2>
-                        <h2>
-                            {{#score}}
-                                {{ . }}
-                            {{/score}}
-                        </h2>
-                        <h2>
-                            {{#status}}
-                                {{ . }}
-                            {{/status}}
-                        </h2>
+
+                    <p style="font-size: 0.8rem;color: #222222;">{{#formattedDate}}{{.}}{{/formattedDate}} - {{#courseName}}{{.}}{{/courseName}}</p>
                     {{/roundsDto}}
+                    <br>
+                    <br>
+
+                    <p style="display: flex;font-size: .6rem; justify-content: flex-end;">
+                        <span style="color:greenyellow; padding:1px;">EAGLE</span>
+                        <span style="color:red; padding:1px;">BIRDIE</span>
+                        <span style="color:lightgrey; padding:1px;">PAR</span>
+                        <span style="color:dodgerblue;padding:1px;">BOGEY</span>
+                        <span style="color:darkgrey; padding:1px;">2 BOGEY</span>
+                        <span style="color:darkslategray; padding:1px;">3 BOGEY</span>
+                    </p>
+
 
                     <div class="tbl-content">
                         <table>
@@ -215,7 +199,7 @@
                 <br>
                 <br>
                 <hr>
-                <div>
+                <div style="font-size: 0.8rem;">
                     <div>
                         Weinabillion © 2020 - 2021. All Rights Reserved.
                     </div>

@@ -256,7 +256,7 @@ public class RoundController {
 
                     model.addAttribute("hole", hole);
 
-                    return "hole";
+                    return "scoreHole";
                 }
 
             } catch (Exception e) {
@@ -314,6 +314,11 @@ public class RoundController {
                         model.addAttribute("roundId", roundId);
                     } else {
 
+                        HolesDto holesDto = HolesDto.builder()
+                                .holeNumber(holeNumber)
+                                .build();
+                        model.addAttribute("holesDto", holesDto);
+                        model.addAttribute("roundId", roundId);
                     }
 
                     return "scoreHole";//testing
@@ -329,7 +334,7 @@ public class RoundController {
 
             return "scoreHole"; //testing
         } else {
-            return "hole";
+            return "scoreHole";
 //            return "redirect:/oauth_login";
         }
 

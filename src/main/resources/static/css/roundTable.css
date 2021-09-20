@@ -25,7 +25,8 @@ table {
     border: 1px solid var(--table-line-color);
     border-radius: 0.25em;
     border-collapse: collapse;
-    margin: 1em;
+    /*margin: 1em;*/
+    margin: 0px;
 }
 
 th {
@@ -92,9 +93,6 @@ h1 {
     /* border: 1px solid rgba(31, 29, 29, 0.3); */
 }
 
-table {
-    margin: 50px;
-}
 
 a,
 a:visited {
