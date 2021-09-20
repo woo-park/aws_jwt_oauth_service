@@ -251,22 +251,48 @@ public class RoundController {
 
                     roundService.updateRound(round);
 
-                    model.addAttribute("roundId", roundId);
-                    model.addAttribute("holeNumber", holeNumber);
-
-                    model.addAttribute("hole", hole);
-
-                    return "scoreHole";
+//                    if( hole != null) {
+//                        HolesDto dto = HolesDto.builder()
+//                                .par(hole.getPar())
+////                                    .updatedDate()
+//                                .roundId(roundId)
+//                                .putt(hole.getPutt())
+//                                .bunker(convertToString(hole.getBunker()))
+//                                .upDown(convertToString(hole.getUpDown()))
+//                                .fairway(convertToString(hole.getFairway()))
+//                                .onGreen(convertToString(hole.getOnGreen()))
+//                                .score(hole.getScore())
+//                                .holeNumber(hole.getHoleNumber())
+//                                .build();
+//
+//                        model.addAttribute("holesDto", dto);
+//                        model.addAttribute("roundId", roundId);
+//                    } else {
+//
+//                        HolesDto dto = HolesDto.builder()
+//                                .holeNumber(holeNumber)
+//                                .build();
+//                        model.addAttribute("holesDto", dto);
+//                        model.addAttribute("roundId", roundId);
+//                    }
+//
+//                    return "scoreHole";
                 }
 
             } catch (Exception e) {
                 logger.info("error occured during finding rounds & holes");
+                System.out.println("error occured during finding rounds & holes");
+                String redirectString = "redirect:/rounds/" + roundId + "?msg=error_occured";
+
             }
 
+            String redirectString = "redirect:/rounds/" + roundId;
+            return redirectString;
 
             // a portal that has access to holes 1 ~ 18
 
-            return "editRound";
+//            return "scoreHole"; //testing
+
         } else {
             return "redirect:/oauth_login";
         }

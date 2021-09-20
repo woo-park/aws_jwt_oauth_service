@@ -479,7 +479,7 @@
 <div class="w-navigation-menu">
 
     <div class="management-btn-wrap">
-        <a href="/{{#roundId}}{{.}}{{/roundId}}" class="management-btn w-logo-left-arrow">
+        <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}" class="management-btn w-logo-left-arrow">
             <span class="management-text">BACK</span>
         </a>
     </div>
@@ -886,7 +886,7 @@
                 data: JSON.stringify(roundsDto),
                 success: function (res) {
                     alert('score 수정되었습니다');
-                    window.location.href = '/rounds/{{#holesDto}}{{#roundId}}{{.}}{{/roundId}}/{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}';
+                    window.location.href = '/rounds';
                 },
                 error: function (err) {
                     console.log(err);

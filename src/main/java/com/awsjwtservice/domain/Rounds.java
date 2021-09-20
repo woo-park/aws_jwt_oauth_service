@@ -69,8 +69,8 @@ public class Rounds implements Serializable {
     public void updateHoles(Holes hole) {
         // check if this works -> need to remove one if it already existed and append new one
         this.holes.removeIf(producer -> producer.getHoleNumber() == hole.getHoleNumber());
-
         this.addHoles(hole);
+        System.out.println("updateHoles -> holes: " + this.holes);
     }
 
     //==비즈니스 로직==//
