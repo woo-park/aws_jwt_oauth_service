@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Start Round</title>
+
+    <link rel="stylesheet" href="/css/mainContainer.css">
+    <link rel="stylesheet" href="/css/topMenuNavigation.css">
+    <link rel="stylesheet" href="/css/bottomMenuNavigation.css">
+    <link rel="stylesheet" href="/css/startRound.css">
+</head>
+
+<body>
+
+<div class="navigationContainer">
+
+    <div class="header">
+        <div class="logo"><a href="">
+            <img src="https://brolik.com/images/BRO_logo.svg"></a>
+        </div>
+
+        <div class="icon-container">
+            <div id="menuicon">
+                <div class="bar bar1"></div>
+                <div class="bar bar2"></div>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul class="menu">
+                <li class="menu-item"><a href="/">Home</a>
+                </li>
+                <li class="menu-item"><a href="/register">Register</a>
+                </li>
+                <li class="menu-item"><a href="/rounds/start">Start Round</a>
+                </li>
+                <li class="menu-item"><a href="/rounds">My Rounds</a>
+                </li>
+                <li class="menu-item"><a href="/rounds/latest">My Latest Round</a>
+                </li>
+                <li class="menu-item"><a href="/">Support</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="content">
+        <!-- <img src="https://images.apple.com/v/iphone/home/y/images/overview/hero-iphone-xr_large.jpg" alt="" /> -->
+
+        <article>
+
+            <div class="table_row">
+                <div class="single_row">
+                    <form class="w-form" action="/rounds/start" method="post">
+                        <h2>START ROUND</h2>
+                        <p type="Course Name:"><input type="text" name="courseName" placeholder="Write name here.."></input></p>
+                        <p type="Round Date:"><input placeholder="09/19/2021 or 09-19-2021"></input></p>
+                        <p type="Tee Time:"><input placeholder="Optional.."></input></p>
+                        <!-- <p type="Message:"><input placeholder="What would you like to tell us.."></input></p> -->
+                        <button>Start</button>
+                        <div class="w-message">
+                            <!-- <span class="fa fa-phone"></span>001 1023 567
+                            <span class="fa fa-envelope-o"></span> contact@company.com -->
+                            <span>{{#name}}{{.}}{{/name}}</span>
+                            <span>{{#email}}{{.}}{{/email}}</span>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+
+<div class="w-navigation-menu">
+
+    <div class="management-btn-wrap">
+        <a href="javascript:window.history.back()" class="management-btn w-logo-left-arrow">
+            <span class="management-text">BACK</span>
+        </a>
+    </div>
+    <div class="management-btn-wrap">
+        <a href="/rounds" style="" class="management-btn w-logo-list">
+            <span class="management-text">LIST</span>
+        </a>
+    </div>
+    <div class="management-btn-wrap">
+        <a href="/" class="management-btn main-home-btn">
+            <span class="management-btn-circle selec7-logo-circle bg-img"></span>
+            <span class="management-text">HOME</span>
+        </a>
+    </div>
+
+
+</div>
+
+
+
+
+    <!--index.js 추가-->
+    <script src="/js/main/topMenuNavigation.js"></script>
+</body>
+
+</html>

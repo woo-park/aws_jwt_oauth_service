@@ -77,7 +77,8 @@ public class RoundController {
 
             try {
                 model.addAttribute("user", account);
-
+                model.addAttribute("name", account.getUsername());
+                model.addAttribute("email", account.getEmail());
                 long roundId = roundService.createRound(account, roundDetails.getCourseName());
                 String redirectString = "redirect:/rounds/" + roundId;
 
@@ -93,6 +94,65 @@ public class RoundController {
         }
 
 
+    }
+
+
+    /* get Score Card */
+    @RequestMapping(value = "/rounds/start", method = RequestMethod.POST)
+    public String startRound(RoundsDto roundDetails, Model model) {
+        SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        if (user != null) {
+            Account account = accountService.findUser(user.getEmail());
+
+            try {
+                model.addAttribute("user", account);
+
+
+
+                long roundId = roundService.createRound(account, roundDetails.getCourseName());
+                String redirectString = "redirect:/rounds/" + roundId;
+
+                return redirectString;
+
+            } catch (Exception e) {
+                logger.info("can't find user");
+            }
+            // a portal that has access to holes 1 ~ 18
+
+            return "startRound";
+        } else {
+            return "redirect:/oauth_login";
+        }
+    }
+
+
+
+    /* get Score Card */
+    @RequestMapping(value = "/rounds/start", method = RequestMethod.GET)
+    public String getStartRound(Model model) {
+        SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        if (user != null) {
+            Account account = accountService.findUser(user.getEmail());
+
+            try {
+
+                model.addAttribute("user", account);
+                model.addAttribute("name", account.getUsername());
+                model.addAttribute("email", account.getEmail());
+
+            } catch (Exception e) {
+                logger.info("can't find user");
+            }
+            // a portal that has access to holes 1 ~ 18
+
+            return "startRound";
+        } else {
+            return "redirect:/oauth_login";
+        }
     }
 
 

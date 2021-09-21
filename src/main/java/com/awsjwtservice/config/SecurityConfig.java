@@ -169,6 +169,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rounds/**").access("hasRole('ADMIN') or hasRole('USER') or hasRole('MANAGER')")
                 .antMatchers("/rounds/**/**").access("hasRole('ADMIN') or hasRole('USER') or hasRole('MANAGER')")
                 .antMatchers(HttpMethod.POST,"/rounds/**/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/rounds/start/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/rounds").permitAll()
 
                 //.antMatchers("/**").permitAll()
