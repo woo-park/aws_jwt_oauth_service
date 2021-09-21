@@ -16,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -223,7 +225,7 @@ public class RoundController {
 
     /* HolesDto holesDto,  로 받는 작업 해야함 */
     @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.POST)
-    public String updateRound(@PathVariable("roundId") long roundId, @PathVariable("holeNumber") int holeNumber, @RequestBody HolesDto holesDto, Model model) {
+    public void updateRound(@PathVariable("roundId") long roundId, @PathVariable("holeNumber") int holeNumber, @RequestBody HolesDto holesDto, Model model, HttpServletResponse response) throws IOException {
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
         if (user != null) {
@@ -237,8 +239,10 @@ public class RoundController {
                 if(round.getAccount().getId() != account.getId()) {
 
                     logger.info("not the owner of this round.");
-                    String redirectString = "redirect:/rounds/" + roundId + "?msg=no_access";
-                    return redirectString;
+//                    String redirectString = "redirect:/rounds/" + roundId + "?msg=no_access";
+                    String redirectString = "/rounds/" + roundId + "?msg=no_access";
+//                    return redirectString;
+                    response.sendRedirect(redirectString);
                 } else {
                     Holes hole = roundService.checkHoleExistsAndCreate(round, holesDto);
 
@@ -277,24 +281,29 @@ public class RoundController {
 //                    }
 //
 //                    return "scoreHole";
+                    String redirectString = "/rounds/" + roundId;
+                    response.sendRedirect(redirectString);
                 }
 
             } catch (Exception e) {
                 logger.info("error occured during finding rounds & holes");
                 System.out.println("error occured during finding rounds & holes");
-                String redirectString = "redirect:/rounds/" + roundId + "?msg=error_occured";
-
+                String redirectString = "/rounds/" + roundId + "?msg=no_round_found";
+                response.sendRedirect(redirectString);
             }
 
-            String redirectString = "redirect:/rounds/" + roundId;
-            return redirectString;
+
+//            response.sendRedirect("/rounds");
+
 
             // a portal that has access to holes 1 ~ 18
 
 //            return "scoreHole"; //testing
 
         } else {
-            return "redirect:/oauth_login";
+//            return "redirect:/oauth_login";
+
+            response.sendRedirect("/oauth_login");
         }
     }
 

@@ -201,7 +201,7 @@
             float: left;
             width: 120px;
             padding: 0;
-            margin: 10px 20px 10px 0;
+            margin: 10px 0px 10px 0;
             font-weight: 600;
             text-align: center;
             line-height: 50px;
@@ -466,9 +466,9 @@
             <div class="table_row">
                 <div class="single_row">
 
-                    <div class="update_button">
-                        <a id="submitBtn" href="" title="Button push lightblue" class="button btnPush btnLightBlue">Push</a>
-                    </div>
+<!--                    <div class="update_button">-->
+<!--                        <a id="submitBtn" href="javascript:void(0);" title="Button push lightblue" class="button btnPush btnLightBlue">Push</a>-->
+<!--                    </div>-->
                 </div>
 
             </div>
@@ -484,8 +484,8 @@
         </a>
     </div>
     <div class="management-btn-wrap">
-        <a href="/rounds" style="" class="management-btn w-logo-table">
-            <span class="management-text">TABLE</span>
+        <a href="/rounds" style="" class="management-btn w-logo-list">
+            <span class="management-text">LIST</span>
         </a>
     </div>
     <div class="management-btn-wrap">
@@ -495,11 +495,19 @@
         </a>
     </div>
 
+<!--    <div class="management-btn-wrap">-->
+<!--        <a href="#" class="management-btn w-logo-calculator">-->
+<!--            <span class="management-text">STATS</span>-->
+<!--        </a>-->
+<!--    </div>-->
+
     <div class="management-btn-wrap">
-        <a href="#" class="management-btn w-logo-calculator">
-            <span class="management-text">STATS</span>
+        <a id="submitBtn" style="" href="javascript:void(0);" class="management-btn w-logo-flag">
+            <span class="management-text">SAVE</span>
         </a>
     </div>
+
+
 
 </div>
 
@@ -886,7 +894,7 @@
                 data: JSON.stringify(roundsDto),
                 success: function (res) {
                     alert('score 수정되었습니다');
-                    window.location.href = '/rounds';
+                    // window.location.href = '/rounds';
                 },
                 error: function (err) {
                     console.log(err);
