@@ -164,6 +164,8 @@ public class RoundController {
 
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
 
         if (user != null) {
@@ -183,6 +185,8 @@ public class RoundController {
                                     .courseName(round.getCourseName())
                                     .roundDate(round.getRoundDate())
                                     .formattedDateTime(round.getRoundDate() != null ? round.getRoundDate().format(formatter) : "")
+                                    .formattedDate(round.getRoundDate() != null ? round.getRoundDate().toLocalDate().format(dateFormatter) : "")
+                                    .formattedTime(round.getRoundDate() != null ? round.getRoundDate().toLocalTime().format(timeFormatter) : "")
                                     .index(counter += 1)
                                     .roundId(round.getId())
                                     .build()
@@ -196,10 +200,9 @@ public class RoundController {
                 logger.info("can't find user");
             }
 
-
             // a portal that has access to holes 1 ~ 18
 
-            return "round";
+            return "roundList";
         } else {
             return "redirect:/oauth_login";
         }
