@@ -245,14 +245,14 @@ public class RoundController {
 
                 for(int i = 1; i <= 18; i++) {
                     holesDto.add(HolesDto.builder()
-                            .par(0)
+                            .par(null)
                             .roundId(roundId)
-                            .putt(0)
+                            .putt(null)
                             .bunker("")
                             .upDown("")
                             .fairway("")
                             .onGreen("")
-                            .score(0)
+                            .score(null)
                             .holeNumber(i)
                             .build());
                 }
@@ -482,10 +482,16 @@ public class RoundController {
 
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
+
+
         if (user != null) {
             Account account = accountService.findUser(user.getEmail());
 
             try {
+
+                /* Putts Per Round “GIR” */
+                Integer puttsPerRoundGIR = 0;
+                Integer greenInRegulationNumber = 0;
 
                 Rounds round = roundService.findLatestRound(account.getId());
 
@@ -506,14 +512,14 @@ public class RoundController {
 
                     for(int i = 1; i <= 18; i++) {
                         holesDto.add(HolesDto.builder()
-                                .par(0)
+                                .par(null)
                                 .roundId(roundsDto.getRoundId())
-                                .putt(0)
+                                .putt(null)
                                 .bunker("")
                                 .upDown("")
                                 .fairway("")
                                 .onGreen("")
-                                .score(0)
+                                .score(null)
                                 .holeNumber(i)
                                 .build());
                     }
@@ -522,7 +528,20 @@ public class RoundController {
                         for(Holes hole : holes) {
                             int j = hole.getHoleNumber();
 
-                            totalScore += hole.getScore();
+                            Boolean greenInRegulation = false;
+
+                            if(hole.getPar() != null && hole.getScore() != null) {
+                                int holeScore = hole.getPar() + hole.getScore();
+
+                                totalScore += holeScore;
+                            }
+
+                            if(hole.getPutt() != null && hole.getOnGreen() != null && hole.getOnGreen() != 0) {
+                                greenInRegulation = true;
+                                greenInRegulationNumber += 1;
+//                        System.out.println("hole#" + hole.getHoleNumber() + "in regulation");
+                                puttsPerRoundGIR += hole.getPutt();
+                            }
 
                             holesDto.set(j - 1, HolesDto.builder()
                                     .par(hole.getPar())
@@ -546,6 +565,10 @@ public class RoundController {
                         Basic stats calculation
                     */
                     model.addAttribute("totalScore", totalScore);
+                    if(greenInRegulationNumber != 0) {
+                        model.addAttribute("puttsPerRoundGIR", (String.format("%.2f", (float)puttsPerRoundGIR / greenInRegulationNumber)));
+                    }
+
 
                     model.addAttribute("roundsDto", roundsDto);
                     model.addAttribute("holesDto", holesDto);
