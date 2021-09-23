@@ -226,6 +226,9 @@ public class RoundController {
 
 
                 Integer totalScore = 0;
+                /* Putts Per Round “GIR” */
+                Integer puttsPerRoundGIR = 0;
+                Integer greenInRegulationNumber = 0;
 
                 Rounds round = roundService.findRound(roundId);
                 List<Holes> holes = round.getHoles();
@@ -257,11 +260,20 @@ public class RoundController {
                 for(Holes hole : holes) {
                     int j = hole.getHoleNumber();
 
+                    Boolean greenInRegulation = false;
+
                     if(hole.getPar() != null && hole.getScore() != null) {
                         int holeScore = hole.getPar() + hole.getScore();
+
                         totalScore += holeScore;
                     }
 
+                    if(hole.getPutt() != null && hole.getOnGreen() != null && hole.getOnGreen() != 0) {
+                        greenInRegulation = true;
+                        greenInRegulationNumber += 1;
+//                        System.out.println("hole#" + hole.getHoleNumber() + "in regulation");
+                        puttsPerRoundGIR += hole.getPutt();
+                    }
 
                     holesDto.set(j - 1, HolesDto.builder()
                             .par(hole.getPar())
@@ -283,6 +295,9 @@ public class RoundController {
                     Basic stats calculation
                 */
                 model.addAttribute("totalScore", totalScore);
+                if(greenInRegulationNumber != 0) {
+                    model.addAttribute("puttsPerRoundGIR", (String.format("%.2f", (float)puttsPerRoundGIR / greenInRegulationNumber)));
+                }
 
                 model.addAttribute("roundsDto", roundsDto);
                 model.addAttribute("holesDto", holesDto);

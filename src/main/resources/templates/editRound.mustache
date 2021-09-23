@@ -144,6 +144,21 @@
                                         {{/holesDto}}
                                     </td>
                                 </tr>
+
+                                <tr class="disabled">
+                                <td contenteditable="false">Bunker
+                                    {{#holesDto}}
+                                        <td>
+                                            {{#bunker}}
+                                                {{ . }}
+                                            {{/bunker}}
+                                            {{^bunker}}N/A{{/bunker}}
+                                        </td>
+
+                                    {{/holesDto}}
+                                    </td>
+                                </tr>
+
                                 <tr>
                                     <td contenteditable="false">Up/Dw
                                         {{#holesDto}}
@@ -155,19 +170,7 @@
                                         {{/holesDto}}
                                     </td>
                                 </tr>
-                                <tr class="disabled">
-                                    <td contenteditable="false">Bunker
-                                        {{#holesDto}}
-                                            <td>
-                                                {{#bunker}}
-                                                    {{ . }}
-                                                {{/bunker}}
-                                                {{^bunker}}N/A{{/bunker}}
-                                            </td>
 
-                                        {{/holesDto}}
-                                    </td>
-                                </tr>
                                 <tr>
                                     <td contenteditable="false">Putts
                                         {{#holesDto}}
@@ -178,6 +181,13 @@
                                             </td>
                                         {{/holesDto}}
                                     </td>
+
+                                    {{#puttsPerRoundGIR}}
+                                        <td>
+                                            {{ . }}<span style="font-size:0.3rem;">pph(GIR)</span>
+
+                                        </td>
+                                    {{/puttsPerRoundGIR}}
                                 </tr>
                                 <tr>
                                     <td contenteditable="false">Score
