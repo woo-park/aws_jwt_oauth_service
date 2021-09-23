@@ -224,6 +224,9 @@ public class RoundController {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
+
+                Integer totalScore = 0;
+
                 Rounds round = roundService.findRound(roundId);
                 List<Holes> holes = round.getHoles();
 
@@ -253,6 +256,13 @@ public class RoundController {
 
                 for(Holes hole : holes) {
                     int j = hole.getHoleNumber();
+
+                    if(hole.getPar() != null && hole.getScore() != null) {
+                        int holeScore = hole.getPar() + hole.getScore();
+                        totalScore += holeScore;
+                    }
+
+
                     holesDto.set(j - 1, HolesDto.builder()
                             .par(hole.getPar())
                             .roundId(roundId)
@@ -266,6 +276,13 @@ public class RoundController {
                             .build());
 
                 }
+
+
+
+                /*
+                    Basic stats calculation
+                */
+                model.addAttribute("totalScore", totalScore);
 
                 model.addAttribute("roundsDto", roundsDto);
                 model.addAttribute("holesDto", holesDto);
@@ -428,6 +445,7 @@ public class RoundController {
             }
 
 
+
             // a portal that has access to holes 1 ~ 18
 
             return "scoreHole"; //testing
@@ -457,7 +475,7 @@ public class RoundController {
                 Rounds round = roundService.findLatestRound(account.getId());
 
                 if(round != null) {
-
+                    Integer totalScore = 0;
 
                     RoundsDto roundsDto = RoundsDto.builder()
                             .courseName(round.getCourseName())
@@ -488,6 +506,9 @@ public class RoundController {
                     if(holes.size() != 0) {
                         for(Holes hole : holes) {
                             int j = hole.getHoleNumber();
+
+                            totalScore += hole.getScore();
+
                             holesDto.set(j - 1, HolesDto.builder()
                                     .par(hole.getPar())
                                     .roundId(roundsDto.getRoundId())
@@ -505,6 +526,11 @@ public class RoundController {
 
                     }
 
+
+                    /*
+                        Basic stats calculation
+                    */
+                    model.addAttribute("totalScore", totalScore);
 
                     model.addAttribute("roundsDto", roundsDto);
                     model.addAttribute("holesDto", holesDto);
