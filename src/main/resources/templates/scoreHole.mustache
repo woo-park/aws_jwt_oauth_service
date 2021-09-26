@@ -502,10 +502,24 @@
 <!--    </div>-->
 
     <div class="management-btn-wrap">
+        <a style="" href="{{^previousHole}}javascript:void(0);{{/previousHole}}{{#previousHole}}/rounds/{{#roundId}}{{.}}{{/roundId}}/{{.}}{{/previousHole}}" class="management-btn w-logo-previous">
+            <span class="management-text">PREVIOUS</span>
+        </a>
+    </div>
+
+    <div class="management-btn-wrap">
         <a id="submitBtn" style="" href="javascript:void(0);" class="management-btn w-logo-flag">
             <span class="management-text">SAVE</span>
         </a>
     </div>
+
+    <div class="management-btn-wrap">
+        <a style="" href="{{^nextHole}}javascript:void(0);{{/nextHole}}{{#nextHole}}/rounds/{{#roundId}}{{.}}{{/roundId}}/{{.}}{{/nextHole}}" class="management-btn w-logo-next">
+            <span class="management-text">NEXT</span>
+        </a>
+    </div>
+
+
 
 
 
