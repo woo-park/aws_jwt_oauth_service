@@ -58,16 +58,16 @@
                 <div class="single_row">
                     <form class="w-form" action="/rounds/start" method="post">
                         <h2>START ROUND</h2>
+                        <br>
                         <p type="Course Name:"><input type="text" name="courseName" placeholder="Write name here.."></input></p>
                         <p type="Round Date:"><input placeholder="09/19/2021 or 09-19-2021"></input></p>
-                        <p type="Tee Time:"><input placeholder="Optional.."></input></p>
+<!--                        <p type="Tee Time:"><input placeholder="Optional.."></input></p>-->
                         <!-- <p type="Message:"><input placeholder="What would you like to tell us.."></input></p> -->
                         <button>Start</button>
                         <div class="w-message">
                             <!-- <span class="fa fa-phone"></span>001 1023 567
                             <span class="fa fa-envelope-o"></span> contact@company.com -->
-                            <span>{{#name}}{{.}}{{/name}}</span>
-                            <span>{{#email}}{{.}}{{/email}}</span>
+                            <span>Player Info: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{#name}}{{.}}{{/name}} {{#email}} - {{.}}{{/email}}</span>
                         </div>
                     </form>
 
