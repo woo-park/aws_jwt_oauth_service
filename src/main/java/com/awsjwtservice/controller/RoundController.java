@@ -426,6 +426,7 @@ public class RoundController {
 
                     Holes hole = holeRepository.findByHoleNumberAndRound(holeNumber, round);
 
+
                     if( hole != null) {
                         HolesDto holesDto = HolesDto.builder()
                                 .par(hole.getPar())
@@ -440,9 +441,27 @@ public class RoundController {
                                 .holeNumber(hole.getHoleNumber())
                                 .build();
 
+                        if(holeNumber > 1 && holeNumber < 18) {
+                            model.addAttribute("nextHole", holeNumber + 1);
+                            model.addAttribute("previousHole", holeNumber - 1);
+                        } else if (holeNumber == 1) {
+                            model.addAttribute("nextHole", holeNumber + 1);
+                        } else if (holeNumber == 18) {
+                            model.addAttribute("previousHole", holeNumber - 1);
+                        }
+
                         model.addAttribute("holesDto", holesDto);
                         model.addAttribute("roundId", roundId);
                     } else {
+
+                        if(holeNumber > 1 && holeNumber < 18) {
+                            model.addAttribute("nextHole", holeNumber + 1);
+                            model.addAttribute("previousHole", holeNumber - 1);
+                        } else if (holeNumber == 1) {
+                            model.addAttribute("nextHole", holeNumber + 1);
+                        } else if (holeNumber == 18) {
+                            model.addAttribute("previousHole", holeNumber - 1);
+                        }
 
                         HolesDto holesDto = HolesDto.builder()
                                 .holeNumber(holeNumber)
@@ -451,7 +470,9 @@ public class RoundController {
                         model.addAttribute("roundId", roundId);
                     }
 
-                    return "scoreHole";//testing
+
+
+                    return "scoreHole";
                 }
 
 
