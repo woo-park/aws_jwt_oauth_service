@@ -311,12 +311,22 @@
                     <img src="https://brolik.com/images/BRO_logo.svg"></a>
             </div>
 
+            <div class="desktop-menu">
+                <div>home</div>
+                <div>Register</div>
+                <div>Start Round</div>
+                <div>My Rounds</div>
+                <div>My Latest Round</div>
+                <div>Support</div>
+            </div>
+
             <div class="icon-container">
                 <div id="menuicon">
                     <div class="bar bar1"></div>
                     <div class="bar bar2"></div>
                 </div>
             </div>
+           
             <div class="mobile-menu">
                 <ul class="menu">
                     <li class="menu-item"><a href="#">Home</a>
@@ -1125,10 +1135,13 @@
         (function () {
             const header = document.querySelector('.header');
             const mobileMenu = document.querySelector('.mobile-menu');
+            const desktopMenu = document.querySelector('.desktop-menu');
+
             const icon = document.querySelector('.icon-container');
             icon.onclick = function () {
                 header.classList.toggle('menu-open');
                 mobileMenu.classList.toggle('menu-open');
+                desktopMenu.classList.toggle('menu-open');
             }
         }())
 
@@ -1152,7 +1165,10 @@
         speed: 200,
         freeModeMomentumRatio: 0.3,
         freeModeMomentumVelocityRatio: 1,
+        updateOnWindowResize: true,
     });
+
+
 
 // When changin the slidesPerView, also update HTML class modifier
 
@@ -1162,7 +1178,19 @@
 <!--부트스트랩 js, jquery 추가-->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+
+
 <script>
+
+    $(window).resize(function(){
+        
+        for(let i = 0; i< swiper.length; i++) {
+            swiper[i].slideReset();
+        }
+    });
+    $(window).trigger('resize');
+
+
     var holes = {
         error: false,          //using this as a semi-global variable, to trigger return false;
         init: function () {
@@ -1171,6 +1199,8 @@
 
                 _this.save();
             });
+
+
         },
         isInt: function (value) {
             return !isNaN(value) && (function (x) { return (x | 0) === x; })(parseFloat(value))
