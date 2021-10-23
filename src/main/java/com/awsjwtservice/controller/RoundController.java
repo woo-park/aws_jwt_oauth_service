@@ -543,7 +543,9 @@ public class RoundController {
                         for(Holes hole : holes) {
                             int j = hole.getHoleNumber();
 
-                            totalScore += hole.getScore();
+                            if(hole.getScore() != null) {
+                                totalScore += hole.getScore();
+                            }
 
                             holesDto.set(j - 1, HolesDto.builder()
                                     .par(hole.getPar())

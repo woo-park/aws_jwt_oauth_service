@@ -253,7 +253,14 @@
         <div class="logo"><a href="">
             <img src="https://brolik.com/images/BRO_logo.svg"></a>
         </div>
-
+        <div class="desktop-menu">
+            <div><a href="/">Home</a></div>
+            <div><a href="/register">Register</a></div>
+            <div><a href="/rounds/start">Start Round</a></div>
+            <div><a href="/rounds">My Rounds</a></div>
+            <div><a href="/rounds/latest">My Latest Round</a></div>
+            <div><a href="#">Support</a></div>
+        </div>
         <div class="icon-container">
             <div id="menuicon">
                 <div class="bar bar1"></div>
@@ -546,18 +553,10 @@
 
 <!-- swiper-slide-active -->
 
+<!--index.js 추가-->
+<script src="/js/main/topMenuNavigation.js"></script>
 <script>
 
-
-    (function () {
-        const header = document.querySelector('.header');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const icon = document.querySelector('.icon-container');
-        icon.onclick = function () {
-            header.classList.toggle('menu-open');
-            mobileMenu.classList.toggle('menu-open');
-        }
-    }())
 
     var swiper = new Swiper(".swiper-container", {
         slidesPerView: 3,
@@ -582,6 +581,14 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script>
+
+    $(window).resize(function(){
+
+        for(let i = 0; i< swiper.length; i++) {
+            swiper[i].slideReset();
+        }
+    });
+    $(window).trigger('resize');
 
     // let myobj = $("#testing").val();
     // console.log(JSON.parse(myobj));

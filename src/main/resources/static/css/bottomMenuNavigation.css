@@ -208,14 +208,14 @@ a:hover {
 @media only screen and (min-width: 600px) {
     .w-navigation-menu {
         height: 54px;
-        position: absolute;
+        position: fixed;
         /* bottom: -1px; */
-        left: 0;
-        width: 375px;
+
+        width: 100%;
         transform: translate(-50%, var(--menu-top-height));
         left: 50%;
-        top: var(--container-height);
-
+        /* top: var(--container-height); */
+        bottom: 50px;
     }
 
 }
