@@ -549,6 +549,7 @@ public class RoundController {
                         for(Holes hole : holes) {
                             int j = hole.getHoleNumber();
 
+
                             Boolean greenInRegulation = false;
 
                             if(hole.getPar() != null && hole.getScore() != null) {
@@ -562,6 +563,10 @@ public class RoundController {
                                 greenInRegulationNumber += 1;
 //                        System.out.println("hole#" + hole.getHoleNumber() + "in regulation");
                                 puttsPerRoundGIR += hole.getPutt();
+                            }
+                            if(hole.getScore() != null) {
+                                totalScore += hole.getScore();
+
                             }
 
                             holesDto.set(j - 1, HolesDto.builder()

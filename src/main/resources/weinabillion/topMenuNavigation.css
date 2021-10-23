@@ -242,6 +242,10 @@ body {
         background: inherit;
         transition: all 0.45s ease-out, background 2s ease-out;
     }
+
+    .desktop-menu {
+        display: none;
+    }
 }
 /* End container/placeholder */
 
@@ -249,9 +253,58 @@ body {
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 600px) {
 
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .header .logo{
+        margin-right: auto;
+        /* // You can change the negative value based on the width on the right side's text */
+        /* margin-right: -40px; */
+        
+    }
+
+    .desktop-menu {
+        color:white;
+        display: flex;
+        margin-top:-130px;
+        overflow: hidden;
+        /* margin-left:30%; */
+        
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        transition: all 0.45s ease-out, background 2s ease-out;
+
+    }
+
+    .mobile-menu{
+        display: none;
+    }
+    
+    .icon-container{
+        margin-left: auto;
+        min-width: 70px;
+    } 
+
+
+    .desktop-menu div {
+        text-align: center;
+    }
+
+    .desktop-menu.menu-open {
+        width: 100%;
+      
+        margin-top:0px;
+        transition: all 0.45s ease-out, background 2s ease-out;
+        
+    }
+
     .mobile-menu {
-        position: absolute;
-        width: var(--container-width);
+        /* position: absolute; */
+        /* width: var(--container-width); */
         z-index: 10;
         left: 50%;
         height: 0;
@@ -264,16 +317,33 @@ body {
     .mobile-menu.menu-open {
         /* container size - navigation top height */
         /* height: calc(var(--container-height) - var(--menu-top-height)); */
-        height: calc(var(--container-height));
+        /* height: calc(var(--container-height));
         
         background: inherit;
-        transition: all 0.45s ease-out, background 2s ease-out;
+        transition: all 0.45s ease-out, background 2s ease-out; */
     }
 
     .navigationContainer{
-        width: var(--container-width);
-        height: 0px;
-        margin: 50px auto 0;
+        /* width: var(--container-width); */
+        /* height: 0px; */
+        /* margin: 50px auto 0; */
     }
 
+}
+
+
+@media only screen and (min-width: 768px) {
+    .desktop-menu {
+        color:white;
+        display: flex;
+        margin-top:-130px;
+        overflow: hidden;
+        margin-left:15%;
+        
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        transition: all 0.45s ease-out, background 2s ease-out;
+
+    }
 }
