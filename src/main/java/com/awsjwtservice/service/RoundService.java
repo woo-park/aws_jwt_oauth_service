@@ -36,6 +36,7 @@ public class RoundService {
     HoleService holeService;
 
     public Page<Rounds> findAllRounds(Pageable pageable) {
+        String privacyStatus = "public";
 
         return (Page<Rounds>) roundRepository.findAll(privacyStatus, pageable);
     }

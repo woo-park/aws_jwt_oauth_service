@@ -172,6 +172,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/rounds/start/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/rounds").permitAll()
 
+                .antMatchers("/rounds/public").permitAll()
+                .antMatchers("/rounds/public/**").permitAll()
+
                 //.antMatchers("/**").permitAll()
 
                 .antMatchers(HttpMethod.POST, "/login_proc").permitAll()

@@ -159,7 +159,6 @@ public class RoundController {
     /* All rounds, list with pagination, public status, sort by date played, open to all */
     @RequestMapping(value = "/rounds/public", method = RequestMethod.GET)
     public String publicRounds(Model model) {
-        SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -169,7 +168,7 @@ public class RoundController {
 
             try {
 
-                PageRequest pageRequest = PageRequest.of(0, 5);
+                PageRequest pageRequest = PageRequest.of(1, 5);
 
                 Page<Rounds> rounds = roundService.findAllRounds(pageRequest);
 
