@@ -3,6 +3,9 @@ package com.awsjwtservice.repository;
 
 import com.awsjwtservice.domain.*;
 import com.awsjwtservice.domain.item.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -12,6 +15,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Repository
 public class RoundRepository {
@@ -25,6 +29,17 @@ public class RoundRepository {
 
     public Rounds findOne(Long id) {
         return em.find(Rounds.class, id);
+    }
+
+    public Page<Rounds> findAll(String privacyStatus, Pageable pageable) {
+        TypedQuery<Rounds> query = em.createQuery("select i from Rounds i",Rounds.class);
+
+        List<Rounds> rounds = query
+//                .setParameter("accountId", accountId)
+                .getResultList();
+
+        Page<Rounds> results = new PageImpl<>(rounds, pageable, 0);
+        return results;
     }
     public List<Rounds> findAll(Long accountId) {
 

@@ -8,9 +8,12 @@ import com.awsjwtservice.repository.HoleRepository;
 import com.awsjwtservice.repository.RoundRepository;
 import com.awsjwtservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +34,11 @@ public class RoundService {
 
     @Autowired
     HoleService holeService;
+
+    public Page<Rounds> findAllRounds(Pageable pageable) {
+
+        return (Page<Rounds>) roundRepository.findAll(privacyStatus, pageable);
+    }
 
     public List<Rounds> findAllRounds(long accountId) {
 

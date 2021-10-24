@@ -12,9 +12,12 @@ import com.awsjwtservice.service.AccountService;
 import com.awsjwtservice.service.HoleService;
 import com.awsjwtservice.service.RoundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -109,8 +112,6 @@ public class RoundController {
             try {
                 model.addAttribute("user", account);
 
-
-
                 long roundId = roundService.createRound(account, roundDetails.getCourseName());
                 String redirectString = "redirect:/rounds/" + roundId;
 
@@ -155,13 +156,40 @@ public class RoundController {
         }
     }
 
+    /* All rounds, list with pagination, public status, sort by date played, open to all */
+    @RequestMapping(value = "/rounds/public", method = RequestMethod.GET)
+    public String publicRounds(Model model) {
+        SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+//        if (user != null) {
+
+            try {
+
+                PageRequest pageRequest = PageRequest.of(0, 5);
+
+                Page<Rounds> rounds = roundService.findAllRounds(pageRequest);
+
+                List<RoundsDto> roundsDtos = new ArrayList<>();
+
+            } catch (Exception e) {
+                logger.info("can't find user");
+            }
+
+            return "roundList";
+//        } else {
+//            return "redirect:/oauth_login";
+//        }
+    }
 
     /* get Score Card */
     @RequestMapping(value = "/rounds", method = RequestMethod.GET)
     public String rounds(Model model) {
 
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
-
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
