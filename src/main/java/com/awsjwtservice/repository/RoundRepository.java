@@ -32,24 +32,25 @@ public class RoundRepository {
         return em.find(Rounds.class, id);
     }
 
-    public Page<Rounds> findAll(String privacyStatus, Pageable pageable) {
-        List<Rounds> rounds = em.createQuery("select i from Rounds i",Rounds.class)
-                .setFirstResult(0)
-                .setMaxResults(10)
+    public Page<Rounds> findAll(PrivacyType privacyType, Pageable pageable) {
+
+        // privacyType
+
+        List<Rounds> rounds = em.createQuery("select r from Rounds r ORDER BY r.regdate DESC",Rounds.class)
+                .setFirstResult(pageable.getPageNumber() * pageable.getPageSize())  //startPosition 조회 시작 위치(0부터 시작한다)
+                .setMaxResults(pageable.getPageSize())  // maxResult 조회할 데이터 수
                 .getResultList();
 
+        /*
+        * 시작은 0 이므로 1번째부터 시작해서 총 10건의 데이터를 조회한다. 따라서 1~10번 데이터를 조회한다
+        * */
 
-        int pageSize = pageable.getPageSize();
-        long pageOffset = pageable.getOffset();
-//        long total = pageOffset + rounds.size() + (rounds.size() == pageSize ? pageSize : 0);
-        Page<Rounds> pages = new PageImpl<Rounds>(rounds, pageable,total);
+        int start = (int)pageable.getOffset();
+        int end = (start + pageable.getPageSize()) > rounds.size() ? rounds.size() : (start + pageable.getPageSize());
 
-//        PagedListHolder pages = new PagedListHolder(rounds);
-//        pages.setPageSize(pageSize); // number of items per page
-//        pages.setPage(pageable.getPageNumber());      // set to first page
-
-        return pages;
+        return new PageImpl<>(rounds.subList(start,end), pageable, rounds.size());
     }
+
     public List<Rounds> findAll(Long accountId) {
 
         TypedQuery<Rounds> query = em.createQuery("select i from Rounds i where i.account.id = :accountId",Rounds.class);

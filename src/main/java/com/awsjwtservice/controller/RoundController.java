@@ -164,24 +164,38 @@ public class RoundController {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-//        if (user != null) {
 
-            try {
+        try {
 
-                PageRequest pageRequest = PageRequest.of(1, 5);
+            PageRequest pageRequest = PageRequest.of(0, 5);
 
-                Page<Rounds> rounds = roundService.findAllRounds(pageRequest);
+            Page<Rounds> rounds = roundService.findAllRounds(pageRequest);
 
-                List<RoundsDto> roundsDtos = new ArrayList<>();
+            List<RoundsDto> roundsDtos = new ArrayList<>();
 
-            } catch (Exception e) {
-                logger.info("can't find user");
+            int counter = 0;
+            for (Rounds round : rounds) {
+                roundsDtos.add(
+                        RoundsDto.builder()
+                                .courseName(round.getCourseName())
+                                .roundDate(round.getRoundDate())
+                                .formattedDateTime(round.getRoundDate() != null ? round.getRoundDate().format(formatter) : "")
+                                .formattedDate(round.getRoundDate() != null ? round.getRoundDate().toLocalDate().format(dateFormatter) : "")
+                                .formattedTime(round.getRoundDate() != null ? round.getRoundDate().toLocalTime().format(timeFormatter) : "")
+                                .index(counter += 1)
+                                .roundId(round.getId())
+                                .build()
+                );
             }
 
-            return "roundList";
-//        } else {
-//            return "redirect:/oauth_login";
-//        }
+
+            model.addAttribute("rounds", roundsDtos);
+
+        } catch (Exception e) {
+            logger.info("can't find user");
+        }
+
+        return "roundList";
     }
 
     /* get Score Card */

@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import org.springframework.data.domain.Pageable;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,10 +38,12 @@ public class RoundService {
     @Autowired
     HoleService holeService;
 
-    public Page<Rounds> findAllRounds(Pageable pageable) {
-        String privacyStatus = "public";
+    @Enumerated(EnumType.STRING)
+    private PrivacyType privacyType;
 
-        return (Page<Rounds>) roundRepository.findAll(privacyStatus, pageable);
+    public Page<Rounds> findAllRounds(Pageable pageable) {
+
+        return (Page<Rounds>) roundRepository.findAll(privacyType.PUBLIC, pageable);
     }
 
     public List<Rounds> findAllRounds(long accountId) {
