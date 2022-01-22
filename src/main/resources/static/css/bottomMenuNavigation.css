@@ -96,13 +96,13 @@ table {
     margin: 50px;
 }
 
-a,
-a:visited {
+.w-navigation-menu a,
+.w-navigation-menu a:visited {
     text-decoration: none;
     color: #2f3335;
 }
 
-a:hover {
+.w-navigation-menu a:hover {
     color: var(--table-hover-color);
 }
 

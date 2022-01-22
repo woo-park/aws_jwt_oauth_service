@@ -50,7 +50,6 @@ body {
 }
 
 
-
 .header ul.menu li.menu-item a {
     display: block;
     position: relative;
@@ -60,6 +59,16 @@ body {
     line-height: 2.8;
     width: 100%;
     -webkit-tap-highlight-color: transparent;
+}
+
+
+a, a:hover{
+    text-decoration: none;
+    color:#fff
+}
+
+.navigationContainer a:hover {
+    color: #aab2b6;
 }
 
 .header ul.menu li.menu-item {
