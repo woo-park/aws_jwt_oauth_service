@@ -22,6 +22,7 @@ public class RoundsDto {
 
 //    private long id;
 
+    private String userName;
     private String courseName;
 
     private LocalDateTime roundDate;

@@ -156,16 +156,16 @@ public class RoundController {
         }
     }
 
+
+
     /* All rounds, list with pagination, public status, sort by date played, open to all */
-    @RequestMapping(value = "/rounds/public", method = RequestMethod.GET)
+    @RequestMapping(value = "/public/rounds", method = RequestMethod.GET)
     public String publicRounds(Model model) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-
-        try {
 
             PageRequest pageRequest = PageRequest.of(0, 5);
 
@@ -175,8 +175,12 @@ public class RoundController {
 
             int counter = 0;
             for (Rounds round : rounds) {
+
+                String userName = round.getAccount().getUsername();
+                String userNameFormatted = userName.length() > 5 ? userName.substring(0, 4).concat("..") : userName;
                 roundsDtos.add(
                         RoundsDto.builder()
+                                .userName(userNameFormatted)
                                 .courseName(round.getCourseName())
                                 .roundDate(round.getRoundDate())
                                 .formattedDateTime(round.getRoundDate() != null ? round.getRoundDate().format(formatter) : "")
@@ -188,12 +192,11 @@ public class RoundController {
                 );
             }
 
+            model.addAttribute("publicView", true);
 
             model.addAttribute("rounds", roundsDtos);
 
-        } catch (Exception e) {
-            logger.info("can't find user");
-        }
+
 
         return "roundList";
     }
@@ -248,6 +251,109 @@ public class RoundController {
             return "redirect:/oauth_login";
         }
 
+    }
+
+    /* public */
+
+    @RequestMapping(value = "/public/rounds/{roundId}", method = RequestMethod.GET)
+    public String getRoundPublic(@PathVariable("roundId") long roundId, Model model) {
+
+        try {
+//                model.addAttribute("user", account);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+
+            Integer totalScore = 0;
+            /* Putts Per Round “GIR” */
+            Integer puttsPerRoundGIR = 0;
+            Integer greenInRegulationNumber = 0;
+
+            Rounds round = roundService.findRound(roundId);
+            List<Holes> holes = round.getHoles();
+
+            RoundsDto roundsDto = RoundsDto.builder()
+                    .courseName(round.getCourseName())
+                    .formattedDate(round.getRoundDate() != null ? round.getRoundDate().toLocalDate().format(dateFormatter) : "")
+                    .formattedTime(round.getRoundDate() != null ? round.getRoundDate().toLocalTime().format(timeFormatter) : "")
+                    .roundDate(round.getRoundDate())
+                    .roundId(round.getId())
+                    .build();
+
+            List<HolesDto> holesDto = new ArrayList<>();
+
+            for(int i = 1; i <= 18; i++) {
+                holesDto.add(HolesDto.builder()
+                        .par(null)
+                        .roundId(roundId)
+                        .putt(null)
+                        .bunker("")
+                        .upDown("")
+                        .fairway("")
+                        .onGreen("")
+                        .score(null)
+                        .holeNumber(i)
+                        .build());
+            }
+
+            for(Holes hole : holes) {
+                int j = hole.getHoleNumber();
+
+                Boolean greenInRegulation = false;
+
+                if(hole.getPar() != null && hole.getScore() != null) {
+                    int holeScore = hole.getPar() + hole.getScore();
+
+                    totalScore += holeScore;
+                }
+
+                if(hole.getPutt() != null && hole.getOnGreen() != null && hole.getOnGreen() != 0) {
+                    greenInRegulation = true;
+                    greenInRegulationNumber += 1;
+//                        System.out.println("hole#" + hole.getHoleNumber() + "in regulation");
+                    puttsPerRoundGIR += hole.getPutt();
+                }
+
+                holesDto.set(j - 1, HolesDto.builder()
+                        .par(hole.getPar())
+                        .roundId(roundId)
+                        .putt(hole.getPutt())
+                        .bunker(convertToString(hole.getBunker()))
+                        .upDown(convertToString(hole.getUpDown()))
+                        .fairway(convertToString(hole.getFairway()))
+                        .onGreen(convertToString(hole.getOnGreen()))
+                        .score(hole.getScore())
+                        .holeNumber(hole.getHoleNumber())
+                        .build());
+
+            }
+
+
+
+                /*
+                    Basic stats calculation
+                */
+            model.addAttribute("totalScore", totalScore);
+            if(greenInRegulationNumber != 0) {
+                model.addAttribute("puttsPerRoundGIR", (String.format("%.2f", (float)puttsPerRoundGIR / greenInRegulationNumber)));
+            }
+
+            model.addAttribute("roundsDto", roundsDto);
+            model.addAttribute("holesDto", holesDto);
+            model.addAttribute("publicView", true);
+
+        } catch (Exception e) {
+            logger.info("error occured during finding rounds & holes");
+        }
+
+
+        // a portal that has access to holes 1 ~ 18
+
+        return "editRoundPublic";
+//        } else {
+//            return "redirect:/oauth_login";
+//        }
     }
 
     /* get Score Card */
@@ -442,6 +548,80 @@ public class RoundController {
             response.sendRedirect("/oauth_login");
         }
     }
+
+
+    /* public get Score Card */
+//    @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.GET)
+    @GetMapping("/public/rounds/{roundId}/{holeNumber}")
+    public String getRoundPublic(@PathVariable("roundId") long roundId,@PathVariable("holeNumber") int holeNumber, Model model) throws Exception {
+        Rounds round = roundService.findRound(roundId);
+        Holes hole = holeRepository.findByHoleNumberAndRound(holeNumber, round);
+
+        String userName = round.getAccount().getUsername();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        RoundsDto roundsDto = RoundsDto.builder()
+                .courseName(round.getCourseName())
+                .userName(userName)
+                .formattedDate(round.getRoundDate() != null ? round.getRoundDate().toLocalDate().format(dateFormatter) : "")
+                .formattedTime(round.getRoundDate() != null ? round.getRoundDate().toLocalTime().format(timeFormatter) : "")
+                .roundDate(round.getRoundDate())
+                .roundId(round.getId())
+                .build();
+
+        model.addAttribute("roundsDto", roundsDto);
+        model.addAttribute("publicView", true);
+        if( hole != null) {
+            HolesDto holesDto = HolesDto.builder()
+                    .par(hole.getPar())
+//                                    .updatedDate()
+                    .roundId(roundId)
+                    .putt(hole.getPutt())
+                    .bunker(convertToString(hole.getBunker()))
+                    .upDown(convertToString(hole.getUpDown()))
+                    .fairway(convertToString(hole.getFairway()))
+                    .onGreen(convertToString(hole.getOnGreen()))
+                    .score(hole.getScore())
+                    .holeNumber(hole.getHoleNumber())
+                    .build();
+
+            if(holeNumber > 1 && holeNumber < 18) {
+                model.addAttribute("nextHole", holeNumber + 1);
+                model.addAttribute("previousHole", holeNumber - 1);
+            } else if (holeNumber == 1) {
+                model.addAttribute("nextHole", holeNumber + 1);
+            } else if (holeNumber == 18) {
+                model.addAttribute("previousHole", holeNumber - 1);
+            }
+
+            model.addAttribute("holesDto", holesDto);
+            model.addAttribute("roundId", roundId);
+        } else {
+
+            if(holeNumber > 1 && holeNumber < 18) {
+                model.addAttribute("nextHole", holeNumber + 1);
+                model.addAttribute("previousHole", holeNumber - 1);
+            } else if (holeNumber == 1) {
+                model.addAttribute("nextHole", holeNumber + 1);
+            } else if (holeNumber == 18) {
+                model.addAttribute("previousHole", holeNumber - 1);
+            }
+
+            HolesDto holesDto = HolesDto.builder()
+                    .holeNumber(holeNumber)
+                    .build();
+            model.addAttribute("holesDto", holesDto);
+            model.addAttribute("roundId", roundId);
+        }
+
+
+
+        return "scoreHolePublic";
+    }
+
 
         /* get Score Card */
 //    @RequestMapping(value = "/rounds/{roundId}/{holeNumber}", method = RequestMethod.GET)

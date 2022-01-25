@@ -58,6 +58,10 @@
             width: 190px;
         }
 
+        header .users-col{
+            width: 100px;
+        }
+
         header .dates-col {
             width: 150px;
         }
@@ -182,6 +186,10 @@
             background: #BF360C;
         }
 
+        ul.task-items li.item .users {
+            width: 100px;
+        }
+
         ul.task-items li.item .progress {
             width: 190px;
         }
@@ -288,7 +296,7 @@
 <div class="container">
 
     <div class="content">
-         <img src="https://images.apple.com/v/iphone/home/y/images/overview/hero-iphone-xr_large.jpg" alt="" />
+<!--         <img src="https://images.apple.com/v/iphone/home/y/images/overview/hero-iphone-xr_large.jpg" alt="" />-->
 
         <article style="overflow-x:scroll; width:100%;">
             <section class="container">
@@ -299,6 +307,16 @@
                         <a href="/rounds/start"><button class="btn" name="Start Round">Start Round </button></a>
                     </div>
 
+                    {{#publicView}}
+                        <div class="users-col">
+                            <label> User </label>
+                        </div>
+                    {{/publicView}}
+
+                    <div class="dates-col">
+                        <label> Dates </label>
+                    </div>
+
                     <div class="status-col">
                         <label> Status </label>
                     </div>
@@ -307,13 +325,13 @@
                         <label> Progress </label>
                     </div>
 
-                    <div class="dates-col">
-                        <label> Dates </label>
-                    </div>
+
 
                     <div class="score-col">
                         <label> Score </label>
                     </div>
+
+
 
 <!--                    <div class="icon-col">-->
 <!--                        <i class="icon fa fa-user-o"> </i>-->
@@ -329,10 +347,22 @@
                         <li class="item type1">
                             <div class="task">
                                 <!-- image icon -->
-
-                                <div class="icon"> <a href="/rounds/{{#roundId}}{{.}}{{/roundId}}"> {{#index}}{{.}}{{/index}} </a> </div>
-                                <div class="name" style="width:150px"><a href="/rounds/{{#roundId}}{{.}}{{/roundId}}"> {{#courseName}}{{.}}{{/courseName}}</a></div>
+                                <div class="name" style="width:150px"><a href="/public/rounds/{{#roundId}}{{.}}{{/roundId}}"> {{#courseName}}{{.}}{{/courseName}}</a></div>
                             </div>
+
+                            {{#publicView}}
+                                {{#userName}}
+                                    <div class="users">
+                                        <div class="bar">{{#userName}}{{.}}{{/userName}}</div>
+                                    </div>
+                                {{/userName}}
+                            {{/publicView}}
+
+
+                            <div class="dates">
+                                <div class="bar">{{#formattedDate}}{{.}}{{/formattedDate}}</div>
+                            </div>
+
 
                             <div class="status">
                                 <div class="icon off"> </div>
@@ -343,13 +373,12 @@
                                 <progress {{#percentage}}value="{{.}}"{{/percentage}} max="100" {{^percentage}}value="0"{{/percentage}}/>
                             </div>
 
-                            <div class="dates">
-                                <div class="bar">{{#formattedDate}}{{.}}{{/formattedDate}}</div>
-                            </div>
-
                             <div class="score">
                                 <div class="bar">{{#score}}{{.}}{{/score}} {{^score}}0{{/score}}</div>
                             </div>
+
+
+
 
 <!--                            <div class="user">-->
 <!--                                <img src="https://source.unsplash.com/40x40/?indian" alt="Image 001"-->

@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Score Hole</title>
+
+    <!--  mobile friendly css  -->
+    <link rel="stylesheet" href="/css/mainContainer.css">
+    <link rel="stylesheet" href="/css/topMenuNavigation.css">
+    <link rel="stylesheet" href="/css/bottomMenuNavigation.css">
+    <link rel="stylesheet" href="/css/roundTable.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/css/swiper.min.css">
+
+    <style>
+        /* Quick reset and demo styles */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Nanum Gothic", "Dotum", "Baekmuk Dotum", "Undotum", "Apple Gothic", "Latin font", sans-serif;
+        }
+
+        body {
+
+            background: #ededed;
+        }
+
+
+        /* Swipe select */
+
+        .swipelect {
+            position: relative;
+            width: 100%;
+            /*max-width: 540px;*/
+
+            height: 100%; /*height: 75px;*/
+            border-bottom: solid 1px #aaa;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        /* Label */
+
+        .swipelect__label {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        /* Container */
+
+        .swipelect__container {
+            height: 100%;
+        }
+
+        /* Overlay */
+
+        .swipelect__overlay::before,
+        .swipelect__overlay::after {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            width: 0;
+            bottom: 25px;
+            pointer-events: none;
+        }
+
+        .swipelect__overlay::before {
+            left: 0;
+            background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+            background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+        }
+
+        .swipelect__overlay::after {
+            right: 0;
+            background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 25%);
+        }
+
+        .swipelect--per-view-5 .swipelect__overlay::before,
+        .swipelect--per-view-5 .swipelect__overlay::after {
+            width: 45%;
+        }
+
+        .swipelect--per-view-4 .swipelect__overlay::before,
+        .swipelect--per-view-4 .swipelect__overlay::after {
+            width: 40%;
+        }
+
+        .swipelect--per-view-3 .swipelect__overlay::before,
+        .swipelect--per-view-3 .swipelect__overlay::after {
+            width: 33%;
+        }
+
+        .swipelect--per-view-2 .swipelect__overlay::before,
+        .swipelect--per-view-2 .swipelect__overlay::after {
+            width: 25%;
+        }
+
+        /* Slide */
+
+        .swipelect__slide {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        /* small tick */
+        /* .swipelect__slide::before {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 5px;
+            bottom: 1px;
+            left: 0;
+            transform: translateX(-50%);
+            background: #ccc;
+        } */
+
+        .swipelect__slide:first-child::before {
+            display: none;
+        }
+
+        .swipelect__slide::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 8px;
+            bottom: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #aaa;
+        }
+
+        .left_column {
+            width: 25%;
+            background-color: #fff;
+            border-bottom: solid 1px #aaa;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75px;
+        }
+
+        .single_row {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items:flex-start;
+            width: 100%;
+            height: 200px;
+        }
+
+        .right_column {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 75%;
+            height: 75px;
+        }
+
+        .table_row {
+            display: flex;
+        }
+
+        .update_button {
+            margin-top:35px;
+            text-transform: uppercase;
+        }
+
+
+
+        a.button {
+            display: block;
+            position: relative;
+            float: left;
+            width: 120px;
+            padding: 0;
+            margin: 10px 0px 10px 0;
+            font-weight: 600;
+            text-align: center;
+            line-height: 50px;
+            color: #FFF;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .btnLightBlue.btnPush {
+            /*button shadow*/
+            box-shadow: 0px 5px 0px 0px #5e5e5e;
+            font-size: 0.8rem;
+        }
+
+        .btnLightBlue{
+            background: #e3e3e3;
+        }
+
+
+        .btnPush:hover {
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .btnLightBlue.btnPush:hover {
+            box-shadow: 0px 0px 0px 0px #5e5e5e;
+        }
+
+        a:visited {
+            text-decoration: none;
+            color: #3c3b3b;
+        }
+        a {
+            text-decoration: none;
+            color: #3c3b3b;
+        }
+
+
+
+        /*modal css only from bootstrap*/
+        [role="button"] {
+            cursor: pointer;
+        }
+        .modal-open {
+            overflow: hidden;
+        }
+        .modal {
+            display: none;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1050;
+            -webkit-overflow-scrolling: touch;
+            outline: 0;
+        }
+        .modal.fade .modal-dialog {
+            -webkit-transform: translate(0, -25%);
+            -ms-transform: translate(0, -25%);
+            -o-transform: translate(0, -25%);
+            transform: translate(0, -25%);
+            -webkit-transition: -webkit-transform 0.3s ease-out;
+            -o-transition: -o-transform 0.3s ease-out;
+            transition: transform 0.3s ease-out;
+
+
+            /* woodev added */
+            position: fixed;
+            top: 50%;
+            margin-top: -50px;
+            width: 90%;
+        }
+        .modal.in .modal-dialog {
+            -webkit-transform: translate(0, 0);
+            -ms-transform: translate(0, 0);
+            -o-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        .modal-open .modal {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .modal-dialog {
+            position: relative;
+            width: auto;
+            margin: 10px;
+        }
+        .modal-content {
+            position: relative;
+            background-color: #ffffff;
+            border: 1px solid #999999;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            outline: 0;
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1040;
+            background-color: #000000;
+        }
+        .modal-backdrop.fade {
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+        .modal-backdrop.in {
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+        }
+        .modal-header {
+            padding: 15px;
+            border-bottom: 1px solid #e5e5e5;
+            min-height: 16.42857143px;
+        }
+        .modal-header .close {
+            margin-top: -23px;
+        }
+        .modal-title {
+            margin: 0;
+            line-height: 1.42857143;
+        }
+        .modal-body {
+            position: relative;
+            padding: 15px;
+        }
+        .modal-footer {
+            padding: 15px;
+            text-align: right;
+            border-top: 1px solid #e5e5e5;
+        }
+        .modal-footer .btn + .btn {
+            margin-left: 5px;
+            margin-bottom: 0;
+        }
+        .modal-footer .btn-group .btn + .btn {
+            margin-left: -1px;
+        }
+        .modal-footer .btn-block + .btn-block {
+            margin-left: 0;
+        }
+        .modal-scrollbar-measure {
+            position: absolute;
+            top: -9999px;
+            width: 50px;
+            height: 50px;
+            overflow: scroll;
+        }
+        .close {
+            float: right;
+            font-size: 21px;
+            font-weight: bold;
+            line-height: 1;
+            color: #000;
+            text-shadow: 0 1px 0 #fff;
+            filter: alpha(opacity=20);
+            opacity: .2;
+        }
+        button.close {
+            -webkit-appearance: none;
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+        }
+        .close:hover, .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            filter: alpha(opacity=50);
+            opacity: .5;
+        }
+        @media (min-width: 768px) {
+            .modal-dialog {
+                width: 600px;
+                margin: 30px auto;
+            }
+            .modal-content {
+                -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            }
+            .modal-sm {
+                width: 300px;
+            }
+        }
+        @media (min-width: 992px) {
+            .modal-lg {
+                width: 900px;
+            }
+        }
+        [role="button"] {
+            cursor: pointer;
+        }
+        .btn {
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: normal;
+            text-align: center;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: thin dotted;
+            outline: 5px auto -webkit-focus-ring-color;
+            outline-offset: -2px;
+        }
+        .btn:hover,
+        .btn:focus,
+        .btn.focus {
+            color: #333333;
+            text-decoration: none;
+        }
+        .btn:active,
+        .btn.active {
+            outline: 0;
+            background-image: none;
+            -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        }
+        .btn.disabled,
+        .btn[disabled],
+        fieldset[disabled] .btn {
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.65;
+            filter: alpha(opacity=65);
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        .btn-default {
+            color: #333333;
+            background-color: #ffffff;
+            border-color: #cccccc;
+        }
+        .btn-default:hover,
+        .btn-default:focus,
+        .btn-default.focus,
+        .btn-default:active,
+        .btn-default.active,
+        .open > .dropdown-toggle.btn-default {
+            color: #333333;
+            background-color: #e6e6e6;
+            border-color: #adadad;
+        }
+        .btn-default:active,
+        .btn-default.active,
+        .open > .dropdown-toggle.btn-default {
+            background-image: none;
+        }
+        .btn-default.disabled,
+        .btn-default[disabled],
+        fieldset[disabled] .btn-default,
+        .btn-default.disabled:hover,
+        .btn-default[disabled]:hover,
+        fieldset[disabled] .btn-default:hover,
+        .btn-default.disabled:focus,
+        .btn-default[disabled]:focus,
+        fieldset[disabled] .btn-default:focus,
+        .btn-default.disabled.focus,
+        .btn-default[disabled].focus,
+        fieldset[disabled] .btn-default.focus,
+        .btn-default.disabled:active,
+        .btn-default[disabled]:active,
+        fieldset[disabled] .btn-default:active,
+        .btn-default.disabled.active,
+        .btn-default[disabled].active,
+        fieldset[disabled] .btn-default.active {
+            background-color: #ffffff;
+            border-color: #cccccc;
+        }
+        .btn-default .badge {
+            color: #ffffff;
+            background-color: #333333;
+        }
+        .btn-primary {
+            color: #ffffff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-primary.focus,
+        .btn-primary:active,
+        .btn-primary.active,
+        .open > .dropdown-toggle.btn-primary {
+            color: #ffffff;
+            background-color: #286090;
+            border-color: #204d74;
+        }
+        .btn-primary:active,
+        .btn-primary.active,
+        .open > .dropdown-toggle.btn-primary {
+            background-image: none;
+        }
+        .btn-primary.disabled,
+        .btn-primary[disabled],
+        fieldset[disabled] .btn-primary,
+        .btn-primary.disabled:hover,
+        .btn-primary[disabled]:hover,
+        fieldset[disabled] .btn-primary:hover,
+        .btn-primary.disabled:focus,
+        .btn-primary[disabled]:focus,
+        fieldset[disabled] .btn-primary:focus,
+        .btn-primary.disabled.focus,
+        .btn-primary[disabled].focus,
+        fieldset[disabled] .btn-primary.focus,
+        .btn-primary.disabled:active,
+        .btn-primary[disabled]:active,
+        fieldset[disabled] .btn-primary:active,
+        .btn-primary.disabled.active,
+        .btn-primary[disabled].active,
+        fieldset[disabled] .btn-primary.active {
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+        .btn-primary .badge {
+            color: #337ab7;
+            background-color: #ffffff;
+        }
+        .btn-success {
+            color: #ffffff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+        .btn-success:hover,
+        .btn-success:focus,
+        .btn-success.focus,
+        .btn-success:active,
+        .btn-success.active,
+        .open > .dropdown-toggle.btn-success {
+            color: #ffffff;
+            background-color: #449d44;
+            border-color: #398439;
+        }
+        .btn-success:active,
+        .btn-success.active,
+        .open > .dropdown-toggle.btn-success {
+            background-image: none;
+        }
+        .btn-success.disabled,
+        .btn-success[disabled],
+        fieldset[disabled] .btn-success,
+        .btn-success.disabled:hover,
+        .btn-success[disabled]:hover,
+        fieldset[disabled] .btn-success:hover,
+        .btn-success.disabled:focus,
+        .btn-success[disabled]:focus,
+        fieldset[disabled] .btn-success:focus,
+        .btn-success.disabled.focus,
+        .btn-success[disabled].focus,
+        fieldset[disabled] .btn-success.focus,
+        .btn-success.disabled:active,
+        .btn-success[disabled]:active,
+        fieldset[disabled] .btn-success:active,
+        .btn-success.disabled.active,
+        .btn-success[disabled].active,
+        fieldset[disabled] .btn-success.active {
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+        .btn-success .badge {
+            color: #5cb85c;
+            background-color: #ffffff;
+        }
+        .btn-info {
+            color: #ffffff;
+            background-color: #5bc0de;
+            border-color: #46b8da;
+        }
+        .btn-info:hover,
+        .btn-info:focus,
+        .btn-info.focus,
+        .btn-info:active,
+        .btn-info.active,
+        .open > .dropdown-toggle.btn-info {
+            color: #ffffff;
+            background-color: #31b0d5;
+            border-color: #269abc;
+        }
+        .btn-info:active,
+        .btn-info.active,
+        .open > .dropdown-toggle.btn-info {
+            background-image: none;
+        }
+        .btn-info.disabled,
+        .btn-info[disabled],
+        fieldset[disabled] .btn-info,
+        .btn-info.disabled:hover,
+        .btn-info[disabled]:hover,
+        fieldset[disabled] .btn-info:hover,
+        .btn-info.disabled:focus,
+        .btn-info[disabled]:focus,
+        fieldset[disabled] .btn-info:focus,
+        .btn-info.disabled.focus,
+        .btn-info[disabled].focus,
+        fieldset[disabled] .btn-info.focus,
+        .btn-info.disabled:active,
+        .btn-info[disabled]:active,
+        fieldset[disabled] .btn-info:active,
+        .btn-info.disabled.active,
+        .btn-info[disabled].active,
+        fieldset[disabled] .btn-info.active {
+            background-color: #5bc0de;
+            border-color: #46b8da;
+        }
+        .btn-info .badge {
+            color: #5bc0de;
+            background-color: #ffffff;
+        }
+        .btn-warning {
+            color: #ffffff;
+            background-color: #f0ad4e;
+            border-color: #eea236;
+        }
+        .btn-warning:hover,
+        .btn-warning:focus,
+        .btn-warning.focus,
+        .btn-warning:active,
+        .btn-warning.active,
+        .open > .dropdown-toggle.btn-warning {
+            color: #ffffff;
+            background-color: #ec971f;
+            border-color: #d58512;
+        }
+        .btn-warning:active,
+        .btn-warning.active,
+        .open > .dropdown-toggle.btn-warning {
+            background-image: none;
+        }
+        .btn-warning.disabled,
+        .btn-warning[disabled],
+        fieldset[disabled] .btn-warning,
+        .btn-warning.disabled:hover,
+        .btn-warning[disabled]:hover,
+        fieldset[disabled] .btn-warning:hover,
+        .btn-warning.disabled:focus,
+        .btn-warning[disabled]:focus,
+        fieldset[disabled] .btn-warning:focus,
+        .btn-warning.disabled.focus,
+        .btn-warning[disabled].focus,
+        fieldset[disabled] .btn-warning.focus,
+        .btn-warning.disabled:active,
+        .btn-warning[disabled]:active,
+        fieldset[disabled] .btn-warning:active,
+        .btn-warning.disabled.active,
+        .btn-warning[disabled].active,
+        fieldset[disabled] .btn-warning.active {
+            background-color: #f0ad4e;
+            border-color: #eea236;
+        }
+        .btn-warning .badge {
+            color: #f0ad4e;
+            background-color: #ffffff;
+        }
+        .btn-danger {
+            color: #ffffff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+        .btn-danger:hover,
+        .btn-danger:focus,
+        .btn-danger.focus,
+        .btn-danger:active,
+        .btn-danger.active,
+        .open > .dropdown-toggle.btn-danger {
+            color: #ffffff;
+            background-color: #c9302c;
+            border-color: #ac2925;
+        }
+        .btn-danger:active,
+        .btn-danger.active,
+        .open > .dropdown-toggle.btn-danger {
+            background-image: none;
+        }
+        .btn-danger.disabled,
+        .btn-danger[disabled],
+        fieldset[disabled] .btn-danger,
+        .btn-danger.disabled:hover,
+        .btn-danger[disabled]:hover,
+        fieldset[disabled] .btn-danger:hover,
+        .btn-danger.disabled:focus,
+        .btn-danger[disabled]:focus,
+        fieldset[disabled] .btn-danger:focus,
+        .btn-danger.disabled.focus,
+        .btn-danger[disabled].focus,
+        fieldset[disabled] .btn-danger.focus,
+        .btn-danger.disabled:active,
+        .btn-danger[disabled]:active,
+        fieldset[disabled] .btn-danger:active,
+        .btn-danger.disabled.active,
+        .btn-danger[disabled].active,
+        fieldset[disabled] .btn-danger.active {
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+        .btn-danger .badge {
+            color: #d9534f;
+            background-color: #ffffff;
+        }
+        .btn-link {
+            color: #337ab7;
+            font-weight: normal;
+            border-radius: 0;
+        }
+        .btn-link,
+        .btn-link:active,
+        .btn-link.active,
+        .btn-link[disabled],
+        fieldset[disabled] .btn-link {
+            background-color: transparent;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        .btn-link,
+        .btn-link:hover,
+        .btn-link:focus,
+        .btn-link:active {
+            border-color: transparent;
+        }
+        .btn-link:hover,
+        .btn-link:focus {
+            color: #23527c;
+            text-decoration: underline;
+            background-color: transparent;
+        }
+        .btn-link[disabled]:hover,
+        fieldset[disabled] .btn-link:hover,
+        .btn-link[disabled]:focus,
+        fieldset[disabled] .btn-link:focus {
+            color: #777777;
+            text-decoration: none;
+        }
+        .btn-lg {
+            padding: 10px 16px;
+            font-size: 18px;
+            line-height: 1.3333333;
+            border-radius: 6px;
+        }
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+        }
+        .btn-xs {
+            padding: 1px 5px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+        }
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        .btn-block + .btn-block {
+            margin-top: 5px;
+        }
+        input[type="submit"].btn-block,
+        input[type="reset"].btn-block,
+        input[type="button"].btn-block {
+            width: 100%;
+        }
+        .clearfix:before,
+        .clearfix:after,
+        .modal-footer:before,
+        .modal-footer:after {
+            content: " ";
+            display: table;
+        }
+        .clearfix:after,
+        .modal-footer:after {
+            clear: both;
+        }
+        .center-block {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .pull-right {
+            float: right !important;
+        }
+        .pull-left {
+            float: left !important;
+        }
+        .hide {
+            display: none !important;
+        }
+        .show {
+            display: block !important;
+        }
+        .invisible {
+            visibility: hidden;
+        }
+        .text-hide {
+
+            color: transparent;
+            text-shadow: none;
+            background-color: transparent;
+            border: 0;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .affix {
+            position: fixed;
+        }
+    </style>
+
+
+
+
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
+</head>
+
+
+<body>
+<!-- https://codepen.io/henripeetsmann/pen/rdNxbE -->
+
+
+
+<div class="navigationContainer">
+
+    <div class="header">
+        <div class="logo"><a href="">
+            <img src="https://brolik.com/images/BRO_logo.svg"></a>
+        </div>
+        <div class="desktop-menu">
+            <div><a href="/">Home</a></div>
+            <div><a href="/register">Register</a></div>
+            <div><a href="/rounds/start">Start Round</a></div>
+            <div><a href="/rounds">My Rounds</a></div>
+            <div><a href="/rounds/latest">My Latest Round</a></div>
+            <div><a href="#">Support</a></div>
+        </div>
+        <div class="icon-container">
+            <div id="menuicon">
+                <div class="bar bar1"></div>
+                <div class="bar bar2"></div>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul class="menu">
+                <li class="menu-item"><a href="/">Home</a>
+                </li>
+                <li class="menu-item"><a href="/register">Register</a>
+                </li>
+                <li class="menu-item"><a href="/rounds">Start Round</a>
+                </li>
+                <li class="menu-item"><a href="/rounds">My Rounds</a>
+                </li>
+                <li class="menu-item"><a href="/rounds/latest">My Latest Round</a>
+                </li>
+                <li class="menu-item"><a href="/">Support</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="content">
+        <article>
+            {{#roundsDto}}
+                <p style="font-size: 0.8rem;color: #222222;">{{#formattedDate}}{{.}}{{/formattedDate}} - {{#courseName}}{{.}}{{/courseName}}{{#userName}} - {{.}}{{/userName}}</p>
+            {{/roundsDto}}
+        </article>
+
+        <article>
+            <div class="table_row">
+                <div class="left_column">Hole</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">hole</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div class="swiper-wrapper">
+                                <!-- holesDto should have previous hole number && next hole number -->
+                                <div class="swipelect__slide swiper-slide">{{#holesDto}}{{#holeNumber}}{{.}}{{/holeNumber}}{{/holesDto}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- When changin --per-view modifier, also update JS -->
+
+            <div class="table_row">
+                <div class="left_column">Par</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">par</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="par_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table_row">
+                <div class="left_column">Fairway</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">fairway</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="fairway_active_slide" class="swiper-wrapper">
+
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table_row">
+                <div class="left_column">On Green</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">On</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="onGreen_active_slide" class="swiper-wrapper">
+
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table_row">
+                <div class="left_column">Bunker</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">bunker</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="bunker_active_slide" class="swiper-wrapper">
+
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="table_row">
+                <div class="left_column">Approach</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">approach</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="approach_active_slide" class="swiper-wrapper">
+
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">X</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">O</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table_row">
+                <div class="left_column">Up & Down</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">up & down</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="upDown_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value="X">Down</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="O">Up</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table_row">
+                <div class="left_column">Putts</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">putts</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="putts_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="0">0</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="1">1</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="2">2</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="6">6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table_row">
+                <div class="left_column">Score</div>
+                <div class="right_column">
+                    <div class="swipelect swipelect--per-view-4">
+                        <div class="swipelect__label">score</div>
+                        <div class="swipelect__container swiper-container">
+                            <div class="swipelect__overlay"></div>
+                            <div id="score_active_slide" class="swiper-wrapper">
+                                <div class="swipelect__slide swiper-slide" data-input-value=""></div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="-2">-2</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="-1">-1</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="0">0</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="1">1</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="2">2</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="3">3</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="4">4</div>
+                                <div class="swipelect__slide swiper-slide" data-input-value="5">5</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="table_row">
+                <div class="single_row">
+
+                    <!--                    <div class="update_button">-->
+                    <!--                        <a id="submitBtn" href="javascript:void(0);" title="Button push lightblue" class="button btnPush btnLightBlue">Push</a>-->
+                    <!--                    </div>-->
+                </div>
+
+            </div>
+        </article>
+
+    </div>
+</div>
+
+
+
+
+
+<div class="w-navigation-menu">
+
+    <div class="management-btn-wrap">
+        <a href="/public/rounds/{{#roundId}}{{.}}{{/roundId}}" class="management-btn w-logo-left-arrow">
+            <span class="management-text">BACK</span>
+        </a>
+    </div>
+    <div class="management-btn-wrap">
+        <a href="/public/rounds" style="" class="management-btn w-logo-list">
+            <span class="management-text">LIST</span>
+        </a>
+    </div>
+    <div class="management-btn-wrap">
+        <a href="/" class="management-btn main-home-btn">
+            <span class="management-btn-circle selec7-logo-circle bg-img"></span>
+            <span class="management-text">HOME</span>
+        </a>
+    </div>
+
+    <!--    <div class="management-btn-wrap">-->
+    <!--        <a href="#" class="management-btn w-logo-calculator">-->
+    <!--            <span class="management-text">STATS</span>-->
+    <!--        </a>-->
+    <!--    </div>-->
+
+    <div class="management-btn-wrap">
+        <a style="" href="{{^previousHole}}javascript:void(0);{{/previousHole}}{{#previousHole}}/public/rounds/{{#roundId}}{{.}}{{/roundId}}/{{.}}{{/previousHole}}" class="management-btn w-logo-previous">
+            <span class="management-text">PREVIOUS</span>
+        </a>
+    </div>
+
+<!--    <div class="management-btn-wrap">-->
+<!--        <a id="submitBtn" style="" data-toggle="modal" href="#myModal" class="management-btn w-logo-flag">-->
+<!--            <span class="management-text">SAVE</span>-->
+<!--        </a>-->
+<!--    </div>-->
+
+    <div class="management-btn-wrap">
+        <a style="" href="{{^nextHole}}javascript:void(0);{{/nextHole}}{{#nextHole}}/public/rounds/{{#roundId}}{{.}}{{/roundId}}/{{.}}{{/nextHole}}" class="management-btn w-logo-next">
+            <span class="management-text">NEXT</span>
+        </a>
+    </div>
+
+    <!-- modal opener case 1 & case 2-->
+    <!--    <div class="management-btn-wrap">-->
+    <!--        <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Launch demo modal</a>-->
+    <!--    </div>-->
+    <!--    <div class="management-btn-wrap">-->
+    <!--        <button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>-->
+    <!--    </div>-->
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Successfully Saved!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <!--            <div class="modal-body">-->
+            <!--            </div>-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-info" data-dismiss="modal">Close</button>
+                <!--                <button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<input id="testing" type="hidden" value="{{#holesDto}}{{.}}{{/holesDto}}" >
+<!--updatedDate=null, index=null, roundId=10, fairway=, par=3, onGreen=, upDown=, bunker=, putt=null, score=null, holeNumber=2)\""-->
+{{#holesDto}}
+    <form>
+        <input id="par" type="hidden" value="{{#par}}{{.}}{{/par}}">
+        <input id="fairway" type="hidden" value="{{#fairway}}{{.}}{{/fairway}}">
+        <input id="onGreen" type="hidden" value="{{#onGreen}}{{.}}{{/onGreen}}">
+        <input id="bunker" type="hidden" value="{{#bunker}}{{.}}{{/bunker}}">
+        <input id="approach" type="hidden" value="{{#approach}}{{.}}{{/approach}}">
+        <input id="upDown" type="hidden" value="{{#upDown}}{{.}}{{/upDown}}">
+        <input id="putt" type="hidden" value="{{#putt}}{{.}}{{/putt}}">
+        <input id="score" type="hidden" value="{{#score}}{{.}}{{/score}}">
+    </form>
+{{/holesDto}}
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/js/swiper.min.js"></script>
+<!-- swiper-slide-active -->
+
+<!--index.js 추가-->
+<script src="/js/main/topMenuNavigation.js"></script>
+<script>
+
+
+    var swiper = new Swiper(".swiper-container", {
+        slidesPerView: 3,
+        centeredSlides: true,
+        spaceBetween: 0,
+        grabCursor: true,
+        preventClicks: true,
+        freeMode: true,
+        freeModeSticky: true,
+        slideToClickedSlide: true,
+        speed: 200,
+        freeModeMomentumRatio: 0.3,
+        freeModeMomentumVelocityRatio: 1,
+    });
+
+    // When changin the slidesPerView, also update HTML class modifier
+
+</script>
+<!-- https://codesandbox.io/s/ns46o?file=/index.html -->
+
+<!--부트스트랩 js, jquery 추가-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<script>
+
+    $(window).resize(function(){
+
+        for(let i = 0; i< swiper.length; i++) {
+            swiper[i].slideReset();
+        }
+    });
+    $(window).trigger('resize');
+
+    // let myobj = $("#testing").val();
+    // console.log(JSON.parse(myobj));
+    // updatedDate=null, index=null, roundId=10, fairway=, par=3, onGreen=, upDown=, bunker=, putt=null, score=null, holeNumber=2)\""
+    synchronize();
+
+    function synchronize() {
+
+        let sliderMap = {
+            "par":1,
+            "fairway":2,
+            "onGreen":3,
+            "bunker":4,
+            "approach":5,
+            "upDown":6,
+            "putt":7,
+            "score":8,
+        }
+
+        /***  par swiper handler  ***/
+        let par = $("#par").val();
+        if(par !== "" && par !== null) {
+            let targetIndex;
+            Array.from(swiper[sliderMap.par].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == par) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== 'undefined') {
+                swiper[sliderMap.par].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.par].$el.find("div[data-input-value='']");
+            if(typeof emptySlide != 'undefined') {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.par].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
+        }
+
+
+        /*
+        function b (field, ind) {
+            let v = $("#"+ field).val();
+            if (v !== "" && v !== null && typeof v !== 'undefined') {
+                let targetIndex;
+
+            }
+        }
+        */
+
+
+        /***  fairway swiper handler  ***/
+        let fairway = $("#fairway").val();
+        if(fairway !== "" && fairway !== null && typeof fairway !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.fairway].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == fairway) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.fairway].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.fairway].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.fairway].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
+        }
+
+
+
+        /***  upDown swiper handler  ***/
+        let upDown = $("#upDown").val();
+        if(upDown !== "" && upDown !== null && typeof upDown !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.upDown].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == upDown) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.upDown].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.upDown].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.upDown].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
+        }
+
+
+        /***  onGreen swiper handler  ***/
+        let onGreen = $("#onGreen").val();
+        if(onGreen !== "" && onGreen !== null && typeof onGreen !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.onGreen].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == onGreen) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.onGreen].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.onGreen].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.onGreen].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
+        }
+
+
+        /***  bunker swiper handler  ***/
+        let bunker = $("#bunker").val();
+        if(bunker !== "" && bunker !== null && typeof bunker !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.bunker].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == bunker) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.bunker].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.bunker].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.bunker].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
+        }
+
+        /***  putt swiper handler  ***/
+        let putt = $("#putt").val();
+        if(putt !== "" && putt !== null && typeof putt !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.putt].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == putt) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.putt].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.putt].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.putt].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
+        }
+
+        /***  approach swiper handler  ***/
+        let approach = $("#approach").val();    // skipped
+        if(approach !== "" && approach !== null && typeof approach !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.approach].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == approach) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.approach].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.approach].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.approach].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
+        }
+
+
+
+        /***  score swiper handler  ***/
+        let score = $("#score").val();
+        if(score !== "" && score !== null && typeof score !== 'undefined') {
+            let targetIndex;
+            Array.from(swiper[sliderMap.score].slides).forEach((element, index) => {
+                let value = $(element).data("input-value");
+                if(value == score) {
+                    targetIndex = index;
+                    return false;
+                }
+            });
+
+            if(typeof targetIndex !== undefined) {
+                swiper[sliderMap.score].slideTo(targetIndex,0,false);
+            } else {
+                console.log('undefined targetIndex? :', targetIndex);
+            }
+        } else {
+            let emptySlide = swiper[sliderMap.score].$el.find("div[data-input-value='']");
+            if(emptySlide) {
+                let targetIndex = emptySlide.index();
+                swiper[sliderMap.score].slideTo(targetIndex, 0, false);
+            } else {
+                console.log('undefined emptySlide? :', emptySlide);
+            }
+        }
+
+
+        let pojo = {
+            par,
+            fairway,
+            upDown,
+            onGreen,
+            bunker,
+            approach,
+            putt,
+            score
+        }
+        console.log('pojo', pojo);
+
+    }
+
+
+    var holes = {
+        error: false,          //using this as a semi-global variable, to trigger return false;
+        init: function () {
+
+
+            // swiper.slideTo(index, speed, runCallbacks)
+
+
+
+
+            var _this = this;
+            $('#submitBtn').on('click', function () {
+
+                _this.save();
+
+                setTimeout(function(){
+                    $('#myModal').modal('hide')
+                }, 1000);
+
+            });
+        },
+        isInt: function (value) {
+            return !isNaN(value) && (function (x) { return (x | 0) === x; })(parseFloat(value))
+        },
+        save: function () {
+
+            let par = $("#par_active_slide").find(".swiper-slide-active").data("input-value");
+            let fairway = $("#fairway_active_slide").find(".swiper-slide-active").data("input-value");
+            let upDown = $("#upDown_active_slide").find(".swiper-slide-active").data("input-value");
+            let onGreen = $("#onGreen_active_slide").find(".swiper-slide-active").data("input-value");
+            let bunker = $("#bunker_active_slide").find(".swiper-slide-active").data("input-value");
+            let approach = $("#approach_active_slide").find(".swiper-slide-active").data("input-value");
+            let putt = $("#putts_active_slide").find(".swiper-slide-active").data("input-value");
+            let score = $("#score_active_slide").find(".swiper-slide-active").data("input-value");
+            let holeNumber = {{#holeNumber}}{{.}}{{/holeNumber}};
+            let roundId = {{#roundId}}{{.}}{{/roundId}};
+
+
+            var roundsDto = {
+                "par": par,
+                "fairway": fairway,
+                "upDown": upDown,
+                "bunker": bunker,
+                "onGreen": onGreen,
+                "putt": putt,
+                "score": score,
+                "holeNumber": holeNumber,
+                "roundId": roundId,
+            };
+
+            console.log(roundsDto, '<- roundsDto');
+
+            let url = "/rounds/" + roundId + "/" + holeNumber
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(roundsDto),
+                success: function (res) {
+                    alert('score 수정되었습니다');
+                    // window.location.href = '/rounds';
+                },
+                error: function (err) {
+                    console.log(err);
+                    alert(JSON.stringify(error));
+                }
+            });
+        },
+    }
+
+    $(document).ready(function () {
+        holes.init();
+    });
+
+</script>
+</body>
+
+</html>
