@@ -46,7 +46,7 @@
 
         header .button-col {
             /*width: var(--tbl-column-width);*/
-            width: 240px;
+            /*width: 240px;*/
             text-align: left;
         }
 
@@ -248,6 +248,17 @@
         }
 
 
+        .desktop-menu.menu-open a {
+            color: white;
+        }
+
+
+        .desktop-menu.menu-open a:hover {
+            color: lightsteelblue;
+        }
+
+
+
     </style>
 </head>
 
@@ -347,7 +358,7 @@
                         <li class="item type1">
                             <div class="task">
                                 <!-- image icon -->
-                                <div class="name" style="width:150px"><a href="/public/rounds/{{#roundId}}{{.}}{{/roundId}}"> {{#courseName}}{{.}}{{/courseName}}</a></div>
+                                <div class="name" style="width:150px"><a href="{{#publicView}}/public{{/publicView}}/rounds/{{#roundId}}{{.}}{{/roundId}}"> {{#courseName}}{{.}}{{/courseName}}</a></div>
                             </div>
 
                             {{#publicView}}

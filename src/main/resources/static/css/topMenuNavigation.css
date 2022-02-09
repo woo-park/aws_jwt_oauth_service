@@ -235,7 +235,7 @@ a, a:hover{
 
         position: absolute;
         width: 100%;
-        z-index: 0;
+        z-index: -1;
         top: var(--menu-top-height);
         left: 0;
         height: 0;
